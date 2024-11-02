@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>InoVex by InnoMotech</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            background: #000000;
+            font-family: system-ui, -apple-system, sans-serif;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Étoiles */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            color: #10B981;
+            font-weight: bold;
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #10B981;
+        }
+
+        /* Pages */
+        .page {
+            min-height: 100vh;
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            padding-top: 4rem; /* Pour éviter que le contenu soit caché derrière la navbar */
+        }
+
+        .page.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Page d'accueil */
+        .home {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .home-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .home-content h1 {
+            font-size: 4rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #fff, #10B981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .home-content p {
+            font-size: 1.25rem;
+            color: #9CA3AF;
+            margin-bottom: 2rem;
+        }
+
+        /* Boutons */
+        .buttons {
+            display: flex;
+            gap: 1rem;
+                justify-content: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: #10B981;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 2px solid #10B981;
+            color: #10B981;
+        }
+
+        .btn-secondary:hover {
+            background: #10B981;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-hover-text {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-hover-text::before {
+            content: attr(data-hover-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(100%);
+            background: #10B981;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-hover-text:hover::before {
+            transform: translateY(0);
+        }
+
+        /* Page Procédé */
+        .process {
+            padding: 6rem 2rem 2rem;
+        }
+
+        .process h1 {
+            font-size: 4rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .process h1 span {
+            color: #10B981;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem auto;
+            max-width: 1200px;
+        }
+
+        .process-card {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+            cursor: pointer;
+        }
+
+        .process-card:hover {
+            transform: translateY(-5px);
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .step-number {
+            color: #10B981;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            height: 1.5em;
+            display: block;
+        }
+
+        .step-number span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: all 0.3s ease;
+        }
+
+        .step-number .hover-text {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        .process-card:hover .step-number span {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .process-card:hover .step-number .hover-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-description {
+            color: #9CA3AF;
+            line-height: 1.6;
+        }
+
+        .metrics {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 1rem;
+        }
+
+        .metric-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-label {
+            width: 100px;
+            color: #9CA3AF;
+        }
+
+        .metric-bar {
+            flex-grow: 1;
+            height: 4px;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .metric-bar::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: var(--width);
+            background: #10B981;
+            border-radius: 2px;
+            transition: width 1s ease;
+        }
+
+        /* Pages supplémentaires */
+
+        /* Page Services */
+        .services {
+            padding: 6rem 2rem 2rem;
+        }
+
+        .services h1 {
+            font-size: 4rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .services h1 span {
+            color: #10B981;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem auto;
+            max-width: 1200px;
+        }
+
+        .service-card {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-description {
+            color: #9CA3AF;
+            line-height: 1.6;
+        }
+
+        /* Page Projet */
+        .projet {
+            padding: 6rem 2rem 2rem;
+        }
+
+        .projet h1 {
+            font-size: 4rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .projet h1 span {
+            color: #10B981;
+        }
+
+        .projet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem auto;
+            max-width: 1200px;
+        }
+
+        .projet-card {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .projet-card:hover {
+            transform: translateY(-5px);
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .projet-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .projet-description {
+            color: #9CA3AF;
+            line-height: 1.6;
+        }
+
+        /* Page Team */
+        .team {
+            padding: 6rem 2rem 2rem;
+        }
+
+        .team h1 {
+            font-size: 4rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .team h1 span {
+            color: #10B981;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 4rem auto;
+            max-width: 1200px;
+        }
+
+        .team-card {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .team-photo {
+            width: 100px;
+            height: 100px;
+            background: #10B981;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+        }
+
+        .team-name {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: #9CA3AF;
+        }
+
+        /* Page Contact */
+        .contact {
+            padding: 6rem 2rem 2rem;
+        }
+
+        .contact h1 {
+            font-size: 4rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .contact h1 span {
+            color: #10B981;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #9CA3AF;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 0.5rem;
+            background: transparent;
+            color: white;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: #9CA3AF;
+        }
+
+        .contact-form button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            background: #10B981;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        /* Ajout des styles pour les noms flottants */
+        .floating-name {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+            pointer-events: none;
+            animation: nameFloat var(--float-duration) infinite;
+            opacity: 0;
+            z-index: 0;
+        }
+
+        @keyframes nameFloat {
+            0% { opacity: 0; }
+            20% { opacity: 0.4; }
+            80% { opacity: 0.4; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <nav>
+        <div class="logo" onclick="showPage('home')">Le futur appartient à ceux qui le créent !</div>
+        <div class="nav-links">
+            <a onclick="showPage('home')">Accueil</a>
+            <a onclick="showPage('process')">Procédé</a>
+            <a onclick="showPage('services')">Services</a>
+            <a onclick="showPage('projet')">Projet</a>
+            <a onclick="showPage('team')">Team</a>
+            <a onclick="showPage('contact')">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Page d'accueil -->
+    <div class="page home active" id="home">
+        <div class="home-content">
+            <h1>InoVex by InnoMotech</h1>
+            <p>Nous concevons des solutions innovantes et automatisations sur mesure pour les entreprises novatrices.</p>
+            <div class="buttons">
+                <div class="btn btn-primary" onclick="showPage('services')">Nos services</div>
+                <div class="btn btn-secondary btn-hover-text" onclick="showPage('process')" 
+                    data-default-text="Tester nos succès →" 
+                    data-hover-text="C'est les adopter →">Tester nos succès →</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Procédé -->
+    <div class="page process" id="process">
+        <h1>Nos <span>succès</span></h1>
+        <div class="process-grid">
+            <div class="process-card">
+                <div class="step-number">
+                    <span>01. Technologie embarquée</span>
+                    <div class="hover-text">Découvrez nos produits</div>
+                </div>
+                <h3 class="step-title">InnoMotech</h3>
+                <p class="step-description">InnoMotech révolutionne le secteur moto avec diverses solutions innovantes, dont une alarme automatique intelligente et des outils dédiés au wheeling, répondant aux besoins de sécurité et performance des motards passionnés.</p>
+            </div>
+
+            <div class="process-card">
+                <div class="step-number">
+                    <span>02. IA sur mesure</span>
+                    <div class="hover-text">Testez notre IA gratuitement</div>
+                </div>
+                <h3 class="step-title">MotoMind</h3>
+                <p class="step-description">InoVex a développé une IA sur mesure qui conseille professionnels et particuliers sur l'entretien et les réparations moto, répertoriant les manuels d'atelier pour simplifier chaque intervention technique.</p>
+            </div>
+
+            <div class="process-card">
+                <div class="step-number">
+                    <span>03. IA sur mesure</span>
+                    <div class="hover-text">Testez notre IA gratuitement</div>
+                </div>
+                <h3 class="step-title">LexiA</h3>
+                <p class="step-description">LexiA est une IA spécialement conçue pour le domaine juridique. Elle regroupe et organise l'ensemble des lois, règlements et jurisprudences, offrant aux avocats et aux juristes un accès rapide à des informations juridiques complexes.</p>
+            </div>
+
+            <div class="process-card">
+                <div class="step-number">
+                    <span>04. IA vocale sur mesure</span>
+                    <div class="hover-text">Discutez de votre projet ?</div>
+                </div>
+                <h3 class="step-title">Assist.Inno</h3>
+                <p class="step-description">Comme pour le restaurant Au Ciel Marseille, notre IA vocale révolutionne la prise de RDV et la gestion quotidienne. Nous développons sur demande : automatisation logistique, analyse concurrence, prise de RDV, chatbot, tout est personnalisé selon vos besoins.</p>
+            </div>
+        </div>
+
+        <div class="metrics">
+            <div class="metric-item">
+                <div class="metric-label">Rapidité</div>
+                <div class="metric-bar" style="--width: 85%"></div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">Sécurité</div>
+                <div class="metric-bar" style="--width: 95%"></div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">Précision</div>
+                <div class="metric-bar" style="--width: 90%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Services -->
+    <div class="page services" id="services">
+        <h1>Nos <span>Services</span></h1>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3 class="service-title">Développement de Logiciels</h3>
+                <p class="service-description">Nous créons des applications personnalisées adaptées aux besoins spécifiques de votre entreprise, en utilisant les dernières technologies pour garantir performance et fiabilité.</p>
+            </div>
+
+            <div class="service-card">
+                <h3 class="service-title">Intelligence Artificielle</h3>
+                <p class="service-description">Notre expertise en IA vous permet de bénéficier de solutions intelligentes pour automatiser vos processus, analyser des données complexes et améliorer votre prise de décision.</p>
+            </div>
+
+            <div class="service-card">
+                <h3 class="service-title">Automatisation des Processus</h3>
+                <p class="service-description">Optimisez votre efficacité opérationnelle grâce à nos services d'automatisation, réduisant les coûts et minimisant les erreurs humaines dans vos workflows.</p>
+            </div>
+
+            <div class="service-card">
+                <h3 class="service-title">Consulting Technologique</h3>
+                <p class="service-description">Nos consultants vous accompagnent dans la définition et la mise en œuvre de votre stratégie technologique, assurant une intégration harmonieuse des innovations dans votre entreprise.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Projet -->
+    <div class="page projet" id="projet">
+        <h1>Nos <span>Projets</span></h1>
+        <div class="projet-grid">
+            <div class="projet-card">
+                <h3 class="projet-title">Projet Alpha</h3>
+                <p class="projet-description">Développement d'une plateforme IoT pour la gestion intelligente des ressources énergétiques dans les bâtiments commerciaux.</p>
+            </div>
+
+            <div class="projet-card">
+                <h3 class="projet-title">Projet Beta</h3>
+                <p class="projet-description">Création d'un système d'analyse prédictive pour l'entretien préventif des véhicules, réduisant les temps d'arrêt et améliorant la fiabilité.</p>
+            </div>
+
+            <div class="projet-card">
+                <h3 class="projet-title">Projet Gamma</h3>
+                <p class="projet-description">Implémentation d'une solution de chatbot avancée pour le support client, offrant des réponses rapides et précises 24/7.</p>
+            </div>
+
+            <div class="projet-card">
+                <h3 class="projet-title">Projet Delta</h3>
+                <p class="projet-description">Développement d'une application mobile de gestion de flotte, intégrant des fonctionnalités de suivi en temps réel et d'optimisation des itinéraires.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Team -->
+    <div class="page team" id="team">
+        <h1>Notre <span>Équipe</span></h1>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-photo"></div>
+                <div class="team-name">Yannick Dupont</div>
+                <div class="team-role">CEO & Fondateur</div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-photo"></div>
+                <div class="team-name">Andreas Müller</div>
+                <div class="team-role">CTO</div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-photo"></div>
+                <div class="team-name">Carla Moreau</div>
+                <div class="team-role">Directrice Marketing</div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-photo"></div>
+                <div class="team-name">Vincent Leblanc</div>
+                <div class="team-role">Chef de Projet</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Contact -->
+    <div class="page contact" id="contact">
+        <h1>Contactez <span>Nous</span></h1>
+        <div class="contact-form">
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" placeholder="Votre nom" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Votre email" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Votre message" required></textarea>
+
+            <button type="submit">Envoyer</button>
+        </div>
+    </div>
+
+    <script>
+        // Création des étoiles existantes
+        function createStars() {
+            const stars = document.getElementById('stars');
+            const numStars = 200;
+
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const size = Math.random() * 2;
+                const duration = 2 + Math.random() * 3;
+                
+                star.style.cssText = `
+                    left: ${x}%;
+                    top: ${y}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    --duration: ${duration}s;
+                `;
+                
+                stars.appendChild(star);
+            }
+        }
+
+        // Nouvelle fonction pour créer les noms flottants
+        function createFloatingNames() {
+            const names = ['Yannick', 'Andreas', 'Carla', 'Vincent'];
+            const container = document.getElementById('stars');
+            const numNames = 8; // Nombre de noms à afficher en même temps
+
+            function createName() {
+                const name = document.createElement('div');
+                name.className = 'floating-name';
+                const randomName = names[Math.floor(Math.random() * names.length)];
+                name.textContent = randomName;
+
+                const x = Math.random() * 90 + 5; // 5-95% pour éviter les bords
+                const y = Math.random() * 90 + 5;
+                const duration = 4 + Math.random() * 4; // 4-8 secondes
+
+                name.style.cssText = `
+                    left: ${x}%;
+                    top: ${y}%;
+                    --float-duration: ${duration}s;
+                `;
+
+                container.appendChild(name);
+
+                // Supprimer le nom après l'animation
+                setTimeout(() => {
+                    name.remove();
+                    createName(); // Créer un nouveau nom
+                }, duration * 1000);
+            }
+
+            // Créer les noms initiaux avec un délai aléatoire
+            for (let i = 0; i < numNames; i++) {
+                setTimeout(createName, Math.random() * 2000);
+            }
+        }
+
+        // Initialisation
+        createStars();
+        createFloatingNames();
+
+        // Changement de page
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Gestion du formulaire de contact (exemple simple)
+        document.querySelector('.contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Merci pour votre message ! Nous vous répondrons bientôt.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
