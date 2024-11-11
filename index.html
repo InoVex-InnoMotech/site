@@ -26,6 +26,7 @@
             background: var(--dark);
             color: white;
             line-height: 1.6;
+            overflow-x: hidden; /* Empêche le défilement horizontal dû aux animations */
         }
 
         header {
@@ -85,6 +86,7 @@
         }
 
         .hero {
+            position: relative; /* Nécessaire pour positionner les comètes */
             height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('/api/placeholder/1920/1080') center/cover;
             display: flex;
@@ -94,9 +96,54 @@
             text-align: center;
             padding: 1rem;
             margin-top: 60px; /* Hauteur de l'en-tête */
+            overflow: hidden; /* Masque les comètes en dehors de la section héro */
+        }
+
+        /* Styles pour les comètes */
+        .comet {
+            position: absolute;
+            top: -10%;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(45deg, var(--gold), transparent);
+            opacity: 0.8;
+            animation: moveComet 3s linear infinite;
+        }
+
+        .comet:nth-child(1) {
+            left: 20%;
+            animation-delay: 0s;
+            animation-duration: 3s;
+        }
+
+        .comet:nth-child(2) {
+            left: 50%;
+            animation-delay: 1s;
+            animation-duration: 4s;
+        }
+
+        .comet:nth-child(3) {
+            left: 80%;
+            animation-delay: 2s;
+            animation-duration: 5s;
+        }
+
+        @keyframes moveComet {
+            from {
+                top: -10%;
+                opacity: 0;
+                transform: rotate(45deg);
+            }
+            to {
+                top: 110%;
+                opacity: 0.8;
+                transform: rotate(45deg);
+            }
         }
 
         .hero h1 {
+            position: relative;
+            z-index: 1; /* Assure que le texte reste au-dessus des comètes */
             font-size: 3rem;
             color: var(--gold);
             margin-bottom: 1rem;
@@ -104,6 +151,8 @@
         }
 
         .hero p {
+            position: relative;
+            z-index: 1;
             font-size: 1.2rem;
             max-width: 600px;
             margin-bottom: 2rem;
@@ -111,6 +160,8 @@
         }
 
         .cta-button {
+            position: relative;
+            z-index: 1;
             background: var(--gold);
             color: var(--dark);
             padding: 0.8rem 1.5rem;
@@ -378,6 +429,11 @@
 
     <main>
         <section class="hero">
+            <!-- Ajout des comètes -->
+            <div class="comet"></div>
+            <div class="comet"></div>
+            <div class="comet"></div>
+
             <h1>AM Location</h1>
             <p>L'Excellence Automobile à votre service. Découvrez notre collection de véhicules de prestige pour tous vos besoins.</p>
             <a href="#" class="cta-button" id="openModal">Contacter un conseiller</a>
