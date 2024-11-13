@@ -3,641 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AM Location - L'Excellence Automobile</title>
-    <!-- Intégration de la police Inter via Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Puissance Galactique Corporate</title>
     <style>
-        :root {
-            --gold: #C6A355;
-            --dark: #1A1A1A;
-            --light-dark: #333;
-            --white: #FFFFFF;
-            --transition-speed: 0.3s;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-
         body {
-            background: var(--dark);
-            color: white;
-            line-height: 1.6;
-            overflow-x: hidden; /* Empêche le défilement horizontal dû aux animations */
-        }
-
-        header {
-            background: rgba(0,0,0,0.9);
-            padding: 1rem;
-            position: fixed;
-            width: 100%;
-            z-index: 100;
-            top: 0;
-            left: 0;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            color: var(--gold);
-            font-size: 1.5rem;
-            font-weight: 700; /* En gras */
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: color var(--transition-speed);
-            font-weight: 600; /* En semi-gras */
-            padding: 0.5rem 0; /* Ajout de padding pour augmenter la zone cliquable */
-        }
-
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger div {
-            width: 25px;
-            height: 3px;
-            background: white;
-            margin: 4px;
-            transition: all var(--transition-speed);
-        }
-
-        .hero {
-            position: relative; /* Nécessaire pour positionner les comètes */
+            margin: 0;
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('/api/placeholder/1920/1080') center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 60px; /* Hauteur de l'en-tête */
-            overflow: hidden; /* Masque les comètes en dehors de la section héro */
-        }
-
-        /* Styles pour les comètes */
-        .comet {
-            position: absolute;
-            top: -10%;
-            width: 2px;
-            height: 100px;
-            background: linear-gradient(45deg, var(--gold), transparent);
-            opacity: 0.8;
-            animation: moveComet 3s linear infinite;
-        }
-
-        .comet:nth-child(1) {
-            left: 20%;
-            animation-delay: 0s;
-            animation-duration: 3s;
-        }
-
-        .comet:nth-child(2) {
-            left: 50%;
-            animation-delay: 1s;
-            animation-duration: 4s;
-        }
-
-        .comet:nth-child(3) {
-            left: 80%;
-            animation-delay: 2s;
-            animation-duration: 5s;
-        }
-
-        @keyframes moveComet {
-            from {
-                top: -10%;
-                opacity: 0;
-                transform: rotate(45deg);
-            }
-            to {
-                top: 110%;
-                opacity: 0.8;
-                transform: rotate(45deg);
-            }
-        }
-
-        .hero h1 {
-            position: relative;
-            z-index: 1; /* Assure que le texte reste au-dessus des comètes */
-            font-size: 3rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-            font-weight: 700; /* En gras */
-        }
-
-        .hero p {
-            position: relative;
-            z-index: 1;
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin-bottom: 2rem;
-            font-weight: 600; /* En semi-gras */
-        }
-
-        .cta-button {
-            position: relative;
-            z-index: 1;
-            background: var(--gold);
-            color: var(--dark);
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 5px;
-            font-weight: 700; /* En gras */
-            cursor: pointer;
-            transition: transform var(--transition-speed);
-            text-decoration: none;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-        }
-
-        .categories {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            padding: 2rem 1rem;
-            flex-wrap: wrap;
-            background: var(--light-dark);
-        }
-
-        .category {
-            padding: 0.5rem 1.5rem;
-            border: 1px solid var(--gold);
-            border-radius: 25px;
-            color: var(--gold);
-            cursor: pointer;
-            transition: all var(--transition-speed);
-            font-weight: 600; /* En semi-gras */
-            white-space: nowrap; /* Empêche le texte de se casser */
-        }
-
-        .category:hover, .category.active {
-            background: var(--gold);
-            color: var(--dark);
-            font-weight: 700; /* En gras */
-        }
-
-        .cars-grid {
-            max-width: 1200px;
-            margin: 2rem auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 1rem;
-        }
-
-        .car-card {
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
+            background: radial-gradient(circle at center, #1a0033 0%, #000000 100%);
             overflow: hidden;
-            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-        }
-
-        .car-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-
-        .car-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            loading: lazy; /* Lazy loading */
-        }
-
-        .car-info {
-            padding: 1.5rem;
-        }
-
-        .car-info h3 {
-            color: var(--gold);
-            margin-bottom: 0.5rem;
-            font-weight: 700; /* En gras */
-        }
-
-        .car-specs {
-            font-size: 0.9rem;
-            color: #ccc;
-            font-weight: 600; /* En semi-gras */
-        }
-
-        .car-price {
-            margin-top: 1rem;
-            font-size: 1.2rem;
-            font-weight: 700; /* En gras */
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none; /* Caché par défaut */
-            position: fixed;
-            z-index: 200;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.7);
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-        }
-
-        .modal-content {
-            background-color: var(--dark);
-            padding: 2rem;
-            border-radius: 10px;
-            max-width: 500px;
-            width: 100%;
+            perspective: 1000px;
             position: relative;
+            font-family: Arial, sans-serif;
         }
 
-        .close-btn {
+        .title {
             position: absolute;
             top: 10px;
-            right: 15px;
+            left: 50%;
+            transform: translateX(-50%);
             color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
+            font-size: 24px;
+            text-align: center;
+            text-shadow: 0 0 10px #7d2ae8;
+            z-index: 1000;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
         }
 
-        .modal-content h2 {
-            margin-bottom: 1rem;
-            color: var(--gold);
-            font-weight: 700; /* En gras */
+        .galaxy-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at center, #ffffff, #7d2ae8);
+            border-radius: 50%;
+            box-shadow: 0 0 60px #7d2ae8;
+            animation: pulse 4s infinite ease-in-out;
+            z-index: 500;
         }
 
-        .modal-content form {
-            display: flex;
-            flex-direction: column;
+        .expansion-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(125, 42, 232, 0.3);
+            border-radius: 50%;
+            animation: expand 4s infinite linear;
         }
 
-        .modal-content input, .modal-content textarea {
-            padding: 0.8rem;
-            margin-bottom: 1rem;
-            border: none;
-            border-radius: 5px;
-            font-weight: 600; /* En semi-gras */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite ease-in-out;
+            opacity: 0;
         }
 
-        .modal-content button {
-            padding: 0.8rem;
-            background: var(--gold);
-            color: var(--dark);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 700; /* En gras */
-            transition: background var(--transition-speed);
+        .power-stream {
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #7d2ae8, transparent);
+            animation: stream 3s linear infinite;
+            transform-origin: top;
+            opacity: 0.7;
         }
 
-        .modal-content button:hover {
-            background: #b29048;
+        .company-node {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #7d2ae8;
+            animation: nodeFloat 5s infinite ease-in-out;
         }
 
-        /* Responsive Styles */
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.3); }
+        }
+
+        @keyframes expand {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                width: 300vh;
+                height: 300vh;
+                opacity: 0;
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes stream {
+            0% { transform: scaleY(0) rotate(0deg); }
+            100% { transform: scaleY(1) rotate(360deg); }
+        }
+
+        @keyframes nodeFloat {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(15px, 15px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        /* Responsivité */
         @media (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 60px;
-                right: 0;
-                background: rgba(0,0,0,0.95);
-                flex-direction: column;
-                width: 200px;
-                height: calc(100% - 60px);
-                transform: translateX(100%);
-                transition: transform var(--transition-speed);
+            .galaxy-center {
+                width: 80px;
+                height: 80px;
+                box-shadow: 0 0 40px #7d2ae8;
             }
 
-            .nav-links.active {
-                transform: translateX(0);
+            .title {
+                font-size: 18px;
+                padding: 8px 16px;
             }
 
-            .hamburger {
-                display: flex;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .categories {
-                padding: 1rem;
-                overflow-x: auto; /* Permet le défilement horizontal */
-                flex-wrap: nowrap; /* Empêche le retour à la ligne */
-            }
-
-            .category {
-                flex: 0 0 auto; /* Empêche les catégories de rétrécir */
-                margin-right: 0.5rem;
-            }
-
-            /* Styles supplémentaires pour améliorer l'expérience de défilement */
-            .categories::-webkit-scrollbar {
-                height: 8px;
-            }
-
-            .categories::-webkit-scrollbar-track {
-                background: var(--dark);
-                border-radius: 4px;
-            }
-
-            .categories::-webkit-scrollbar-thumb {
-                background: var(--gold);
-                border-radius: 4px;
-            }
-
-            .car-image {
-                height: 150px; /* Ajustement de la hauteur des images sur mobile */
+            .company-node {
+                width: 15px;
+                height: 15px;
             }
         }
 
         @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
+            .galaxy-center {
+                width: 60px;
+                height: 60px;
+                box-shadow: 0 0 30px #7d2ae8;
             }
 
-            .hero p {
-                font-size: 0.9rem;
+            .title {
+                font-size: 16px;
+                padding: 6px 12px;
             }
 
-            .categories {
-                padding: 0.5rem;
-                gap: 0.5rem;
-            }
-
-            .category {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
-
-            .cta-button {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.9rem;
+            .company-node {
+                width: 12px;
+                height: 12px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="#" class="logo">AM Location</a>
-            <div class="nav-links" id="navLinks">
-                <a href="#">Accueil</a>
-                <a href="#">Véhicules</a>
-                <a href="#">Services</a>
-                <a href="#">À propos</a>
-                <a href="#">Contact</a>
-            </div>
-            <div class="hamburger" id="hamburger">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </nav>
-    </header>
-
-    <main>
-        <section class="hero">
-            <!-- Ajout des comètes -->
-            <div class="comet"></div>
-            <div class="comet"></div>
-            <div class="comet"></div>
-
-            <h1>AM Location</h1>
-            <p>L'Excellence Automobile à votre service. Découvrez notre collection de véhicules de prestige pour tous vos besoins.</p>
-            <a href="#" class="cta-button" id="openModal">Contacter un conseiller</a>
-        </section>
-
-        <div class="categories">
-            <div class="category active" data-category="all">Tous les véhicules</div>
-            <div class="category" data-category="sportives">Sportives</div>
-            <div class="category" data-category="suv">SUV Premium</div>
-            <div class="category" data-category="electriques">Électriques</div>
-            <div class="category" data-category="collection">Collection</div>
-            <div class="category" data-category="supercars">Supercars</div>
-        </div>
-
-        <div class="cars-grid" id="carsGrid">
-            <!-- Exemple de cartes de voitures avec des catégories -->
-            <div class="car-card" data-category="suv">
-                <img src="/api/placeholder/400/200" 
-                     srcset="/api/placeholder/400/200 400w, /api/placeholder/800/400 800w" 
-                     sizes="(max-width: 768px) 100vw, 300px" 
-                     alt="Porsche Macan 4" 
-                     class="car-image" 
-                     loading="lazy">
-                <div class="car-info">
-                    <h3>Porsche Macan 4</h3>
-                    <div class="car-specs">
-                        <p>Puissance : 408cv</p>
-                        <p>CO2 : 0g</p>
-                    </div>
-                    <div class="car-price">2 322€ /mois</div>
-                </div>
-            </div>
-
-            <div class="car-card" data-category="suv">
-                <img src="/api/placeholder/400/200" 
-                     srcset="/api/placeholder/400/200 400w, /api/placeholder/800/400 800w" 
-                     sizes="(max-width: 768px) 100vw, 300px" 
-                     alt="Porsche Macan S" 
-                     class="car-image" 
-                     loading="lazy">
-                <div class="car-info">
-                    <h3>Porsche Macan S</h3>
-                    <div class="car-specs">
-                        <p>Puissance : 380cv</p>
-                        <p>CO2 : 250g</p>
-                    </div>
-                    <div class="car-price">2 660€ /mois</div>
-                </div>
-            </div>
-
-            <div class="car-card" data-category="sportives">
-                <img src="/api/placeholder/400/200" 
-                     srcset="/api/placeholder/400/200 400w, /api/placeholder/800/400 800w" 
-                     sizes="(max-width: 768px) 100vw, 300px" 
-                     alt="Porsche 718" 
-                     class="car-image" 
-                     loading="lazy">
-                <div class="car-info">
-                    <h3>Porsche 718</h3>
-                    <div class="car-specs">
-                        <p>Puissance : 300cv</p>
-                        <p>CO2 : 220g</p>
-                    </div>
-                    <div class="car-price">2 370€ /mois</div>
-                </div>
-            </div>
-
-            <!-- Carte ajoutée pour Lamborghini Urus avec chemin d'origine -->
-            <div class="car-card" data-category="supercars">
-                <img src="Urus_am_loc_2x_1.jpg" 
-                     srcset="Urus_am_loc_2x_1.jpg 400w, Urus_am_loc_2x_1.jpg 800w" 
-                     sizes="(max-width: 768px) 100vw, 300px" 
-                     alt="Lamborghini Urus noir" 
-                     class="car-image" 
-                     loading="lazy">
-                <div class="car-info">
-                    <h3>Lamborghini Urus</h3>
-                    <div class="car-specs">
-                        <p>Puissance : 641cv</p>
-                        <p>CO2 : 270g</p>
-                    </div>
-                    <div class="car-price">4 500€ /mois</div>
-                </div>
-            </div>
-
-            <div class="car-card" data-category="electriques">
-                <img src="/api/placeholder/400/200" 
-                     srcset="/api/placeholder/400/200 400w, /api/placeholder/800/400 800w" 
-                     sizes="(max-width: 768px) 100vw, 300px" 
-                     alt="Tesla Model S" 
-                     class="car-image" 
-                     loading="lazy">
-                <div class="car-info">
-                    <h3>Tesla Model S</h3>
-                    <div class="car-specs">
-                        <p>Puissance : 670cv</p>
-                        <p>CO2 : 0g</p>
-                    </div>
-                    <div class="car-price">3 500€ /mois</div>
-                </div>
-            </div>
-
-            <div class="car-card" data-category="supercars">
-                <img src="/api/placeholder/400/200" 
-                     srcset="/api/placeholder/400/200 400w, /api/placeholder/800/400 800w" 
-                     sizes="(max-width: 768px) 100vw, 300px" 
-                     alt="Lamborghini Aventador" 
-                     class="car-image" 
-                     loading="lazy">
-                <div class="car-info">
-                    <h3>Lamborghini Aventador</h3>
-                    <div class="car-specs">
-                        <p>Puissance : 740cv</p>
-                        <p>CO2 : 350g</p>
-                    </div>
-                    <div class="car-price">8 000€ /mois</div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Modal Contact -->
-    <div class="modal" id="contactModal">
-        <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
-            <h2>Contactez un conseiller</h2>
-            <form id="contactForm">
-                <input type="text" id="name" name="name" placeholder="Votre nom" required>
-                <input type="email" id="email" name="email" placeholder="Votre email" required>
-                <textarea id="message" name="message" rows="5" placeholder="Votre message" required></textarea>
-                <button type="submit">Envoyer</button>
-            </form>
-        </div>
-    </div>
+    <div class="title">Puissance Galactique Corporate</div>
+    <div class="galaxy-center"></div>
 
     <script>
-        // Gestion du menu hamburger
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
+        // Nombre d'éléments ajustés pour les performances mobiles
+        const STAR_COUNT = window.innerWidth < 480 ? 100 : 200;
+        const STREAM_COUNT = window.innerWidth < 480 ? 15 : 20;
+        const NODE_COUNT = window.innerWidth < 480 ? 5 : 8;
+        const RING_COUNT = 5;
 
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Fermeture automatique du menu après un clic sur un lien
-        const navLinksElements = document.querySelectorAll('.nav-links a');
-        navLinksElements.forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Gestion du filtrage des catégories
-        const categories = document.querySelectorAll('.category');
-        const carCards = document.querySelectorAll('.car-card');
-
-        categories.forEach(category => {
-            category.addEventListener('click', () => {
-                // Supprimer la classe active de toutes les catégories
-                categories.forEach(cat => cat.classList.remove('active'));
-                // Ajouter la classe active à la catégorie sélectionnée
-                category.classList.add('active');
-
-                const selectedCategory = category.getAttribute('data-category');
-
-                carCards.forEach(card => {
-                    if (selectedCategory === 'all' || card.getAttribute('data-category') === selectedCategory) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        // Gestion du modal de contact
-        const openModalBtn = document.getElementById('openModal');
-        const closeModalBtn = document.getElementById('closeModal');
-        const contactModal = document.getElementById('contactModal');
-
-        openModalBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            contactModal.style.display = 'flex';
-        });
-
-        closeModalBtn.addEventListener('click', () => {
-            contactModal.style.display = 'none';
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === contactModal) {
-                contactModal.style.display = 'none';
+        // Fonction pour créer les anneaux d'expansion
+        function createRings() {
+            for (let i = 0; i < RING_COUNT; i++) {
+                const ring = document.createElement('div');
+                ring.className = 'expansion-ring';
+                const size = 100 + i * 60; // Taille croissante pour les anneaux
+                ring.style.width = `${size}px`;
+                ring.style.height = `${size}px`;
+                ring.style.animationDelay = `${i * 0.8}s`;
+                ring.style.borderWidth = `${2 - i * 0.3}px`; // Épaisseur décroissante
+                document.body.appendChild(ring);
             }
-        });
+        }
 
-        // Gestion du formulaire de contact (exemple simple)
-        const contactForm = document.getElementById('contactForm');
+        // Fonction pour créer les étoiles
+        function createStar() {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            const size = Math.random() * 2 + 1;
+            const delay = Math.random() * 2;
 
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Ici, vous pouvez ajouter la logique d'envoi du formulaire (AJAX, etc.)
-            alert('Merci de nous avoir contactés !');
-            contactModal.style.display = 'none';
-            contactForm.reset();
+            star.style.left = `${x}px`;
+            star.style.top = `${y}px`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.animationDelay = `${delay}s`;
+
+            // Ajout d'une légère variation de couleur
+            const brightness = Math.random() * 0.5 + 0.5;
+            star.style.background = `rgba(255, 255, 255, ${brightness})`;
+
+            document.body.appendChild(star);
+        }
+
+        // Fonction pour créer les flux de puissance
+        function createPowerStream() {
+            const stream = document.createElement('div');
+            stream.className = 'power-stream';
+            const angle = Math.random() * 360;
+            const length = Math.random() * 100 + 50;
+
+            stream.style.left = '50%';
+            stream.style.top = '50%';
+            stream.style.height = `${length}px`;
+            stream.style.transform = `rotate(${angle}deg)`;
+            stream.style.animationDelay = `${Math.random() * 2}s`;
+
+            document.body.appendChild(stream);
+        }
+
+        // Fonction pour créer les nœuds de société
+        function createCompanyNode() {
+            const node = document.createElement('div');
+            node.className = 'company-node';
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 200 + 100;
+
+            const x = Math.cos(angle) * distance + window.innerWidth / 2;
+            const y = Math.sin(angle) * distance + window.innerHeight / 2;
+
+            node.style.left = `${x}px`;
+            node.style.top = `${y}px`;
+
+            document.body.appendChild(node);
+        }
+
+        // Fonction d'initialisation
+        function init() {
+            createRings();
+
+            for (let i = 0; i < STAR_COUNT; i++) {
+                createStar();
+            }
+
+            for (let i = 0; i < STREAM_COUNT; i++) {
+                createPowerStream();
+            }
+
+            for (let i = 0; i < NODE_COUNT; i++) {
+                createCompanyNode();
+            }
+        }
+
+        // Initialisation au chargement
+        window.addEventListener('load', init);
+
+        // Réajuster lors du redimensionnement avec un léger délai pour éviter les reflows excessifs
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                document.body.innerHTML = '<div class="title">Puissance Galactique Corporate</div><div class="galaxy-center"></div>';
+                init();
+            }, 300);
         });
     </script>
 </body>
