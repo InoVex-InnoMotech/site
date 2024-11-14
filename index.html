@@ -41,6 +41,7 @@
             box-shadow: 0 0 60px #7d2ae8;
             animation: pulse 4s infinite ease-in-out;
             z-index: 500;
+            pointer-events: none; /* Désactiver les interactions */
         }
 
         /* Positionnement des deux planètes */
@@ -125,6 +126,19 @@
             .company-node {
                 width: 12px;
                 height: 12px;
+            }
+
+            /* Ajustement des positions des planètes */
+            .innomotech {
+                left: 30%; /* Éloigner vers la gauche */
+                top: 40%;  /* Positionner verticalement */
+                transform: translate(-50%, -50%);
+            }
+
+            .inovex {
+                left: 70%; /* Éloigner vers la droite */
+                top: 60%;  /* Positionner verticalement */
+                transform: translate(-50%, -50%);
             }
         }
     </style>
