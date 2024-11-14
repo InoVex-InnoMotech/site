@@ -33,8 +33,7 @@
         .galaxy-center {
             position: absolute;
             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateY(-50%);
             width: 120px;
             height: 120px;
             background: radial-gradient(circle at center, #ffffff, #7d2ae8);
@@ -44,14 +43,17 @@
             z-index: 500;
         }
 
-        .expansion-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 2px solid rgba(125, 42, 232, 0.3);
-            border-radius: 50%;
-            animation: expand 4s infinite linear;
+        /* Positionnement des deux planètes */
+        .innomotech {
+            left: 40%;
+            background: radial-gradient(circle at center, #ff7f50, #7d2ae8);
+            box-shadow: 0 0 60px #ff7f50;
+        }
+
+        .inovex {
+            left: 60%;
+            background: radial-gradient(circle at center, #1e90ff, #7d2ae8);
+            box-shadow: 0 0 60px #1e90ff;
         }
 
         .star {
@@ -60,15 +62,6 @@
             border-radius: 50%;
             animation: twinkle 2s infinite ease-in-out;
             opacity: 0;
-        }
-
-        .power-stream {
-            position: absolute;
-            width: 2px;
-            background: linear-gradient(to bottom, transparent, #7d2ae8, transparent);
-            animation: stream 3s linear infinite;
-            transform-origin: top;
-            opacity: 0.7;
         }
 
         .company-node {
@@ -83,31 +76,13 @@
 
         /* Animations */
         @keyframes pulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.3); }
-        }
-
-        @keyframes expand {
-            0% {
-                width: 0;
-                height: 0;
-                opacity: 1;
-            }
-            100% {
-                width: 300vh;
-                height: 300vh;
-                opacity: 0;
-            }
+            0%, 100% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.3); }
         }
 
         @keyframes twinkle {
             0%, 100% { opacity: 0.3; }
             50% { opacity: 1; }
-        }
-
-        @keyframes stream {
-            0% { transform: scaleY(0) rotate(0deg); }
-            100% { transform: scaleY(1) rotate(360deg); }
         }
 
         @keyframes nodeFloat {
@@ -156,28 +131,13 @@
 </head>
 <body>
     <div class="title">Puissance Galactique Corporate</div>
-    <div class="galaxy-center"></div>
+    <div class="galaxy-center innomotech"></div>
+    <div class="galaxy-center inovex"></div>
 
     <script>
         // Nombre d'éléments ajustés pour les performances mobiles
         const STAR_COUNT = window.innerWidth < 480 ? 100 : 200;
-        const STREAM_COUNT = window.innerWidth < 480 ? 15 : 20;
         const NODE_COUNT = window.innerWidth < 480 ? 5 : 8;
-        const RING_COUNT = 5;
-
-        // Fonction pour créer les anneaux d'expansion
-        function createRings() {
-            for (let i = 0; i < RING_COUNT; i++) {
-                const ring = document.createElement('div');
-                ring.className = 'expansion-ring';
-                const size = 100 + i * 60; // Taille croissante pour les anneaux
-                ring.style.width = `${size}px`;
-                ring.style.height = `${size}px`;
-                ring.style.animationDelay = `${i * 0.8}s`;
-                ring.style.borderWidth = `${2 - i * 0.3}px`; // Épaisseur décroissante
-                document.body.appendChild(ring);
-            }
-        }
 
         // Fonction pour créer les étoiles
         function createStar() {
@@ -201,22 +161,6 @@
             document.body.appendChild(star);
         }
 
-        // Fonction pour créer les flux de puissance
-        function createPowerStream() {
-            const stream = document.createElement('div');
-            stream.className = 'power-stream';
-            const angle = Math.random() * 360;
-            const length = Math.random() * 100 + 50;
-
-            stream.style.left = '50%';
-            stream.style.top = '50%';
-            stream.style.height = `${length}px`;
-            stream.style.transform = `rotate(${angle}deg)`;
-            stream.style.animationDelay = `${Math.random() * 2}s`;
-
-            document.body.appendChild(stream);
-        }
-
         // Fonction pour créer les nœuds de société
         function createCompanyNode() {
             const node = document.createElement('div');
@@ -224,8 +168,13 @@
             const angle = Math.random() * Math.PI * 2;
             const distance = Math.random() * 200 + 100;
 
-            const x = Math.cos(angle) * distance + window.innerWidth / 2;
-            const y = Math.sin(angle) * distance + window.innerHeight / 2;
+            // Positionnement relatif aux deux planètes
+            const isInnoMotech = Math.random() < 0.5;
+            const centerX = isInnoMotech ? window.innerWidth * 0.4 : window.innerWidth * 0.6;
+            const centerY = window.innerHeight / 2;
+
+            const x = Math.cos(angle) * distance + centerX;
+            const y = Math.sin(angle) * distance + centerY;
 
             node.style.left = `${x}px`;
             node.style.top = `${y}px`;
@@ -235,14 +184,8 @@
 
         // Fonction d'initialisation
         function init() {
-            createRings();
-
             for (let i = 0; i < STAR_COUNT; i++) {
                 createStar();
-            }
-
-            for (let i = 0; i < STREAM_COUNT; i++) {
-                createPowerStream();
             }
 
             for (let i = 0; i < NODE_COUNT; i++) {
@@ -258,7 +201,7 @@
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
-                document.body.innerHTML = '<div class="title">Puissance Galactique Corporate</div><div class="galaxy-center"></div>';
+                document.body.innerHTML = '<div class="title">Puissance Galactique Corporate</div><div class="galaxy-center innomotech"></div><div class="galaxy-center inovex"></div>';
                 init();
             }, 300);
         });
