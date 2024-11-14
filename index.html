@@ -5,220 +5,359 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puissance Galactique Corporate</title>
     <style>
-        body {
+        /* Reset et styles de base */
+        * {
             margin: 0;
-            height: 100vh;
-            background: radial-gradient(circle at center, #1a0033 0%, #000000 100%);
-            overflow: hidden;
-            perspective: 1000px;
-            position: relative;
-            font-family: Arial, sans-serif;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .title {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 24px;
-            text-align: center;
-            text-shadow: 0 0 10px #7d2ae8;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             z-index: 1000;
-            padding: 10px 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
         }
 
-        .galaxy-center {
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #7d2ae8;
+            text-decoration: none;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .navbar ul li {
+            margin-left: 20px;
+        }
+
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            color: #7d2ae8;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: #000; /* Fond noir */
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Conteneur des étoiles */
+        .stars-container {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle at center, #ffffff, #7d2ae8);
-            border-radius: 50%;
-            box-shadow: 0 0 60px #7d2ae8;
-            animation: pulse 4s infinite ease-in-out;
-            z-index: 500;
-            pointer-events: none; /* Désactiver les interactions */
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 0;
         }
 
-        /* Positionnement des deux planètes */
-        .innomotech {
-            left: 40%;
-            background: radial-gradient(circle at center, #ff7f50, #7d2ae8);
-            box-shadow: 0 0 60px #ff7f50;
-        }
-
-        .inovex {
-            left: 60%;
-            background: radial-gradient(circle at center, #1e90ff, #7d2ae8);
-            box-shadow: 0 0 60px #1e90ff;
-        }
-
+        /* Étoiles */
         .star {
             position: absolute;
+            width: 2px;
+            height: 2px;
             background: white;
             border-radius: 50%;
-            animation: twinkle 2s infinite ease-in-out;
             opacity: 0;
+            animation: twinkle 2s infinite;
         }
 
-        .company-node {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #fff;
-            border-radius: 50%;
-            box-shadow: 0 0 15px #7d2ae8;
-            animation: nodeFloat 5s infinite ease-in-out;
-        }
-
-        /* Animations */
-        @keyframes pulse {
-            0%, 100% { transform: translateY(-50%) scale(1); }
-            50% { transform: translateY(-50%) scale(1.3); }
-        }
-
+        /* Animation de scintillement */
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
+            0%, 100% { opacity: 0; }
             50% { opacity: 1; }
         }
 
-        @keyframes nodeFloat {
-            0% { transform: translate(0, 0); }
-            50% { transform: translate(15px, 15px); }
-            100% { transform: translate(0, 0); }
+        /* Planètes */
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #7d2ae8, #4b0082);
+            box-shadow: 0 0 20px rgba(125, 42, 232, 0.5);
         }
 
-        /* Responsivité */
+        .planet1 {
+            width: 100px;
+            height: 100px;
+            bottom: 10%;
+            left: 15%;
+            animation: orbit1 20s linear infinite;
+        }
+
+        .planet2 {
+            width: 150px;
+            height: 150px;
+            top: 15%;
+            right: 20%;
+            animation: orbit2 30s linear infinite;
+        }
+
+        @keyframes orbit1 {
+            from { transform: translateX(0) rotate(0deg); }
+            to { transform: translateX(300px) rotate(360deg); }
+        }
+
+        @keyframes orbit2 {
+            from { transform: translateX(0) rotate(0deg); }
+            to { transform: translateX(-300px) rotate(-360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 2px 2px 8px #000;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .hero .cta {
+            padding: 10px 30px;
+            background: #7d2ae8;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .hero .cta:hover {
+            background: #5a1bb5;
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .section:nth-child(even) {
+            background: #111;
+        }
+
+        .section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #7d2ae8;
+        }
+
+        .section p {
+            max-width: 800px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            text-align: center;
+            color: #fff;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .galaxy-center {
-                width: 80px;
-                height: 80px;
-                box-shadow: 0 0 40px #7d2ae8;
+            .hero h1 {
+                font-size: 36px;
             }
 
-            .title {
-                font-size: 18px;
-                padding: 8px 16px;
+            .hero p {
+                font-size: 16px;
             }
 
-            .company-node {
-                width: 15px;
-                height: 15px;
+            .navbar ul {
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.9);
+                position: absolute;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                transition: left 0.3s;
+            }
+
+            .navbar ul.active {
+                left: 0;
+            }
+
+            .navbar ul li {
+                margin: 15px 0;
+            }
+
+            .navbar .menu-toggle {
+                display: block;
+                cursor: pointer;
+            }
+
+            .navbar .menu-toggle div {
+                width: 25px;
+                height: 3px;
+                background: #fff;
+                margin: 5px 0;
+                transition: all 0.3s;
             }
         }
 
         @media (max-width: 480px) {
-            .galaxy-center {
-                width: 60px;
-                height: 60px;
-                box-shadow: 0 0 30px #7d2ae8;
+            .hero h1 {
+                font-size: 28px;
             }
 
-            .title {
+            .hero p {
+                font-size: 14px;
+            }
+
+            .section h2 {
+                font-size: 24px;
+            }
+
+            .section p {
                 font-size: 16px;
-                padding: 6px 12px;
             }
 
-            .company-node {
-                width: 12px;
-                height: 12px;
-            }
-
-            /* Ajustement des positions des planètes */
-            .innomotech {
-                left: 30%; /* Éloigner vers la gauche */
-                top: 40%;  /* Positionner verticalement */
-                transform: translate(-50%, -50%);
-            }
-
-            .inovex {
-                left: 70%; /* Éloigner vers la droite */
-                top: 60%;  /* Positionner verticalement */
-                transform: translate(-50%, -50%);
+            .planet1, .planet2 {
+                display: none; /* Masquer les planètes sur les petits écrans pour éviter la surcharge visuelle */
             }
         }
     </style>
 </head>
 <body>
-    <div class="title">Puissance Galactique Corporate</div>
-    <div class="galaxy-center innomotech"></div>
-    <div class="galaxy-center inovex"></div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#" class="logo">Puissance Galactique</a>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <ul id="nav-links">
+            <li><a href="#inovex">InoVex</a></li>
+            <li><a href="#innomotech">InnoMotech</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Conteneur pour les étoiles -->
+        <div class="stars-container"></div>
+
+        <!-- Planètes -->
+        <div class="planet planet1"></div>
+        <div class="planet planet2"></div>
+
+        <div class="hero-content">
+            <h1>Bienvenue chez Puissance Galactique</h1>
+            <p>Découvrez nos solutions innovantes en développement web, automatisation, intelligence artificielle et domotique.</p>
+            <button class="cta">En savoir plus</button>
+        </div>
+    </section>
+
+    <!-- InoVex Section -->
+    <section id="inovex" class="section">
+        <h2>InoVex</h2>
+        <p>
+            InoVex est votre partenaire pour le développement web, l'automatisation, la création d'intelligences artificielles et la conception d'applications innovantes. Nous vous aidons à transformer vos idées en solutions technologiques performantes et adaptées à vos besoins.
+        </p>
+    </section>
+
+    <!-- InnoMotech Section -->
+    <section id="innomotech" class="section">
+        <h2>InnoMotech</h2>
+        <p>
+            InnoMotech se spécialise dans le développement de programmes sur microcontrôleurs, l'interconnexion de dispositifs via le web et la création de solutions domotiques avancées. Actuellement, nous développons des options technologiques pour les deux-roues, intégrant sécurité, connectivité et automatisation.
+        </p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <p>&copy; 2024 Puissance Galactique Corporate. Tous droits réservés.</p>
+        <p>Contactez-nous : info@puissancegalactique.com</p>
+    </footer>
+
+    <!-- Scripts -->
     <script>
-        // Nombre d'éléments ajustés pour les performances mobiles
-        const STAR_COUNT = window.innerWidth < 480 ? 100 : 200;
-        const NODE_COUNT = window.innerWidth < 480 ? 5 : 8;
-
-        // Fonction pour créer les étoiles
-        function createStar() {
-            const star = document.createElement('div');
-            star.className = 'star';
-            const x = Math.random() * window.innerWidth;
-            const y = Math.random() * window.innerHeight;
-            const size = Math.random() * 2 + 1;
-            const delay = Math.random() * 2;
-
-            star.style.left = `${x}px`;
-            star.style.top = `${y}px`;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.animationDelay = `${delay}s`;
-
-            // Ajout d'une légère variation de couleur
-            const brightness = Math.random() * 0.5 + 0.5;
-            star.style.background = `rgba(255, 255, 255, ${brightness})`;
-
-            document.body.appendChild(star);
+        // Fonction pour toggler le menu sur mobile
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active');
         }
 
-        // Fonction pour créer les nœuds de société
-        function createCompanyNode() {
-            const node = document.createElement('div');
-            node.className = 'company-node';
-            const angle = Math.random() * Math.PI * 2;
-            const distance = Math.random() * 200 + 100;
-
-            // Positionnement relatif aux deux planètes
-            const isInnoMotech = Math.random() < 0.5;
-            const centerX = isInnoMotech ? window.innerWidth * 0.4 : window.innerWidth * 0.6;
-            const centerY = window.innerHeight / 2;
-
-            const x = Math.cos(angle) * distance + centerX;
-            const y = Math.sin(angle) * distance + centerY;
-
-            node.style.left = `${x}px`;
-            node.style.top = `${y}px`;
-
-            document.body.appendChild(node);
-        }
-
-        // Fonction d'initialisation
-        function init() {
-            for (let i = 0; i < STAR_COUNT; i++) {
-                createStar();
-            }
-
-            for (let i = 0; i < NODE_COUNT; i++) {
-                createCompanyNode();
-            }
-        }
-
-        // Initialisation au chargement
-        window.addEventListener('load', init);
-
-        // Réajuster lors du redimensionnement avec un léger délai pour éviter les reflows excessifs
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                document.body.innerHTML = '<div class="title">Puissance Galactique Corporate</div><div class="galaxy-center innomotech"></div><div class="galaxy-center inovex"></div>';
-                init();
-            }, 300);
+        // Scroll Smooth
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                // Fermer le menu si actif
+                const navLinks = document.getElementById('nav-links');
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+            });
         });
+
+        // Génération dynamique des étoiles
+        const starsContainer = document.querySelector('.stars-container');
+        const numberOfStars = 100; // Ajustez ce nombre pour plus ou moins d'étoiles
+
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.width = `${Math.random() * 3 + 1}px`; // Taille aléatoire entre 1px et 4px
+            star.style.height = star.style.width;
+            star.style.opacity = Math.random();
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            starsContainer.appendChild(star);
+        }
     </script>
 </body>
 </html>
