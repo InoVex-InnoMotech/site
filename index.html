@@ -59,6 +59,21 @@
             color: #7d2ae8;
         }
 
+        /* Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle div {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 5px 0;
+            transition: all 0.3s;
+        }
+
         /* Hero Section */
         .hero {
             height: 100vh;
@@ -72,15 +87,49 @@
             text-align: center;
         }
 
-        /* Conteneur des étoiles */
+        /* Conteneur des étoiles avec parallaxe */
         .stars-container {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
             overflow: hidden;
             z-index: 0;
+        }
+
+        .stars-container.layer1 {
+            z-index: 0;
+            opacity: 0.7;
+            animation: moveStarsLayer1 30s linear infinite;
+        }
+
+        .stars-container.layer2 {
+            z-index: 1;
+            opacity: 0.5;
+            animation: moveStarsLayer2 50s linear infinite;
+        }
+
+        .stars-container.layer3 {
+            z-index: 2;
+            opacity: 0.3;
+            animation: moveStarsLayer3 100s linear infinite;
+        }
+
+        /* Animation des couches d'étoiles */
+        @keyframes moveStarsLayer1 {
+            from { transform: translateX(0); }
+            to { transform: translateX(-1000px); }
+        }
+
+        @keyframes moveStarsLayer2 {
+            from { transform: translateX(0); }
+            to { transform: translateX(-1000px); }
+        }
+
+        @keyframes moveStarsLayer3 {
+            from { transform: translateX(0); }
+            to { transform: translateX(1000px); }
         }
 
         /* Étoiles */
@@ -106,6 +155,19 @@
             border-radius: 50%;
             background: radial-gradient(circle, #7d2ae8, #4b0082);
             box-shadow: 0 0 20px rgba(125, 42, 232, 0.5);
+            z-index: 3;
+            animation: rotatePlanet 20s linear infinite;
+            transition: transform 0.3s;
+        }
+
+        @keyframes rotatePlanet {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .planet:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(125, 42, 232, 0.8);
         }
 
         .planet1 {
@@ -113,7 +175,7 @@
             height: 100px;
             bottom: 10%;
             left: 15%;
-            animation: orbit1 20s linear infinite;
+            animation: orbit1 20s linear infinite, rotatePlanet 30s linear infinite;
         }
 
         .planet2 {
@@ -121,7 +183,7 @@
             height: 150px;
             top: 15%;
             right: 20%;
-            animation: orbit2 30s linear infinite;
+            animation: orbit2 30s linear infinite, rotatePlanet 40s linear infinite;
         }
 
         @keyframes orbit1 {
@@ -136,7 +198,7 @@
 
         .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 4;
         }
 
         .hero h1 {
@@ -165,6 +227,39 @@
 
         .hero .cta:hover {
             background: #5a1bb5;
+        }
+
+        /* Messages */
+        .messages-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .message {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #ffeb3b; /* Couleur des messages */
+            border-radius: 50%;
+            opacity: 0;
+            animation: sendMessage 4s linear forwards;
+            box-shadow: 0 0 10px #ffeb3b;
+        }
+
+        @keyframes sendMessage {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--dx), var(--dy));
+                opacity: 0;
+            }
         }
 
         /* Sections */
@@ -229,16 +324,7 @@
             }
 
             .navbar .menu-toggle {
-                display: block;
-                cursor: pointer;
-            }
-
-            .navbar .menu-toggle div {
-                width: 25px;
-                height: 3px;
-                background: #fff;
-                margin: 5px 0;
-                transition: all 0.3s;
+                display: flex;
             }
 
             /* Ajustement des planètes pour tablettes */
@@ -270,7 +356,7 @@
                 font-size: 16px;
             }
 
-            /* Affichage des planètes sur petits écrans avec des tailles réduites */
+            /* Ajustement des planètes pour petits écrans */
             .planet1, .planet2 {
                 display: block;
             }
@@ -280,7 +366,7 @@
                 height: 60px;
                 bottom: 8%;
                 left: 10%;
-                animation: orbit1 15s linear infinite;
+                animation: orbit1 15s linear infinite, rotatePlanet 25s linear infinite;
             }
 
             .planet2 {
@@ -288,7 +374,7 @@
                 height: 100px;
                 top: 10%;
                 right: 15%;
-                animation: orbit2 25s linear infinite;
+                animation: orbit2 25s linear infinite, rotatePlanet 35s linear infinite;
             }
         }
     </style>
@@ -311,8 +397,13 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <!-- Conteneur pour les étoiles -->
-        <div class="stars-container"></div>
+        <!-- Conteneur pour les étoiles avec plusieurs couches -->
+        <div class="stars-container layer1"></div>
+        <div class="stars-container layer2"></div>
+        <div class="stars-container layer3"></div>
+
+        <!-- Conteneur pour les messages -->
+        <div class="messages-container"></div>
 
         <!-- Planètes -->
         <div class="planet planet1"></div>
@@ -370,22 +461,85 @@
             });
         });
 
-        // Génération dynamique des étoiles
-        const starsContainer = document.querySelector('.stars-container');
-        const numberOfStars = 100; // Ajustez ce nombre pour plus ou moins d'étoiles
-
-        for (let i = 0; i < numberOfStars; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            star.style.top = `${Math.random() * 100}%`;
-            star.style.left = `${Math.random() * 100}%`;
-            star.style.width = `${Math.random() * 3 + 1}px`; // Taille aléatoire entre 1px et 4px
-            star.style.height = star.style.width;
-            star.style.opacity = Math.random();
-            star.style.animationDelay = `${Math.random() * 5}s`;
-            star.style.animationDuration = `${Math.random() * 3 + 2}s`;
-            starsContainer.appendChild(star);
+        // Génération dynamique des étoiles pour chaque couche
+        function generateStars(container, numberOfStars, sizeRange, animationDelayRange, animationDurationRange) {
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                const size = Math.random() * (sizeRange.max - sizeRange.min) + sizeRange.min;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.opacity = Math.random();
+                star.style.animationDelay = `${Math.random() * animationDelayRange.max + animationDelayRange.min}s`;
+                star.style.animationDuration = `${Math.random() * (animationDurationRange.max - animationDurationRange.min) + animationDurationRange.min}s`;
+                container.appendChild(star);
+            }
         }
+
+        const layer1 = document.querySelector('.stars-container.layer1');
+        const layer2 = document.querySelector('.stars-container.layer2');
+        const layer3 = document.querySelector('.stars-container.layer3');
+
+        generateStars(layer1, 200, {min: 1, max: 3}, {min: 0, max: 10}, {max: 3, min: 2});
+        generateStars(layer2, 150, {min: 1, max: 2}, {min: 0, max: 10}, {max: 3, min: 2});
+        generateStars(layer3, 100, {min: 1, max: 2}, {min: 0, max: 10}, {max: 3, min: 2});
+
+        // Fonction pour obtenir la position absolue d'un élément
+        function getElementPosition(el) {
+            const rect = el.getBoundingClientRect();
+            return {
+                x: rect.left + window.scrollX + rect.width / 2,
+                y: rect.top + window.scrollY + rect.height / 2
+            };
+        }
+
+        // Fonction pour envoyer un message de planet1 à planet2
+        function sendMessage(fromPlanet, toPlanet, color) {
+            const messagesContainer = document.querySelector('.messages-container');
+            const message = document.createElement('div');
+            message.classList.add('message');
+            message.style.background = color;
+
+            const fromPos = getElementPosition(fromPlanet);
+            const toPos = getElementPosition(toPlanet);
+
+            // Calculer la distance à parcourir
+            const dx = toPos.x - fromPos.x;
+            const dy = toPos.y - fromPos.y;
+
+            // Définir les propriétés CSS personnalisées pour l'animation
+            message.style.left = `${fromPos.x}px`;
+            message.style.top = `${fromPos.y}px`;
+            message.style.setProperty('--dx', `${dx}px`);
+            message.style.setProperty('--dy', `${dy}px`);
+            message.style.animationDuration = `${Math.sqrt(dx*dx + dy*dy)/200}s`; // Durée basée sur la distance
+
+            messagesContainer.appendChild(message);
+
+            // Supprimer le message après l'animation
+            message.addEventListener('animationend', () => {
+                message.remove();
+            });
+        }
+
+        // Envoi périodique de messages (faisceaux supprimés)
+        setInterval(() => {
+            const planet1 = document.querySelector('.planet1');
+            const planet2 = document.querySelector('.planet2');
+
+            // Envoyer un message de planet1 à planet2
+            sendMessage(planet1, planet2, '#ffeb3b'); // Couleur des messages de InoVex
+
+            // Envoyer un message de planet2 à planet1
+            sendMessage(planet2, planet1, '#00e676'); // Couleur des messages de InnoMotech
+        }, 3000); // Toutes les 3 secondes
+
+        // Ajuster les positions des planètes lors du redimensionnement de la fenêtre
+        window.addEventListener('resize', () => {
+            // Optionnel : vous pouvez ajuster les positions ou réinitialiser les messages ici
+        });
     </script>
 </body>
 </html>
