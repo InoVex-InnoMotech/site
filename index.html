@@ -491,7 +491,7 @@
     </section>
 
     <!-- Slider après InoVex -->
-    <div class="slider-container" data-target="inovex">
+    <div class="slider-container" data-target="inovex.html">
         <div class="slider-track">
             <div class="slider-handle"></div>
         </div>
@@ -507,7 +507,7 @@
     </section>
 
     <!-- Slider après InnoMotech -->
-    <div class="slider-container" data-target="innomotech">
+    <div class="slider-container" data-target="innomotech.html">
         <div class="slider-track">
             <div class="slider-handle"></div>
         </div>
@@ -651,6 +651,7 @@
                 const track = slider.querySelector('.slider-track');
                 const handle = slider.querySelector('.slider-handle');
                 const sliderText = slider.querySelector('.slider-text');
+                const targetPage = slider.getAttribute('data-target'); // Récupérer la cible
                 let isDragging = false;
                 let startX = 0;
                 let currentX = 0;
@@ -686,12 +687,14 @@
                     let handleLeft = parseInt(handle.style.left, 10);
                     if (handleLeft >= maxLeft) {
                         // Action de glissement complet
-                        const targetId = slider.getAttribute('data-target');
-                        // Pour le moment, rediriger vers le haut de la page
-                        window.scrollTo({
-                            top: 0,
-                            behavior: 'smooth'
-                        });
+                        if (targetPage) {
+                            window.location.href = targetPage; // Redirection vers la page cible
+                        } else {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        }
                         resetSlider();
                     } else {
                         // Réinitialiser le slider
@@ -722,12 +725,14 @@
                     let handleLeft = parseInt(handle.style.left, 10);
                     if (handleLeft >= maxLeft) {
                         // Action de glissement complet
-                        const targetId = slider.getAttribute('data-target');
-                        // Pour le moment, rediriger vers le haut de la page
-                        window.scrollTo({
-                            top: 0,
-                            behavior: 'smooth'
-                        });
+                        if (targetPage) {
+                            window.location.href = targetPage; // Redirection vers la page cible
+                        } else {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        }
                         resetSlider();
                     } else {
                         // Réinitialiser le slider
