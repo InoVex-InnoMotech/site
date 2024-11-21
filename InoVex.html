@@ -43,8 +43,8 @@
 
     /* Thème clair avec des couleurs harmonieuses */
     .light-theme {
-      --background-color: #1a1a1a; /* Un gris très foncé au lieu de blanc */
-      --text-color: #e0e0e0; /* Gris clair pour le texte */
+      --background-color: #1a1a1a;
+      --text-color: #e0e0e0;
       --navbar-bg: rgba(26, 26, 26, 0.9);
       --service-card-bg: #333;
       --contact-bg: #2c2c2c;
@@ -68,7 +68,6 @@
     body, html {
       width: 100%;
       height: 100%;
-      /* Suppression de l'image de fond du body */
       background-color: var(--background-color);
       font-family: 'Roboto', sans-serif;
       color: var(--text-color);
@@ -84,20 +83,18 @@
       left: 0;
       width: 100%;
       height: 100%;
-      /* Utilisation de l'image de fond */
       background-image: url('https://raw.githubusercontent.com/InoVex-InnoMotech/Location/main/images/site%20ia%20grock%20inovex.jfif');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      background-attachment: fixed; /* Fond fixe */
-      /* Superposition semi-transparente */
+      background-attachment: fixed;
       background-color: rgba(0, 0, 0, 0.6);
       z-index: 5;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      transition: opacity 0.5s ease, visibility 0.5s ease; /* Délai réduit */
+      transition: opacity 0.5s ease, visibility 0.5s ease;
       overflow: hidden;
     }
 
@@ -109,7 +106,7 @@
 
     /* Arrière-plan des étoiles */
     .stars {
-      position: fixed; /* Positionnement fixe pour rester en arrière-plan */
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -118,7 +115,7 @@
       z-index: 1;
       background: radial-gradient(circle at center, transparent 0%, transparent 50%, rgba(255, 255, 255, 0.1) 70%, transparent 80%);
       animation: rotateStars 120s linear infinite;
-      pointer-events: none; /* Empêche l'interaction avec les étoiles */
+      pointer-events: none;
     }
 
     @keyframes rotateStars {
@@ -150,13 +147,9 @@
       margin: 0 auto;
       white-space: pre-wrap;
       opacity: 0;
-      transition: opacity 0.5s ease; /* Transition plus rapide */
-      
-      /* Superposition semi-transparente pour améliorer la lisibilité */
-      background-color: rgba(0, 0, 0, 0.4); /* Couleur noire semi-transparente */
+      transition: opacity 0.5s ease;
+      background-color: rgba(0, 0, 0, 0.4);
       border-radius: 10px;
-
-      /* Changement de couleur du texte en rouge */
       color: red;
     }
 
@@ -263,7 +256,7 @@
       background: url('https://raw.githubusercontent.com/InoVex-InnoMotech/Location/main/images/site%20ia%20grock%20inovex.jfif') center center/cover no-repeat;
       position: relative;
       overflow: hidden;
-      background-attachment: fixed; /* Fond fixe */
+      background-attachment: fixed;
     }
 
     .hero::after {
@@ -283,7 +276,7 @@
       text-align: center;
       max-width: 800px;
       padding: 20px;
-      animation: slideIn 0.5s ease forwards; /* Animation plus rapide */
+      animation: slideIn 0.5s ease forwards;
     }
 
     @keyframes slideIn {
@@ -294,7 +287,6 @@
     .hero-content h1 {
       font-size: 48px;
       margin-bottom: 20px;
-      /* Suppression du dégradé pour correspondre au thème */
       color: var(--text-color);
     }
 
@@ -491,6 +483,10 @@
     }
 
     @media (max-width: 768px) {
+      .hero {
+        background-attachment: scroll;
+      }
+
       .hero-content h1 {
         font-size: 28px;
       }
@@ -499,8 +495,18 @@
         font-size: 14px;
       }
 
+      .services .service-cards {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+      }
+
       .services .card {
-        width: 90%;
+        min-width: 80%;
+        flex: 0 0 auto;
+        margin-right: 20px;
+        scroll-snap-align: center;
       }
 
       .navbar ul {
@@ -561,7 +567,6 @@
     <div class="code-container" id="codeContainer" aria-live="polite">
       <!-- Les lignes de code seront injectées ici -->
     </div>
-    <!-- Conteneur du logo InoVex supprimé -->
   </div>
 
   <!-- Contenu principal -->
@@ -570,7 +575,7 @@
     <nav class="navbar" id="navbar" aria-label="Barre de navigation principale">
       <div class="logo-text">InoVex</div>
       <ul>
-        <li><a href="index.html">Accueil</a></li> <!-- Redirection vers index.html -->
+        <li><a href="index.html">Accueil</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#about">À Propos</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -673,8 +678,8 @@
     for (let i = 0; i < numberOfStars; i++) {
       const star = document.createElement('div');
       star.classList.add('star');
-      star.style.left = Math.random() * 100 + '%'; // Positionnement aléatoire horizontal
-      star.style.top = Math.random() * 100 + '%'; // Positionnement aléatoire vertical
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
       star.style.animationDelay = Math.random() * 2 + 's';
       star.style.opacity = Math.random() * 0.8 + 0.2;
       starsContainer.appendChild(star);
@@ -701,7 +706,6 @@
     ];
 
     const codeContainer = document.getElementById('codeContainer');
-    // const logoContainer = document.getElementById('logoContainer'); // Supprimé
     const mainContent = document.getElementById('mainContent');
     const overlay = document.getElementById('overlay');
     let currentLine = 0;
@@ -717,18 +721,15 @@
         if (charIndex < line.length) {
           lineElement.textContent += line.charAt(charIndex);
           charIndex++;
-          // Effet sonore de frappe (optionnel)
-          // new Audio('type-sound.mp3').play();
-          setTimeout(typeChar, 5); // Vitesse de saisie ajustée (plus rapide)
+          setTimeout(typeChar, 5);
         } else {
-          // Ajouter le curseur après la fin de la ligne
           const cursor = document.createElement('span');
           cursor.classList.add('cursor');
           lineElement.appendChild(cursor);
           setTimeout(() => {
             cursor.remove();
             callback();
-          }, 300); // Petite pause avant la ligne suivante
+          }, 300);
         }
       }
 
@@ -760,7 +761,7 @@
       // Désactiver le défilement pendant l'animation
       document.body.style.overflow = 'hidden';
       // Délai optionnel avant de commencer
-      setTimeout(startTyping, 500); // Délai réduit pour un démarrage plus rapide
+      setTimeout(startTyping, 500);
     };
 
     // Lorsque l'animation est terminée, réactiver le défilement
