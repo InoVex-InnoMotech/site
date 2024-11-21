@@ -331,15 +331,17 @@
     .services .service-cards {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
       justify-content: center;
+      gap: 20px;
+      padding-bottom: 20px;
     }
 
     .services .card {
       background: var(--service-card-bg);
       padding: 30px;
       border-radius: 10px;
-      width: 300px;
+      width: calc(33.333% - 40px);
+      box-sizing: border-box;
       transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 1s ease;
       cursor: pointer;
     }
@@ -373,18 +375,41 @@
 
     .about h2 {
       font-size: 36px;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
       color: var(--text-color);
       transition: color 1s ease;
     }
 
-    .about p {
+    .about .toggle-about-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: var(--text-color);
+      background: var(--button-bg);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, background 1s ease;
+    }
+
+    .about .toggle-about-button:hover,
+    .about .toggle-about-button:focus {
+      transform: scale(var(--button-hover-scale));
+      outline: none;
+    }
+
+    .about .about-text {
+      display: none;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .about .about-text p {
       font-size: 18px;
       line-height: 1.6;
-      max-width: 800px;
-      margin: 0 auto 30px;
       color: var(--text-color);
       transition: color 1s ease;
+      margin-bottom: 15px;
     }
 
     /* Section Contact */
@@ -458,13 +483,30 @@
       transition: color 1s ease;
     }
 
+    /* Focus States for Accessibility */
+    a:focus,
+    button:focus,
+    input:focus,
+    textarea:focus {
+      outline: 2px dashed var(--primary-color);
+      outline-offset: 4px;
+    }
+
+    /* Styles pour les éléments cachés visuellement mais accessibles */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     /* Design Réactif */
     @media (max-width: 1024px) {
-      .services .service-cards {
-        flex-direction: column;
-        align-items: center;
-      }
-
       .hero-content h1 {
         font-size: 36px;
       }
@@ -480,6 +522,10 @@
       .navbar ul {
         gap: 15px;
       }
+
+      .services .card {
+        width: calc(50% - 40px);
+      }
     }
 
     @media (max-width: 768px) {
@@ -493,20 +539,6 @@
 
       .hero-content p {
         font-size: 14px;
-      }
-
-      .services .service-cards {
-        display: flex;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
-      }
-
-      .services .card {
-        min-width: 80%;
-        flex: 0 0 auto;
-        margin-right: 20px;
-        scroll-snap-align: center;
       }
 
       .navbar ul {
@@ -532,28 +564,21 @@
       .navbar.active ul li {
         margin: 10px 0;
       }
-    }
 
-    /* Focus States for Accessibility */
-    a:focus,
-    button:focus,
-    input:focus,
-    textarea:focus {
-      outline: 2px dashed var(--primary-color);
-      outline-offset: 4px;
-    }
+      /* Styles pour la section Services sur mobile */
+      .services .service-cards {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+      }
 
-    /* Styles pour les éléments cachés visuellement mais accessibles */
-    .visually-hidden {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
+      .services .card {
+        min-width: 80%;
+        flex: 0 0 auto;
+        scroll-snap-align: center;
+        width: auto;
+      }
     }
   </style>
 </head>
@@ -630,8 +655,11 @@
     <!-- Section À Propos -->
     <section class="about" id="about" aria-labelledby="aboutTitle">
       <h2 id="aboutTitle">À Propos de InoVex</h2>
-      <p>InoVex est une agence de développement web avant-gardiste dédiée à fournir des solutions innovantes qui stimulent le succès des entreprises. Notre équipe d'experts se spécialise dans le développement web, le codage, l'automatisation, les technologies IA et le développement d'applications mobiles. On comprend les besoins uniques des entrepreneurs et on s'efforce de fournir des services sur mesure qui dépassent les attentes.</p>
-      <p>Avec un engagement envers l'excellence et une passion pour la technologie, on exploite la puissance des pratiques de codage de pointe pour construire des applications robustes, évolutives et conviviales. Partenaire avec InoVex pour transformer tes idées en réalité et rester en tête dans le paysage numérique compétitif.</p>
+      <button class="toggle-about-button" aria-expanded="false">Lire la suite</button>
+      <div class="about-text" id="aboutText">
+        <p>InoVex est une agence de développement web avant-gardiste dédiée à fournir des solutions innovantes qui stimulent le succès des entreprises. Notre équipe d'experts se spécialise dans le développement web, le codage, l'automatisation, les technologies IA et le développement d'applications mobiles. On comprend les besoins uniques des entrepreneurs et on s'efforce de fournir des services sur mesure qui dépassent les attentes.</p>
+        <p>Avec un engagement envers l'excellence et une passion pour la technologie, on exploite la puissance des pratiques de codage de pointe pour construire des applications robustes, évolutives et conviviales. Partenaire avec InoVex pour transformer tes idées en réalité et rester en tête dans le paysage numérique compétitif.</p>
+      </div>
     </section>
 
     <!-- Section Contact -->
@@ -651,21 +679,6 @@
       <p>&copy; 2024 InoVex. Tous droits réservés.</p>
     </footer>
   </div>
-
-  <!-- Styles pour les éléments cachés visuellement mais accessibles -->
-  <style>
-    .visually-hidden {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-  </style>
 
   <!-- Script JavaScript -->
   <script>
@@ -721,7 +734,7 @@
         if (charIndex < line.length) {
           lineElement.textContent += line.charAt(charIndex);
           charIndex++;
-          setTimeout(typeChar, 5);
+          setTimeout(typeChar, 50);
         } else {
           const cursor = document.createElement('span');
           cursor.classList.add('cursor');
@@ -832,6 +845,17 @@
           }
         }
       });
+    });
+
+    // Fonction pour le bouton "Lire la suite" dans la section À Propos
+    const toggleAboutButton = document.querySelector('.toggle-about-button');
+    const aboutText = document.getElementById('aboutText');
+
+    toggleAboutButton.addEventListener('click', () => {
+      const isExpanded = toggleAboutButton.getAttribute('aria-expanded') === 'true';
+      aboutText.style.display = isExpanded ? 'none' : 'block';
+      toggleAboutButton.setAttribute('aria-expanded', !isExpanded);
+      toggleAboutButton.textContent = isExpanded ? 'Lire la suite' : 'Réduire';
     });
   </script>
 </body>
