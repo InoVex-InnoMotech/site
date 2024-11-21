@@ -269,6 +269,71 @@
             text-decoration: underline;
         }
 
+        /* Slider Styles */
+        .slider-container {
+            position: relative;
+            width: 80%;
+            max-width: 400px;
+            height: 50px;
+            margin: 40px auto;
+            user-select: none;
+        }
+
+        .slider-track {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #ccc;
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        .slider-handle {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .slider-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 1rem;
+            pointer-events: none;
+            z-index: 1;
+            transition: opacity 0.3s;
+        }
+
+        .slider-container.active .slider-text {
+            opacity: 0;
+        }
+
+        @media (max-width: 768px) {
+            .slider-container {
+                width: 90%;
+                height: 40px;
+            }
+
+            .slider-handle {
+                width: 30px;
+                height: 30px;
+                top: 5px;
+                left: 5px;
+            }
+
+            .slider-text {
+                font-size: 0.875rem;
+            }
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .hero h1 {
@@ -420,6 +485,14 @@
         </p>
     </section>
 
+    <!-- Slider après InoVex -->
+    <div class="slider-container" data-target="inovex">
+        <div class="slider-track">
+            <div class="slider-handle"></div>
+        </div>
+        <span class="slider-text">Glissez pour continuer</span>
+    </div>
+
     <!-- InnoMotech Section -->
     <section id="innomotech" class="section">
         <h2 class="innomotech-title">InnoMotech</h2>
@@ -427,6 +500,14 @@
             InnoMotech se spécialise dans le développement de programmes sur microcontrôleurs, l'interconnexion de dispositifs via le web et la création de solutions domotiques avancées. Actuellement, nous développons des options technologiques pour les deux-roues, intégrant sécurité, connectivité et automatisation.
         </p>
     </section>
+
+    <!-- Slider après InnoMotech -->
+    <div class="slider-container" data-target="innomotech">
+        <div class="slider-track">
+            <div class="slider-handle"></div>
+        </div>
+        <span class="slider-text">Glissez pour continuer</span>
+    </div>
 
     <!-- Footer -->
     <footer class="footer" id="contact">
@@ -556,6 +637,111 @@
                 }
             }
         });
+
+        // Fonctionnalité Slider
+        function initializeSliders() {
+            const sliders = document.querySelectorAll('.slider-container');
+
+            sliders.forEach(slider => {
+                const track = slider.querySelector('.slider-track');
+                const handle = slider.querySelector('.slider-handle');
+                const sliderText = slider.querySelector('.slider-text');
+                let isDragging = false;
+                let startX = 0;
+                let currentX = 0;
+                let sliderWidth = track.offsetWidth;
+                let handleWidth = handle.offsetWidth;
+                let maxLeft = sliderWidth - handleWidth - 10; // 10px padding
+
+                // Fonction pour réinitialiser le slider
+                function resetSlider() {
+                    handle.style.left = '5px';
+                    slider.classList.remove('active');
+                    sliderText.style.opacity = '1';
+                }
+
+                // Touch Events
+                handle.addEventListener('touchstart', (e) => {
+                    isDragging = true;
+                    startX = e.touches[0].clientX;
+                    slider.classList.add('active');
+                    sliderText.style.opacity = '0';
+                });
+
+                handle.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    currentX = e.touches[0].clientX;
+                    let diffX = currentX - startX;
+                    let newLeft = Math.min(Math.max(5 + diffX, 5), maxLeft + 5);
+                    handle.style.left = `${newLeft}px`;
+                });
+
+                handle.addEventListener('touchend', () => {
+                    if (!isDragging) return;
+                    let handleLeft = parseInt(handle.style.left, 10);
+                    if (handleLeft >= maxLeft) {
+                        // Action de glissement complet
+                        const targetId = slider.getAttribute('data-target');
+                        // Pour le moment, rediriger vers le haut de la page
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                        resetSlider();
+                    } else {
+                        // Réinitialiser le slider
+                        resetSlider();
+                    }
+                    isDragging = false;
+                });
+
+                // Mouse Events
+                handle.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    startX = e.clientX;
+                    slider.classList.add('active');
+                    sliderText.style.opacity = '0';
+                    e.preventDefault(); // Empêcher la sélection de texte
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    currentX = e.clientX;
+                    let diffX = currentX - startX;
+                    let newLeft = Math.min(Math.max(5 + diffX, 5), maxLeft + 5);
+                    handle.style.left = `${newLeft}px`;
+                });
+
+                window.addEventListener('mouseup', () => {
+                    if (!isDragging) return;
+                    let handleLeft = parseInt(handle.style.left, 10);
+                    if (handleLeft >= maxLeft) {
+                        // Action de glissement complet
+                        const targetId = slider.getAttribute('data-target');
+                        // Pour le moment, rediriger vers le haut de la page
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                        resetSlider();
+                    } else {
+                        // Réinitialiser le slider
+                        resetSlider();
+                    }
+                    isDragging = false;
+                });
+
+                // Touch Leave
+                handle.addEventListener('touchcancel', () => {
+                    if (!isDragging) return;
+                    resetSlider();
+                    isDragging = false;
+                });
+            });
+        }
+
+        // Initialiser les sliders après le chargement du DOM
+        document.addEventListener('DOMContentLoaded', initializeSliders);
     </script>
 </body>
 </html>
