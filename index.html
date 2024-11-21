@@ -374,9 +374,11 @@
             }
 
             /* Réduction du nombre d'étoiles sur mobiles */
+            /* Commenté pour afficher les étoiles sur mobile
             .stars-container.layer1, .stars-container.layer2, .stars-container.layer3 {
-                display: none; /* Désactivation des étoiles pour améliorer les performances */
+                display: none; 
             }
+            */
         }
     </style>
 </head>
@@ -465,7 +467,7 @@
             });
         });
 
-        // Génération dynamique des étoiles
+        // Fonction pour générer dynamiquement les étoiles
         function generateStars(container, numberOfStars) {
             const fragment = document.createDocumentFragment();
             for (let i = 0; i < numberOfStars; i++) {
@@ -496,14 +498,22 @@
             container.appendChild(fragment);
         }
 
-        // Génération des étoiles pour chaque couche
+        // Détecter la taille de l'écran pour ajuster le nombre d'étoiles
+        const isMobile = window.innerWidth <= 480;
+
         const starsContainer1 = document.getElementById('stars-container1');
         const starsContainer2 = document.getElementById('stars-container2');
         const starsContainer3 = document.getElementById('stars-container3');
 
-        generateStars(starsContainer1, 150); // Couche 1
-        generateStars(starsContainer2, 100); // Couche 2
-        generateStars(starsContainer3, 50);  // Couche 3
+        if (!isMobile) {
+            generateStars(starsContainer1, 150); // Couche 1
+            generateStars(starsContainer2, 100); // Couche 2
+            generateStars(starsContainer3, 50);  // Couche 3
+        } else {
+            generateStars(starsContainer1, 75); // Couche 1 réduite
+            generateStars(starsContainer2, 50); // Couche 2 réduite
+            generateStars(starsContainer3, 25); // Couche 3 réduite
+        }
 
         // Changement de texte du hero toutes les 4 secondes
         const heroHeading = document.getElementById('hero-heading');
