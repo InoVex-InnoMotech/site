@@ -11,7 +11,7 @@
             --primary-hover: #009ACD;
             --background-color: #000;
             --text-color: #fff;
-            --overlay-color: rgba(0, 0, 0, 0.6); /* Augmentation de l'opacité */
+            --overlay-color: rgba(0, 0, 0, 0.5);
             --section-bg: #111;
             --transition-speed: 0.3s;
             --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -107,7 +107,6 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            filter: brightness(0.7); /* Application du filtre pour assombrir l'image */
         }
 
         /* Couches d'Étoiles */
@@ -140,22 +139,13 @@
             background: white;
             border-radius: 50%;
             opacity: 0;
-            animation: twinkle 3s infinite, moveStar 10s linear infinite;
+            animation: twinkle 2s infinite, moveStar 10s linear infinite;
         }
 
-        /* Animation de scintillement améliorée */
+        /* Animation de scintillement */
         @keyframes twinkle {
-            0% { opacity: 0; }
-            10% { opacity: 1; }
-            20% { opacity: 0.5; }
-            30% { opacity: 1; }
-            40% { opacity: 0.3; }
+            0%, 100% { opacity: 0; }
             50% { opacity: 1; }
-            60% { opacity: 0.5; }
-            70% { opacity: 1; }
-            80% { opacity: 0.3; }
-            90% { opacity: 1; }
-            100% { opacity: 0; }
         }
 
         /* Animation de déplacement horizontal */
@@ -166,17 +156,17 @@
 
         /* Couches d'Étoiles Animations */
         .layer1 .star {
-            animation: twinkle 2.5s infinite, moveStar 20s linear infinite;
+            animation: twinkle 2s infinite, moveStar 20s linear infinite;
             opacity: 0.6;
         }
 
         .layer2 .star {
-            animation: twinkle 3.5s infinite, moveStar 30s linear infinite;
+            animation: twinkle 3s infinite, moveStar 30s linear infinite;
             opacity: 0.4;
         }
 
         .layer3 .star {
-            animation: twinkle 1.8s infinite, moveStar 15s linear infinite;
+            animation: twinkle 1.5s infinite, moveStar 15s linear infinite;
             opacity: 0.8;
         }
 
@@ -349,15 +339,15 @@
 
             /* Réduction du nombre d'étoiles sur tablettes */
             .layer1 .star {
-                animation: twinkle 2.5s infinite, moveStar 15s linear infinite;
+                animation: twinkle 2s infinite, moveStar 15s linear infinite;
             }
 
             .layer2 .star {
-                animation: twinkle 3.5s infinite, moveStar 25s linear infinite;
+                animation: twinkle 3s infinite, moveStar 25s linear infinite;
             }
 
             .layer3 .star {
-                animation: twinkle 1.8s infinite, moveStar 12s linear infinite;
+                animation: twinkle 1.5s infinite, moveStar 12s linear infinite;
             }
         }
 
