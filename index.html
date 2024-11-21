@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puissance Galactique Corporate</title>
+    <title>InoVex et InnoMotech</title>
     <style>
+        /* Variables CSS pour une gestion facile des couleurs */
+        :root {
+            --primary-color: #00BFFF;
+            --primary-hover: #009ACD;
+            --background-color: #000;
+            --text-color: #fff;
+            --overlay-color: rgba(0, 0, 0, 0.5);
+            --section-bg: #111;
+            --transition-speed: 0.3s;
+        }
+
         /* Reset et styles de base */
-        * {
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -14,9 +25,10 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #000;
-            color: #fff;
+            background: var(--background-color);
+            color: var(--text-color);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         /* Navigation */
@@ -35,28 +47,29 @@
         .navbar .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #7d2ae8;
+            background: linear-gradient(to right, #FF69B4, #00BFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
             text-decoration: none;
         }
 
         .navbar ul {
             list-style: none;
             display: flex;
-        }
-
-        .navbar ul li {
-            margin-left: 20px;
+            gap: 20px;
         }
 
         .navbar ul li a {
-            color: #fff;
+            color: var(--text-color);
             text-decoration: none;
             font-size: 16px;
-            transition: color 0.3s;
+            transition: color var(--transition-speed);
         }
 
-        .navbar ul li a:hover {
-            color: #7d2ae8;
+        .navbar ul li a:hover, .navbar ul li a:focus {
+            color: var(--primary-color);
         }
 
         /* Menu Toggle */
@@ -64,20 +77,21 @@
             display: none;
             flex-direction: column;
             cursor: pointer;
+            gap: 5px;
         }
 
         .menu-toggle div {
             width: 25px;
             height: 3px;
-            background: #fff;
-            margin: 5px 0;
-            transition: all 0.3s;
+            background: var(--text-color);
+            transition: all var(--transition-speed);
         }
 
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: #000; /* Fond noir */
+            background: url('https://raw.githubusercontent.com/InoVex-InnoMotech/Location/refs/heads/main/images/site%20innomotech.jfif') no-repeat center center;
+            background-size: cover;
             position: relative;
             overflow: hidden;
             display: flex;
@@ -87,60 +101,49 @@
             text-align: center;
         }
 
-        /* Conteneur des étoiles avec parallaxe */
+        /* Couches d'Étoiles */
         .stars-container {
             position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
-            z-index: 0;
+            pointer-events: none;
+            z-index: 1;
         }
 
         .stars-container.layer1 {
-            z-index: 0;
-            opacity: 0.7;
-            animation: moveStarsLayer1 30s linear infinite;
+            z-index: 1;
         }
 
         .stars-container.layer2 {
             z-index: 1;
-            opacity: 0.5;
-            animation: moveStarsLayer2 50s linear infinite;
         }
 
         .stars-container.layer3 {
+            z-index: 1;
+        }
+
+        /* Overlay pour améliorer la lisibilité du texte */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-color);
             z-index: 2;
-            opacity: 0.3;
-            animation: moveStarsLayer3 100s linear infinite;
         }
 
-        /* Animation des couches d'étoiles */
-        @keyframes moveStarsLayer1 {
-            from { transform: translateX(0); }
-            to { transform: translateX(-1000px); }
-        }
-
-        @keyframes moveStarsLayer2 {
-            from { transform: translateX(0); }
-            to { transform: translateX(-1000px); }
-        }
-
-        @keyframes moveStarsLayer3 {
-            from { transform: translateX(0); }
-            to { transform: translateX(1000px); }
-        }
-
-        /* Étoiles */
+        /* Styles des Étoiles */
         .star {
             position: absolute;
-            width: 2px;
-            height: 2px;
             background: white;
             border-radius: 50%;
             opacity: 0;
-            animation: twinkle 2s infinite;
+            animation: twinkle 2s infinite, moveStar 10s linear infinite;
         }
 
         /* Animation de scintillement */
@@ -149,63 +152,46 @@
             50% { opacity: 1; }
         }
 
-        /* Planètes */
-        .planet {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, #7d2ae8, #4b0082);
-            box-shadow: 0 0 20px rgba(125, 42, 232, 0.5);
-            z-index: 3;
-            animation: rotatePlanet 20s linear infinite;
-            transition: transform 0.3s;
+        /* Animation de déplacement horizontal */
+        @keyframes moveStar {
+            from { transform: translateX(-100px); }
+            to { transform: translateX(100px); }
         }
 
-        @keyframes rotatePlanet {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        /* Couches d'Étoiles Animations */
+        .layer1 .star {
+            animation: twinkle 2s infinite, moveStar 20s linear infinite;
+            opacity: 0.6;
         }
 
-        .planet:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(125, 42, 232, 0.8);
+        .layer2 .star {
+            animation: twinkle 3s infinite, moveStar 30s linear infinite;
+            opacity: 0.4;
         }
 
-        .planet1 {
-            width: 100px;
-            height: 100px;
-            bottom: 10%;
-            left: 15%;
-            animation: orbit1 20s linear infinite, rotatePlanet 30s linear infinite;
+        .layer3 .star {
+            animation: twinkle 1.5s infinite, moveStar 15s linear infinite;
+            opacity: 0.8;
         }
 
-        .planet2 {
-            width: 150px;
-            height: 150px;
-            top: 15%;
-            right: 20%;
-            animation: orbit2 30s linear infinite, rotatePlanet 40s linear infinite;
-        }
-
-        @keyframes orbit1 {
-            from { transform: translateX(0) rotate(0deg); }
-            to { transform: translateX(300px) rotate(360deg); }
-        }
-
-        @keyframes orbit2 {
-            from { transform: translateX(0) rotate(0deg); }
-            to { transform: translateX(-300px) rotate(-360deg); }
-        }
-
+        /* Hero Content */
         .hero-content {
             position: relative;
-            z-index: 4;
+            z-index: 3;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
         .hero h1 {
             font-size: 48px;
             margin-bottom: 20px;
-            color: #fff;
+            color: var(--text-color);
             text-shadow: 2px 2px 8px #000;
+            transition: opacity 0.5s;
         }
 
         .hero p {
@@ -215,51 +201,19 @@
         }
 
         .hero .cta {
-            padding: 10px 30px;
-            background: #7d2ae8;
-            color: #fff;
+            padding: 12px 40px;
+            background: var(--primary-color);
+            color: var(--text-color);
             border: none;
             border-radius: 25px;
             font-size: 16px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background var(--transition-speed);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
-        .hero .cta:hover {
-            background: #5a1bb5;
-        }
-
-        /* Messages */
-        .messages-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 3;
-            pointer-events: none;
-        }
-
-        .message {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: #ffeb3b; /* Couleur des messages */
-            border-radius: 50%;
-            opacity: 0;
-            animation: sendMessage 4s linear forwards;
-            box-shadow: 0 0 10px #ffeb3b;
-        }
-
-        @keyframes sendMessage {
-            0% {
-                transform: translate(0, 0);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--dx), var(--dy));
-                opacity: 0;
-            }
+        .hero .cta:hover, .hero .cta:focus {
+            background: var(--primary-hover);
         }
 
         /* Sections */
@@ -272,13 +226,30 @@
         }
 
         .section:nth-child(even) {
-            background: #111;
+            background: var(--section-bg);
         }
 
         .section h2 {
             font-size: 32px;
             margin-bottom: 20px;
-            color: #7d2ae8;
+            color: var(--primary-color);
+        }
+
+        /* Styles personnalisés pour InoVex et InnoMotech */
+        .inovex-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #0000FF, #FF69B4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .innomotech-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
         }
 
         .section p {
@@ -292,10 +263,28 @@
             padding: 20px;
             background: rgba(0, 0, 0, 0.8);
             text-align: center;
-            color: #fff;
+            color: var(--text-color);
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section h2 {
+                font-size: 28px;
+            }
+
+            .section p {
+                font-size: 16px;
+            }
+        }
+
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 36px;
@@ -307,12 +296,12 @@
 
             .navbar ul {
                 flex-direction: column;
-                background: rgba(0, 0, 0, 0.9);
+                background: rgba(0, 0, 0, 0.95);
                 position: absolute;
                 top: 60px;
                 left: -100%;
                 width: 100%;
-                transition: left 0.3s;
+                transition: left var(--transition-speed);
             }
 
             .navbar ul.active {
@@ -327,15 +316,16 @@
                 display: flex;
             }
 
-            /* Ajustement des planètes pour tablettes */
-            .planet1 {
-                width: 80px;
-                height: 80px;
+            .menu-toggle.open div:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
             }
 
-            .planet2 {
-                width: 120px;
-                height: 120px;
+            .menu-toggle.open div:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.open div:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
             }
         }
 
@@ -356,38 +346,22 @@
                 font-size: 16px;
             }
 
-            /* Ajustement des planètes pour petits écrans */
-            .planet1, .planet2 {
-                display: block;
-            }
-
-            .planet1 {
-                width: 60px;
-                height: 60px;
-                bottom: 8%;
-                left: 10%;
-                animation: orbit1 15s linear infinite, rotatePlanet 25s linear infinite;
-            }
-
-            .planet2 {
-                width: 100px;
-                height: 100px;
-                top: 10%;
-                right: 15%;
-                animation: orbit2 25s linear infinite, rotatePlanet 35s linear infinite;
+            .hero .cta {
+                padding: 10px 30px;
+                font-size: 14px;
             }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
-        <a href="#" class="logo">Puissance Galactique</a>
-        <div class="menu-toggle" onclick="toggleMenu()">
+    <nav class="navbar" aria-label="Main Navigation">
+        <a href="#" class="logo">InoVex et InnoMotech</a>
+        <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" onclick="toggleMenu()">
             <div></div>
             <div></div>
             <div></div>
-        </div>
+        </button>
         <ul id="nav-links">
             <li><a href="#inovex">InoVex</a></li>
             <li><a href="#innomotech">InnoMotech</a></li>
@@ -397,36 +371,29 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <!-- Conteneur pour les étoiles avec plusieurs couches -->
-        <div class="stars-container layer1"></div>
-        <div class="stars-container layer2"></div>
-        <div class="stars-container layer3"></div>
-
-        <!-- Conteneur pour les messages -->
-        <div class="messages-container"></div>
-
-        <!-- Planètes -->
-        <div class="planet planet1"></div>
-        <div class="planet planet2"></div>
+        <!-- Couches d'Étoiles -->
+        <div class="stars-container layer1" id="stars-container1"></div>
+        <div class="stars-container layer2" id="stars-container2"></div>
+        <div class="stars-container layer3" id="stars-container3"></div>
 
         <div class="hero-content">
-            <h1>Bienvenue chez Puissance Galactique</h1>
-            <p>Découvrez nos solutions innovantes en développement web, automatisation, intelligence artificielle et domotique.</p>
-            <button class="cta">En savoir plus</button>
+            <h1 id="hero-heading">Bienvenue chez InoVex et InnoMotech</h1>
+            <p>Découvre nos solutions innovantes en développement web, automatisation, intelligence artificielle et domotique.</p>
+            <button class="cta" onclick="scrollToSection('inovex')">En savoir plus</button>
         </div>
     </section>
 
     <!-- InoVex Section -->
     <section id="inovex" class="section">
-        <h2>InoVex</h2>
+        <h2 class="inovex-title">InoVex</h2>
         <p>
-            InoVex est votre partenaire pour le développement web, l'automatisation, la création d'intelligences artificielles et la conception d'applications innovantes. Nous vous aidons à transformer vos idées en solutions technologiques performantes et adaptées à vos besoins.
+            InoVex est ton partenaire pour le développement web, l'automatisation, la création d'intelligences artificielles et la conception d'applications innovantes. Nous t'aidons à transformer tes idées en solutions technologiques performantes et adaptées à tes besoins.
         </p>
     </section>
 
     <!-- InnoMotech Section -->
     <section id="innomotech" class="section">
-        <h2>InnoMotech</h2>
+        <h2 class="innomotech-title">InnoMotech</h2>
         <p>
             InnoMotech se spécialise dans le développement de programmes sur microcontrôleurs, l'interconnexion de dispositifs via le web et la création de solutions domotiques avancées. Actuellement, nous développons des options technologiques pour les deux-roues, intégrant sécurité, connectivité et automatisation.
         </p>
@@ -434,8 +401,8 @@
 
     <!-- Footer -->
     <footer class="footer" id="contact">
-        <p>&copy; 2024 Puissance Galactique Corporate. Tous droits réservés.</p>
-        <p>Contactez-nous : info@puissancegalactique.com</p>
+        <p>&copy; 2024 InoVex et InnoMotech. Tous droits réservés.</p>
+        <p>Contacte-nous : <a href="mailto:info@puissancegalactique.com" style="color: var(--primary-color); text-decoration: underline;">info@puissancegalactique.com</a></p>
     </footer>
 
     <!-- Scripts -->
@@ -443,102 +410,114 @@
         // Fonction pour toggler le menu sur mobile
         function toggleMenu() {
             const navLinks = document.getElementById('nav-links');
+            const menuToggle = document.querySelector('.menu-toggle');
             navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('open');
+            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !isExpanded);
         }
 
         // Scroll Smooth
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        document.querySelectorAll('a[href^="#"], .cta').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const targetId = this.getAttribute('href') || (this.getAttribute('onclick') ? this.getAttribute('onclick').split("'")[1] : null);
+                if (targetId) {
+                    document.getElementById(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
                 // Fermer le menu si actif
                 const navLinks = document.getElementById('nav-links');
+                const menuToggle = document.querySelector('.menu-toggle');
                 if (navLinks.classList.contains('active')) {
                     navLinks.classList.remove('active');
+                    menuToggle.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
                 }
             });
         });
 
-        // Génération dynamique des étoiles pour chaque couche
-        function generateStars(container, numberOfStars, sizeRange, animationDelayRange, animationDurationRange) {
+        // Génération dynamique des étoiles
+        function generateStars(container, numberOfStars) {
+            const fragment = document.createDocumentFragment();
             for (let i = 0; i < numberOfStars; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
+
+                // Position aléatoire
                 star.style.top = `${Math.random() * 100}%`;
                 star.style.left = `${Math.random() * 100}%`;
-                const size = Math.random() * (sizeRange.max - sizeRange.min) + sizeRange.min;
+
+                // Taille aléatoire entre 1px et 4px
+                const size = Math.random() * 3 + 1; // Entre 1px et 4px
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
-                star.style.opacity = Math.random();
-                star.style.animationDelay = `${Math.random() * animationDelayRange.max + animationDelayRange.min}s`;
-                star.style.animationDuration = `${Math.random() * (animationDurationRange.max - animationDurationRange.min) + animationDurationRange.min}s`;
-                container.appendChild(star);
+
+                // Animation de scintillement avec un délai aléatoire
+                star.style.animationDelay = `${Math.random() * 5}s`;
+
+                // Animation de déplacement avec une durée aléatoire entre 10s et 25s
+                const duration = Math.random() * 15 + 10; // Entre 10s et 25s
+                star.style.animationDuration = `${duration}s`;
+
+                // Varier l'opacité pour un effet de profondeur
+                star.style.opacity = Math.random() * 0.8 + 0.2; // Entre 0.2 et 1
+
+                fragment.appendChild(star);
             }
+            container.appendChild(fragment);
         }
 
-        const layer1 = document.querySelector('.stars-container.layer1');
-        const layer2 = document.querySelector('.stars-container.layer2');
-        const layer3 = document.querySelector('.stars-container.layer3');
+        // Génération des étoiles pour chaque couche
+        const starsContainer1 = document.getElementById('stars-container1');
+        const starsContainer2 = document.getElementById('stars-container2');
+        const starsContainer3 = document.getElementById('stars-container3');
 
-        generateStars(layer1, 200, {min: 1, max: 3}, {min: 0, max: 10}, {max: 3, min: 2});
-        generateStars(layer2, 150, {min: 1, max: 2}, {min: 0, max: 10}, {max: 3, min: 2});
-        generateStars(layer3, 100, {min: 1, max: 2}, {min: 0, max: 10}, {max: 3, min: 2});
+        generateStars(starsContainer1, 150); // Couche 1
+        generateStars(starsContainer2, 100); // Couche 2
+        generateStars(starsContainer3, 50);  // Couche 3
 
-        // Fonction pour obtenir la position absolue d'un élément
-        function getElementPosition(el) {
-            const rect = el.getBoundingClientRect();
-            return {
-                x: rect.left + window.scrollX + rect.width / 2,
-                y: rect.top + window.scrollY + rect.height / 2
-            };
-        }
+        // Changement de texte du hero toutes les 4 secondes
+        const heroHeading = document.getElementById('hero-heading');
+        const phrases = [
+            'Bienvenue chez InoVex et InnoMotech',
+            'Tu es ici chez toi',
+            'Innovation et Technologie',
+            'Transformons tes idées'
+        ];
+        let currentPhraseIndex = 0;
 
-        // Fonction pour envoyer un message de planet1 à planet2
-        function sendMessage(fromPlanet, toPlanet, color) {
-            const messagesContainer = document.querySelector('.messages-container');
-            const message = document.createElement('div');
-            message.classList.add('message');
-            message.style.background = color;
+        setInterval(() => {
+            // Basculer l'index
+            currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
 
-            const fromPos = getElementPosition(fromPlanet);
-            const toPos = getElementPosition(toPlanet);
+            // Appliquer une transition de fondu
+            heroHeading.style.opacity = 0;
+            setTimeout(() => {
+                heroHeading.textContent = phrases[currentPhraseIndex];
+                heroHeading.style.opacity = 1;
+            }, 500); // Durée de la transition
+        }, 4000); // Toutes les 4 secondes
 
-            // Calculer la distance à parcourir
-            const dx = toPos.x - fromPos.x;
-            const dy = toPos.y - fromPos.y;
-
-            // Définir les propriétés CSS personnalisées pour l'animation
-            message.style.left = `${fromPos.x}px`;
-            message.style.top = `${fromPos.y}px`;
-            message.style.setProperty('--dx', `${dx}px`);
-            message.style.setProperty('--dy', `${dy}px`);
-            message.style.animationDuration = `${Math.sqrt(dx*dx + dy*dy)/200}s`; // Durée basée sur la distance
-
-            messagesContainer.appendChild(message);
-
-            // Supprimer le message après l'animation
-            message.addEventListener('animationend', () => {
-                message.remove();
+        // Fonction pour scroller vers une section spécifique
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({
+                behavior: 'smooth'
             });
         }
 
-        // Envoi périodique de messages (faisceaux supprimés)
-        setInterval(() => {
-            const planet1 = document.querySelector('.planet1');
-            const planet2 = document.querySelector('.planet2');
-
-            // Envoyer un message de planet1 à planet2
-            sendMessage(planet1, planet2, '#ffeb3b'); // Couleur des messages de InoVex
-
-            // Envoyer un message de planet2 à planet1
-            sendMessage(planet2, planet1, '#00e676'); // Couleur des messages de InnoMotech
-        }, 3000); // Toutes les 3 secondes
-
-        // Ajuster les positions des planètes lors du redimensionnement de la fenêtre
-        window.addEventListener('resize', () => {
-            // Optionnel : vous pouvez ajuster les positions ou réinitialiser les messages ici
+        // Accessibilité : Fermer le menu avec la touche Échap
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const navLinks = document.getElementById('nav-links');
+                const menuToggle = document.querySelector('.menu-toggle');
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    menuToggle.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            }
         });
     </script>
 </body>
