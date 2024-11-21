@@ -567,17 +567,15 @@
 
       /* Styles pour la section Services sur mobile */
       .services .service-cards {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
 
       .services .card {
-        min-width: 80%;
-        flex: 0 0 auto;
-        scroll-snap-align: center;
-        width: auto;
+        width: calc(100% - 80px);
+        margin-bottom: 20px;
       }
     }
   </style>
