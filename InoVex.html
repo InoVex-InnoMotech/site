@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -21,6 +21,11 @@
   <meta name="twitter:description" content="InoVex offre des solutions technologiques sur mesure, accessibles et solidaires pour propulser votre entreprise.">
   <meta name="twitter:image" content="https://source.unsplash.com/1600x900/?innovation">
 
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+  
   <!-- Style CSS -->
   <style>
     /* Définition des variables CSS pour les thèmes */
@@ -89,7 +94,7 @@
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-color: rgba(0, 0, 0, 0.6);
-      z-index: 5;
+      z-index: 50;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -200,7 +205,7 @@
       justify-content: space-between;
       align-items: center;
       background: var(--navbar-bg);
-      z-index: 4;
+      z-index: 40;
       transition: background 0.3s ease;
     }
 
@@ -374,6 +379,61 @@
       transition: color 1s ease;
     }
 
+    /* Section Features (Du premier code) */
+    .features {
+      padding: 80px 40px;
+      background-color: var(--background-color);
+    }
+
+    .features .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .features .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .features .feature-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .feature-card {
+      background-color: #222;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.7);
+    }
+
+    .feature-card svg {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: var(--text-color);
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: #ccc;
+    }
+
     /* Section À Propos */
     .about {
       padding: 80px 40px;
@@ -410,6 +470,7 @@
       display: none;
       max-width: 800px;
       margin: 0 auto;
+      text-align: left;
     }
 
     .about .about-text p {
@@ -534,6 +595,10 @@
       .services .card {
         width: calc(50% - 40px);
       }
+
+      .feature-card {
+        width: calc(50% - 40px);
+      }
     }
 
     @media (max-width: 768px) {
@@ -585,6 +650,10 @@
       .services .card {
         width: calc(100% - 80px);
       }
+
+      .feature-card {
+        width: calc(100% - 40px);
+      }
     }
 
     @media (max-width: 480px) {
@@ -596,8 +665,9 @@
         font-size: 12px;
       }
 
-      .services .card {
-        width: calc(100% - 80px);
+      .services .card,
+      .feature-card {
+        width: calc(100% - 40px);
       }
     }
   </style>
@@ -620,8 +690,9 @@
     <nav class="navbar" id="navbar" aria-label="Barre de navigation principale">
       <div class="logo-text">InoVex</div>
       <ul>
-        <li><a href="index.html">Accueil</a></li>
+        <li><a href="#hero">Accueil</a></li>
         <li><a href="#services">Services</a></li>
+        <li><a href="#features">Fonctionnalités</a></li>
         <li><a href="#about">À Propos</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -641,40 +712,255 @@
       </div>
     </section>
 
-    <!-- Section Services -->
-    <section class="services" id="services" aria-labelledby="servicesTitle">
-      <h2 id="servicesTitle">Nos Services</h2>
-      <div class="service-cards">
-        <div class="card" tabindex="0" aria-labelledby="service1Title">
-          <h3 id="service1Title">🌟 Site vitrine</h3>
-          <p>Des sites simples et modernes, parfaits pour présenter vos services. À partir de 290 € TTC.</p>
-        </div>
-        <div class="card" tabindex="0" aria-labelledby="service2Title">
-          <h3 id="service2Title">🚀 Site vitrine premium</h3>
-          <p>Un design plus travaillé, avec animations et SEO optimisé. À partir de 590 € TTC.</p>
-        </div>
-        <div class="card" tabindex="0" aria-labelledby="service3Title">
-          <h3 id="service3Title">💼 Site vitrine avancé</h3>
-          <p>Un site complet avec des effets interactifs et des fonctionnalités avancées. À partir de 790 € TTC.</p>
-        </div>
-        <div class="card" tabindex="0" aria-labelledby="service4Title">
-          <h3 id="service4Title">🛒 Boutique en ligne</h3>
-          <p>Paiements sécurisés, gestion des commandes et optimisation SEO. À partir de 1 199 € TTC.</p>
-        </div>
-        <div class="card" tabindex="0" aria-labelledby="service5Title">
-          <h3 id="service5Title">📱 Applications mobiles</h3>
-          <p>Applications sur mesure, publiées sur App Store et Google Play. À partir de 3 000 € TTC.</p>
-        </div>
-        <div class="card" tabindex="0" aria-labelledby="service6Title">
-          <h3 id="service6Title">🔐 Espace client sécurisé</h3>
-          <p>Donnez à vos clients un accès privé à leurs documents ou données. À partir de 399 € TTC.</p>
+    <!-- Section Features (Incorporation du premier code) -->
+    <section class="features" id="features" aria-labelledby="featuresTitle">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-16">Nos Fonctionnalités</h2>
+        <div class="feature-grid">
+          
+          <!-- Feature 1 -->
+          <div class="feature-card">
+            <svg class="w-12 h-12 text-blue-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M16 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6 6h9a3 3 0 0 1 3 3v3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h3 class="text-2xl font-semibold mb-4">Développement Web</h3>
+            <p class="text-gray-400">Création d'applications web performantes et intuitives avec les dernières technologies.</p>
+          </div>
+          
+          <!-- Feature 2 -->
+          <div class="feature-card">
+            <svg class="w-12 h-12 text-purple-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M12 2v20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 9l7-7 7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 15h14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h3 class="text-2xl font-semibold mb-4">Cloud Computing</h3>
+            <p class="text-gray-400">Solutions cloud scalables et sécurisées pour votre entreprise.</p>
+          </div>
+          
+          <!-- Feature 3 -->
+          <div class="feature-card">
+            <svg class="w-12 h-12 text-green-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M20 12A8 8 0 1 1 4 12a8 8 0 0 1 16 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h3 class="text-2xl font-semibold mb-4">Intelligence Artificielle</h3>
+            <p class="text-gray-400">Intégration d'IA avancée pour optimiser vos processus.</p>
+          </div>
+          
+          <!-- Feature 4 -->
+          <div class="feature-card">
+            <svg class="w-12 h-12 text-red-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M12 17a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 12V8a4 4 0 0 0-8 0v4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 12h8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h3 class="text-2xl font-semibold mb-4">Cybersécurité</h3>
+            <p class="text-gray-400">Protection de vos données avec les meilleurs standards de sécurité.</p>
+          </div>
+          
         </div>
       </div>
     </section>
 
-    <!-- Section À Propos -->
+    <!-- Section Services -->
+    <section class="services" id="services" aria-labelledby="servicesTitle">
+      <h2 id="servicesTitle" class="text-4xl font-bold text-center mb-16">Nos Services et Tarifs</h2>
+      
+      <!-- Web Development Pricing (Du premier code) -->
+      <div class="mb-20">
+        <h3 class="text-2xl font-semibold mb-8 text-blue-500">1. Création de Site Web</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Simple Site -->
+          <div class="bg-gray-900 rounded-3xl p-8">
+            <div class="flex justify-between items-start">
+              <h4 class="text-xl font-semibold mb-4">Site Vitrine Simple</h4>
+              <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">Basique</span>
+            </div>
+            <p class="text-4xl font-bold mb-6">290 €</p>
+            <ul class="space-y-3 text-gray-400">
+              <li>Jusqu'à 5 pages</li>
+              <li>Présentation basique</li>
+              <li>Design responsive</li>
+              <li>Version mobile (+50 €)</li>
+              <li>Pages sup. : 30 €/page</li>
+            </ul>
+          </div>
+          
+          <!-- Complex Site -->
+          <div class="bg-gray-900 rounded-3xl p-8 transform scale-105 border-2 border-blue-500">
+            <div class="flex justify-between items-start">
+              <h4 class="text-xl font-semibold mb-4">Site Vitrine Complexe</h4>
+              <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">Populaire</span>
+            </div>
+            <p class="text-4xl font-bold mb-6">590 €</p>
+            <ul class="space-y-3 text-gray-400">
+              <li>Design premium</li>
+              <li>Animations avancées</li>
+              <li>Fonctionnalités sur mesure</li>
+              <li>Version mobile (+50 €)</li>
+              <li>Pages sup. : 30 €/page</li>
+            </ul>
+          </div>
+          
+          <!-- E-commerce Site -->
+          <div class="bg-gray-900 rounded-3xl p-8">
+            <h4 class="text-xl font-semibold mb-4">Site E-commerce</h4>
+            <p class="text-4xl font-bold mb-6">À partir de 470 €</p>
+            <ul class="space-y-3 text-gray-400">
+              <li>Base site vitrine</li>
+              <li>Panier et paiement (+180 €)</li>
+              <li>Espace client (+290 €)</li>
+              <li>10 produits inclus</li>
+              <li>Abonnements (+90 €)</li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Mobile Apps Pricing (Du premier code) -->
+      <div class="mb-20">
+        <h3 class="text-2xl font-semibold mb-8 text-purple-500">2. Applications Mobiles</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <!-- Native App -->
+          <div class="bg-gray-900 rounded-3xl p-8">
+            <h4 class="text-xl font-semibold mb-4">Application Native</h4>
+            <div class="flex gap-4 mb-6">
+              <div>
+                <p class="text-sm text-gray-400 mb-1">Simple</p>
+                <p class="text-3xl font-bold">1 200 €</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-400 mb-1">Complexe</p>
+                <p class="text-3xl font-bold">1 600 €</p>
+              </div>
+            </div>
+            <ul class="space-y-3 text-gray-400">
+              <li>iOS ou Android au choix</li>
+              <li>Performance optimale</li>
+              <li>Interface native</li>
+              <li>Notifications push (+70 €)</li>
+              <li>Carte interactive (+70 €)</li>
+            </ul>
+          </div>
+          
+          <!-- Cross-Platform App -->
+          <div class="bg-gray-900 rounded-3xl p-8">
+            <h4 class="text-xl font-semibold mb-4">Application Cross-Platform</h4>
+            <div class="flex gap-4 mb-6">
+              <div>
+                <p class="text-sm text-gray-400 mb-1">Simple</p>
+                <p class="text-3xl font-bold">900 €</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-400 mb-1">Complexe</p>
+                <p class="text-3xl font-bold">1 300 €</p>
+              </div>
+            </div>
+            <ul class="space-y-3 text-gray-400">
+              <li>iOS + Android inclus</li>
+              <li>Interface unifiée</li>
+              <li>Développement optimisé</li>
+              <li>Notifications push (+70 €)</li>
+              <li>Carte interactive (+70 €)</li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- AI & Extra Services Pricing (Du premier code) -->
+      <div class="mb-20">
+        <h3 class="text-2xl font-semibold mb-8 text-green-500">3. Services IA & Compléments</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Chatbot & CRM -->
+          <div class="bg-gray-900 rounded-3xl p-8">
+            <h4 class="text-xl font-semibold mb-4">Chatbot & CRM</h4>
+            <ul class="space-y-3 text-gray-400">
+              <li>Chatbot basique : 50 €</li>
+              <li>Chatbot IA : 110 €</li>
+              <li>Gestion documents : 80 €</li>
+              <li>Espace client sécurisé</li>
+            </ul>
+          </div>
+          
+          <!-- Assistant IA -->
+          <div class="bg-gray-900 rounded-3xl p-8">
+            <h4 class="text-xl font-semibold mb-4">Assistant IA</h4>
+            <ul class="space-y-3 text-gray-400">
+              <li>Assistant personnalisé : 250 €</li>
+              <li>Automatisation : 250 €/tâche</li>
+              <li>Assistant vocal : 250 €</li>
+              <li>Commandes vocales : 500 €</li>
+            </ul>
+          </div>
+          
+          <!-- E-commerce Plus -->
+          <div class="bg-gray-900 rounded-3xl p-8">
+            <h4 class="text-xl font-semibold mb-4">E-commerce Plus</h4>
+            <ul class="space-y-3 text-gray-400">
+              <li>Produits illimités</li>
+              <li>Abonnements : +90 €</li>
+              <li>Multi-devises</li>
+              <li>Taxes internationales</li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- AI Services Pricing (Du premier code) -->
+      <div>
+        <h3 class="text-2xl font-semibold mb-8 text-green-500">4. Intelligence Artificielle</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Chatbot IA -->
+          <div class="bg-gray-900 rounded-3xl p-8">
+            <h4 class="text-xl font-semibold mb-4">Chatbot IA</h4>
+            <p class="text-4xl font-bold mb-6">110 €</p>
+            <ul class="space-y-3 text-gray-400">
+              <li>Conversation naturelle</li>
+              <li>Apprentissage continu</li>
+              <li>Intégration site web</li>
+            </ul>
+          </div>
+          
+          <!-- Assistant IA -->
+          <div class="bg-gray-900 rounded-3xl p-8">
+            <h4 class="text-xl font-semibold mb-4">Assistant IA</h4>
+            <p class="text-4xl font-bold mb-6">250 €</p>
+            <ul class="space-y-3 text-gray-400">
+              <li>Personnalisation avancée</li>
+              <li>Automatisation des tâches</li>
+              <li>Intégration CRM</li>
+            </ul>
+          </div>
+          
+          <!-- Assistant Vocal -->
+          <div class="bg-gray-900 rounded-3xl p-8">
+            <h4 class="text-xl font-semibold mb-4">Assistant Vocal</h4>
+            <p class="text-4xl font-bold mb-6">250 €</p>
+            <ul class="space-y-3 text-gray-400">
+              <li>Reconnaissance vocale</li>
+              <li>Synthèse vocale</li>
+              <li>Commandes personnalisées</li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Pricing from First Code integrated into Services -->
+    </section>
+
+    <!-- Section About -->
     <section class="about" id="about" aria-labelledby="aboutTitle">
-      <h2 id="aboutTitle">À Propos de InoVex</h2>
+      <h2 id="aboutTitle" class="text-4xl font-bold text-center mb-8">À Propos de InoVex</h2>
       <button class="toggle-about-button" aria-expanded="false">Lire la suite</button>
       <div class="about-text" id="aboutText">
         <p>Chez InoVex, tout commence par une histoire personnelle. Je m’appelle Yannick, et à la base, je ne faisais pas de web. Mon domaine, c’était le code sur des contrôleurs et des automates pour automatiser des systèmes. Puis, pour un projet personnel, j’ai eu besoin d’une application pour commander mes systèmes. Je me suis tourné vers les agences pour obtenir un devis… et là, j’ai eu un choc : les tarifs étaient astronomiques.</p>
@@ -689,7 +975,7 @@
 
     <!-- Section Contact -->
     <section class="contact" id="contact" aria-labelledby="contactTitle">
-      <h2 id="contactTitle">Contactez-Nous</h2>
+      <h2 id="contactTitle" class="text-4xl font-bold text-center mb-8">Contactez-Nous</h2>
       <form action="#" method="post" aria-describedby="formDescription">
         <div id="formDescription" class="visually-hidden">Remplissez le formulaire ci-dessous pour nous contacter.</div>
         <input type="text" name="name" placeholder="Votre Nom" required aria-label="Votre Nom">
@@ -887,5 +1173,6 @@
       toggleAboutButton.textContent = isExpanded ? 'Lire la suite' : 'Réduire';
     });
   </script>
+
 </body>
 </html>
