@@ -181,6 +181,7 @@
       position: relative;
       padding: 80px 20px 20px;
       text-align: center;
+      overflow: hidden;
     }
 
     .hero::after {
@@ -194,6 +195,14 @@
       z-index: 1;
     }
 
+    /* Positionnement du Canvas */
+    #codeCanvas {
+      width: 100%;
+      height: 200px;
+      margin-top: 20px;
+    }
+
+    /* Ajustement du contenu héro pour qu'il soit au-dessus du canvas */
     .hero-content {
       position: relative;
       z-index: 2;
@@ -645,6 +654,7 @@
     <section class="hero" id="hero" tabindex="-1">
       <div class="hero-content">
         <h1>InoVex - Innovation sur mesure pour entrepreneurs</h1>
+        <canvas id="codeCanvas"></canvas> <!-- Canvas pour l'Animation de Code -->
         <p>Des solutions technologiques personnalisées qui reflètent l'identité de votre entreprise, sans les tarifs exorbitants.</p>
         <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView();" aria-label="Commencer">C'est parti</button>
       </div>
@@ -861,6 +871,100 @@
         menuToggle.setAttribute('aria-expanded', false);
       }
     });
+
+    // Animation de Code sur le Canvas
+    const canvas = document.getElementById('codeCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Ajuster la taille du canvas
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Lignes de code à afficher
+    const lines = [
+      "// Initialisation des modules",
+      "import React from 'react';",
+      "import { useState } from 'react';",
+      "",
+      "// Composant principal",
+      "const App = () => {",
+      "  const [count, setCount] = useState(0);",
+      "",
+      "  const increment = () => {",
+      "    setCount(count + 1);",
+      "    console.log(`Compteur: ${count + 1}`);",
+      "  };",
+      "",
+      "  return (",
+      "    <div className='app'>",
+      "      <h1>Bienvenue chez InoVex</h1>",
+      "      <button onClick={increment}>Incrémenter</button>",
+      "      <p>Valeur actuelle: {count}</p>",
+      "    </div>",
+      "  );",
+      "};",
+      "",
+      "export default App;"
+    ];
+
+    let currentLine = 0;
+    let currentChar = 0;
+    let typingSpeed = 100; // Vitesse de frappe en millisecondes
+    let erasing = false;
+    let pauseBetween = 2000; // Pause avant de commencer à effacer
+    let showCursor = true;
+
+    function type() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = '16px "Source Code Pro", monospace';
+      ctx.fillStyle = 'rgba(128, 0, 128, 0.8)'; // Couleur violette
+      ctx.textBaseline = 'top';
+
+      const lineHeight = 20;
+      lines.slice(0, currentLine).forEach((line, index) => {
+        ctx.fillText(line, 20, 20 + index * lineHeight);
+      });
+
+      if (!erasing) {
+        const line = lines[currentLine];
+        ctx.fillText(line.substring(0, currentChar + 1), 20, 20 + currentLine * lineHeight);
+        currentChar++;
+        if (currentChar === line.length) {
+          erasing = true;
+          setTimeout(type, pauseBetween);
+          return;
+        }
+      } else {
+        const line = lines[currentLine];
+        ctx.fillText(line.substring(0, currentChar - 1), 20, 20 + currentLine * lineHeight);
+        currentChar--;
+        if (currentChar === 0) {
+          erasing = false;
+          currentLine = (currentLine + 1) % lines.length;
+        }
+      }
+
+      // Gestion du curseur clignotant
+      if (showCursor && !erasing) {
+        ctx.fillStyle = 'rgba(128, 0, 128, 0.8)'; // Couleur violette
+        const textWidth = ctx.measureText(lines[currentLine].substring(0, currentChar)).width;
+        ctx.fillRect(20 + textWidth, 20 + currentLine * lineHeight, 10, 16);
+      }
+
+      setTimeout(type, typingSpeed);
+    }
+
+    // Alternance du curseur clignotant
+    setInterval(() => {
+      showCursor = !showCursor;
+    }, 500);
+
+    type();
   </script>
 
 </body>
