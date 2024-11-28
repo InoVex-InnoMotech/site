@@ -179,13 +179,8 @@
         .hero-content {
             position: relative;
             z-index: 3;
-            opacity: 0;
-            animation: fadeIn 2s forwards;
+            opacity: 1; /* Modifié pour enlever l'animation */
             padding: 0 20px;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
         }
 
         .hero h1 {
@@ -594,27 +589,7 @@
             generateStars(starsContainer3, 25); // Couche 3 réduite
         }
 
-        // Changement de texte du hero toutes les 4 secondes
-        const heroHeading = document.getElementById('hero-heading');
-        const phrases = [
-            'Bienvenue chez InoVex et InnoMotech',
-            'Tu es ici chez toi',
-            'Innovation et Technologie',
-            'Transformons tes idées'
-        ];
-        let currentPhraseIndex = 0;
-
-        setInterval(() => {
-            // Basculer l'index
-            currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-
-            // Appliquer une transition de fondu
-            heroHeading.style.opacity = 0;
-            setTimeout(() => {
-                heroHeading.textContent = phrases[currentPhraseIndex];
-                heroHeading.style.opacity = 1;
-            }, 500); // Durée de la transition
-        }, 4000); // Toutes les 4 secondes
+        // Supprimé : Changement de texte du hero
 
         // Fonction pour scroller vers une section spécifique
         function scrollToSection(id) {
