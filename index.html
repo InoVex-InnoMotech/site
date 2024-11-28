@@ -126,20 +126,6 @@
             z-index: 1;
         }
 
-        /* Overlay supprimé pour enlever le calque sur la photo */
-        /*
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--overlay-color);
-            z-index: 2;
-        }
-        */
-
         /* Styles des Étoiles */
         .star {
             position: absolute;
@@ -181,14 +167,34 @@
         .hero-content {
             position: relative;
             z-index: 3;
-            opacity: 1; /* Modifié pour enlever l'animation */
             padding: 0 20px;
         }
+
+        /* Bulle Semi-Transparente Derrière le Texte */
+        .text-content {
+            position: relative;
+            padding: 20px;
+        }
+
+        .text-content::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: rgba(0, 0, 0, 0.5); /* Couleur noire semi-transparente */
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        /* Suppression des Animations */
+        /* Les animations sont supprimées pour le texte */
 
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 20px;
-            color: var(--text-color);
+            color: var(--text-color); /* Texte en blanc */
             text-shadow: 2px 2px 8px #000;
             transition: opacity 0.5s;
         }
@@ -197,7 +203,8 @@
             font-size: 1.125rem;
             max-width: 600px;
             margin: 0 auto 30px;
-            color: black; /* Texte en noir */
+            color: var(--text-color); /* Texte en blanc */
+            text-shadow: 2px 2px 8px #000;
         }
 
         .hero .cta {
@@ -233,7 +240,8 @@
         .section h2 {
             font-size: 2rem;
             margin-bottom: 20px;
-            color: var(--primary-color-end); /* Utilisation de bleu */
+            color: var(--text-color); /* Texte en blanc */
+            text-shadow: 2px 2px 8px #000;
         }
 
         /* Styles personnalisés pour InoVex et InnoMotech */
@@ -245,18 +253,22 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             color: transparent;
+            text-shadow: 2px 2px 8px #000;
         }
 
         .innomotech-title {
             font-size: 2rem;
             margin-bottom: 20px;
-            color: var(--primary-color-end); /* Utilisation de bleu */
+            color: var(--text-color); /* Texte en blanc */
+            text-shadow: 2px 2px 8px #000;
         }
 
         .section p {
             max-width: 800px;
             font-size: 1.125rem;
             line-height: 1.6;
+            color: var(--text-color); /* Texte en blanc */
+            text-shadow: 2px 2px 8px #000;
         }
 
         /* Footer */
@@ -467,8 +479,10 @@
         <div class="stars-container layer3" id="stars-container3"></div>
 
         <div class="hero-content">
-            <h1 id="hero-heading">Bienvenue chez InoVex et InnoMotech</h1>
-            <p>Découvre nos solutions innovantes en développement web, automatisation, intelligence artificielle et domotique.</p>
+            <div class="text-content">
+                <h1 id="hero-heading">Bienvenue chez InoVex et InnoMotech</h1>
+                <p>Découvre nos solutions innovantes en développement web, automatisation, intelligence artificielle et domotique.</p>
+            </div>
             <button class="cta" onclick="scrollToSection('inovex')">En savoir plus</button>
         </div>
     </section>
@@ -591,8 +605,6 @@
             generateStars(starsContainer2, 50); // Couche 2 réduite
             generateStars(starsContainer3, 25); // Couche 3 réduite
         }
-
-        // Supprimé : Changement de texte du hero
 
         // Fonction pour scroller vers une section spécifique
         function scrollToSection(id) {
