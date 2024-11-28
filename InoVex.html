@@ -341,44 +341,7 @@
       transition: color 1s ease;
     }
 
-    .services .service-cards {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding-bottom: 20px;
-      transition: all 0.3s ease;
-    }
-
-    .services .card {
-      background: var(--service-card-bg);
-      padding: 30px;
-      border-radius: 10px;
-      width: calc(33.333% - 40px);
-      box-sizing: border-box;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 1s ease;
-      cursor: pointer;
-    }
-
-    .services .card:hover,
-    .services .card:focus-within {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 20px rgba(59, 130, 246, 0.5);
-    }
-
-    .services .card h3 {
-      font-size: 24px;
-      margin-bottom: 15px;
-      color: var(--primary-color);
-      transition: color 1s ease;
-    }
-
-    .services .card p {
-      font-size: 16px;
-      line-height: 1.6;
-      color: var(--text-color);
-      transition: color 1s ease;
-    }
+    /* Suppression des anciennes classes .service-cards et .service-card */
 
     /* Section Features */
     .features {
@@ -395,50 +358,41 @@
     }
 
     .features .feature-grid {
-      display: grid;
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-wrap: wrap;
       gap: 20px;
+      justify-content: center;
     }
 
-    @media (min-width: 768px) {
-      .features .feature-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .features .feature-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    .feature-card {
+    .features .feature-card {
       background-color: #222;
       padding: 20px;
       border-radius: 15px;
+      flex: 1 1 calc(25% - 40px);
+      max-width: calc(25% - 40px);
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .feature-card:hover {
+    .features .feature-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 4px 14px rgba(59, 130, 246, 0.7);
     }
 
-    .feature-card svg {
+    .features .feature-card svg {
       width: 50px;
       height: 50px;
       margin-bottom: 15px;
       color: var(--primary-color);
     }
 
-    .feature-card h3 {
+    .features .feature-card h3 {
       font-size: 20px;
       margin-bottom: 10px;
       color: var(--text-color);
     }
 
-    .feature-card p {
+    .features .feature-card p {
       font-size: 14px;
       color: #ccc;
     }
@@ -598,6 +552,7 @@
       .features .feature-card {
         flex: 0 0 80%;
         scroll-snap-align: start;
+        max-width: 80%;
       }
 
       /* Masquer la barre de défilement pour un aspect plus propre */
@@ -611,26 +566,30 @@
       }
 
       /* Section Services */
-      .services .service-cards {
+      .services {
+        padding: 80px 20px;
+      }
+
+      .services .grid {
         display: flex;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         gap: 20px;
         padding-bottom: 20px;
-        -webkit-overflow-scrolling: touch;
       }
 
-      .services .card {
+      .services .grid > div {
         flex: 0 0 80%;
         scroll-snap-align: start;
+        max-width: 80%;
       }
 
       /* Masquer la barre de défilement pour un aspect plus propre */
-      .services .service-cards::-webkit-scrollbar {
+      .services .grid::-webkit-scrollbar {
         display: none;
       }
 
-      .services .service-cards {
+      .services .grid {
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
       }
@@ -658,12 +617,6 @@
 
       /* Styles des flèches de navigation */
       .arrow {
-        display: none; /* Initialement cachées */
-      }
-
-      /* Afficher les flèches uniquement sur mobile */
-      .features .arrow,
-      .services .arrow {
         display: block;
         position: absolute;
         top: 50%;
@@ -701,9 +654,10 @@
         font-size: 12px;
       }
 
-      .services .card,
-      .feature-card {
-        width: calc(100% - 40px);
+      .services .grid > div,
+      .features .feature-card {
+        min-width: 90%;
+        max-width: 90%;
       }
     }
   </style>
@@ -725,7 +679,7 @@
     <!-- Barre de navigation -->
     <nav class="navbar" id="navbar" aria-label="Barre de navigation principale">
       <div class="logo-text">InoVex</div>
-      <ul>
+      <ul id="navbarMenu">
         <li><a href="#hero">Accueil</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#features">Fonctionnalités</a></li>
@@ -748,7 +702,7 @@
       </div>
     </section>
 
-    <!-- Section Features (Incorporation du premier code) -->
+    <!-- Section Features -->
     <section class="features" id="features" aria-labelledby="featuresTitle">
       <div class="max-w-6xl mx-auto relative">
         <h2 id="featuresTitle" class="text-4xl font-bold text-center mb-16">Nos Fonctionnalités</h2>
@@ -816,212 +770,169 @@
 
     <!-- Section Services -->
     <section class="services" id="services" aria-labelledby="servicesTitle">
-      <div class="max-w-6xl mx-auto relative">
-        <h2 id="servicesTitle" class="text-4xl font-bold text-center mb-16">Nos Services et Tarifs</h2>
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 id="servicesTitle" class="text-4xl font-bold text-center text-white mb-16">Nos Services et Tarifs</h2>
         
-        <!-- Flèches de navigation pour mobile -->
-        <button class="arrow left-arrow" aria-label="Précédent">
-          <!-- SVG pour la flèche gauche -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <button class="arrow right-arrow" aria-label="Suivant">
-          <!-- SVG pour la flèche droite -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Création de Site Web -->
+          <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+            <h3 class="text-2xl font-semibold mb-6 text-blue-500">Création de Site Web</h3>
+            
+            <!-- Site Vitrine Simple -->
+            <div class="bg-gray-900 rounded-lg p-4 mb-4">
+              <div class="flex justify-between items-center mb-4">
+                <h4 class="text-lg font-medium text-white">Site Vitrine Simple</h4>
+                <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full">290 €</span>
+              </div>
+              <ul class="space-y-2 text-gray-400">
+                <li>Jusqu'à 5 pages</li>
+                <li>Design responsive</li>
+                <li>Version mobile (+50 €)</li>
+              </ul>
+            </div>
 
-        <div class="service-cards">
-          <!-- Web Development Pricing (Du premier code) -->
-          <div class="mb-20">
-            <h3 class="text-2xl font-semibold mb-8 text-blue-500">1. Création de Site Web</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-              
-              <!-- Simple Site -->
-              <div class="bg-gray-900 rounded-3xl p-8">
-                <div class="flex justify-between items-start">
-                  <h4 class="text-xl font-semibold mb-4">Site Vitrine Simple</h4>
-                  <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">Basique</span>
-                </div>
-                <p class="text-4xl font-bold mb-6">290 €</p>
-                <ul class="space-y-3 text-gray-400">
-                  <li>Jusqu'à 5 pages</li>
-                  <li>Présentation basique</li>
-                  <li>Design responsive</li>
-                  <li>Version mobile (+50 €)</li>
-                  <li>Pages sup. : 30 €/page</li>
-                </ul>
+            <!-- Site Vitrine Complexe -->
+            <div class="bg-gray-900 rounded-lg p-4 mb-4">
+              <div class="flex justify-between items-center mb-4">
+                <h4 class="text-lg font-medium text-white">Site Vitrine Complexe</h4>
+                <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full">590 €</span>
               </div>
-              
-              <!-- Complex Site -->
-              <div class="bg-gray-900 rounded-3xl p-8 transform scale-105 border-2 border-blue-500">
-                <div class="flex justify-between items-start">
-                  <h4 class="text-xl font-semibold mb-4">Site Vitrine Complexe</h4>
-                  <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">Populaire</span>
-                </div>
-                <p class="text-4xl font-bold mb-6">590 €</p>
-                <ul class="space-y-3 text-gray-400">
-                  <li>Design premium</li>
-                  <li>Animations avancées</li>
-                  <li>Fonctionnalités sur mesure</li>
-                  <li>Version mobile (+50 €)</li>
-                  <li>Pages sup. : 30 €/page</li>
-                </ul>
+              <ul class="space-y-2 text-gray-400">
+                <li>Design premium</li>
+                <li>Animations avancées</li>
+                <li>Fonctionnalités sur mesure</li>
+                <li>Version mobile (+50 €)</li>
+                <li>Pages sup. : 30 €/page</li>
+              </ul>
+            </div>
+
+            <!-- Site E-commerce -->
+            <div class="bg-gray-900 rounded-lg p-4">
+              <div class="flex justify-between items-center mb-4">
+                <h4 class="text-lg font-medium text-white">Site E-commerce</h4>
+                <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full">À partir de 470 €</span>
               </div>
-              
-              <!-- E-commerce Site -->
-              <div class="bg-gray-900 rounded-3xl p-8">
-                <h4 class="text-xl font-semibold mb-4">Site E-commerce</h4>
-                <p class="text-4xl font-bold mb-6">À partir de 470 €</p>
-                <ul class="space-y-3 text-gray-400">
-                  <li>Base site vitrine</li>
-                  <li>Panier et paiement (+180 €)</li>
-                  <li>Espace client (+290 €)</li>
-                  <li>10 produits inclus</li>
-                  <li>Abonnements (+90 €)</li>
-                </ul>
-              </div>
-              
+              <ul class="space-y-2 text-gray-400">
+                <li>Base site vitrine</li>
+                <li>Panier et paiement (+180 €)</li>
+                <li>Espace client (+290 €)</li>
+                <li>10 produits inclus</li>
+                <li>Abonnements (+90 €)</li>
+              </ul>
             </div>
           </div>
+          
+          <!-- Applications Mobiles -->
+          <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+            <h3 class="text-2xl font-semibold mb-6 text-purple-500">Applications Mobiles</h3>
+            
+            <!-- Application Native -->
+            <div class="bg-gray-900 rounded-lg p-4 mb-4">
+              <div class="flex justify-between items-center mb-4">
+                <h4 class="text-lg font-medium text-white">Application Native</h4>
+                <span class="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full">1 200 €</span>
+              </div>
+              <ul class="space-y-2 text-gray-400">
+                <li>iOS ou Android au choix</li>
+                <li>Performance optimale</li>
+                <li>Interface native</li>
+                <li>Notifications push (+70 €)</li>
+                <li>Carte interactive (+70 €)</li>
+              </ul>
+            </div>
 
-          <!-- Mobile Apps Pricing (Du premier code) -->
-          <div class="mb-20">
-            <h3 class="text-2xl font-semibold mb-8 text-purple-500">2. Applications Mobiles</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-              
-              <!-- Native App -->
-              <div class="bg-gray-900 rounded-3xl p-8">
-                <h4 class="text-xl font-semibold mb-4">Application Native</h4>
-                <div class="flex gap-4 mb-6">
-                  <div>
-                    <p class="text-sm text-gray-400 mb-1">Simple</p>
-                    <p class="text-3xl font-bold">1 200 €</p>
-                  </div>
-                  <div>
-                    <p class="text-sm text-gray-400 mb-1">Complexe</p>
-                    <p class="text-3xl font-bold">1 600 €</p>
-                  </div>
-                </div>
-                <ul class="space-y-3 text-gray-400">
-                  <li>iOS ou Android au choix</li>
-                  <li>Performance optimale</li>
-                  <li>Interface native</li>
-                  <li>Notifications push (+70 €)</li>
-                  <li>Carte interactive (+70 €)</li>
-                </ul>
+            <!-- Application Cross-Platform -->
+            <div class="bg-gray-900 rounded-lg p-4">
+              <div class="flex justify-between items-center mb-4">
+                <h4 class="text-lg font-medium text-white">Application Cross-Platform</h4>
+                <span class="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full">900 €</span>
               </div>
-              
-              <!-- Cross-Platform App -->
-              <div class="bg-gray-900 rounded-3xl p-8">
-                <h4 class="text-xl font-semibold mb-4">Application Cross-Platform</h4>
-                <div class="flex gap-4 mb-6">
-                  <div>
-                    <p class="text-sm text-gray-400 mb-1">Simple</p>
-                    <p class="text-3xl font-bold">900 €</p>
-                  </div>
-                  <div>
-                    <p class="text-sm text-gray-400 mb-1">Complexe</p>
-                    <p class="text-3xl font-bold">1 300 €</p>
-                  </div>
-                </div>
-                <ul class="space-y-3 text-gray-400">
-                  <li>iOS + Android inclus</li>
-                  <li>Interface unifiée</li>
-                  <li>Développement optimisé</li>
-                  <li>Notifications push (+70 €)</li>
-                  <li>Carte interactive (+70 €)</li>
-                </ul>
-              </div>
-              
+              <ul class="space-y-2 text-gray-400">
+                <li>iOS + Android inclus</li>
+                <li>Interface unifiée</li>
+                <li>Développement optimisé</li>
+                <li>Notifications push (+70 €)</li>
+                <li>Carte interactive (+70 €)</li>
+              </ul>
             </div>
           </div>
+          
+          <!-- Services IA & Compléments -->
+          <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+            <h3 class="text-2xl font-semibold mb-6 text-green-500">Services IA & Compléments</h3>
+            
+            <!-- Chatbot & CRM -->
+            <div class="bg-gray-900 rounded-lg p-4 mb-4">
+              <div class="flex justify-between items-center mb-4">
+                <h4 class="text-lg font-medium text-white">Chatbot & CRM</h4>
+                <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full">50 €</span>
+              </div>
+              <ul class="space-y-2 text-gray-400">
+                <li>Chatbot basique : 50 €</li>
+                <li>Chatbot IA : 110 €</li>
+                <li>Gestion documents : 80 €</li>
+                <li>Espace client sécurisé</li>
+              </ul>
+            </div>
 
-          <!-- AI & Extra Services Pricing (Du premier code) -->
-          <div class="mb-20">
-            <h3 class="text-2xl font-semibold mb-8 text-green-500">3. Services IA & Compléments</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-              
-              <!-- Chatbot & CRM -->
-              <div class="bg-gray-900 rounded-3xl p-8">
-                <h4 class="text-xl font-semibold mb-4">Chatbot & CRM</h4>
-                <ul class="space-y-3 text-gray-400">
-                  <li>Chatbot basique : 50 €</li>
-                  <li>Chatbot IA : 110 €</li>
-                  <li>Gestion documents : 80 €</li>
-                  <li>Espace client sécurisé</li>
-                </ul>
+            <!-- Assistant IA -->
+            <div class="bg-gray-900 rounded-lg p-4">
+              <div class="flex justify-between items-center mb-4">
+                <h4 class="text-lg font-medium text-white">Assistant IA</h4>
+                <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full">250 €</span>
               </div>
-              
-              <!-- Assistant IA -->
-              <div class="bg-gray-900 rounded-3xl p-8">
-                <h4 class="text-xl font-semibold mb-4">Assistant IA</h4>
-                <ul class="space-y-3 text-gray-400">
-                  <li>Assistant personnalisé : 250 €</li>
-                  <li>Automatisation : 250 €/tâche</li>
-                  <li>Assistant vocal : 250 €</li>
-                  <li>Commandes vocales : 500 €</li>
-                </ul>
-              </div>
-              
-              <!-- E-commerce Plus -->
-              <div class="bg-gray-900 rounded-3xl p-8">
-                <h4 class="text-xl font-semibold mb-4">E-commerce Plus</h4>
-                <ul class="space-y-3 text-gray-400">
-                  <li>Produits illimités</li>
-                  <li>Abonnements : +90 €</li>
-                  <li>Multi-devises</li>
-                  <li>Taxes internationales</li>
-                </ul>
-              </div>
-              
+              <ul class="space-y-2 text-gray-400">
+                <li>Assistant personnalisé : 250 €</li>
+                <li>Automatisation : 250 €/tâche</li>
+                <li>Assistant vocal : 250 €</li>
+                <li>Commandes vocales : 500 €</li>
+              </ul>
             </div>
           </div>
+          
+          <!-- Intelligence Artificielle -->
+          <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+            <h3 class="text-2xl font-semibold mb-6 text-green-500">Intelligence Artificielle</h3>
+            
+            <!-- Chatbot IA -->
+            <div class="bg-gray-900 rounded-lg p-4 mb-4">
+              <div class="flex justify-between items-center mb-4">
+                <h4 class="text-lg font-medium text-white">Chatbot IA</h4>
+                <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full">110 €</span>
+              </div>
+              <ul class="space-y-2 text-gray-400">
+                <li>Conversation naturelle</li>
+                <li>Apprentissage continu</li>
+                <li>Intégration site web</li>
+              </ul>
+            </div>
 
-          <!-- AI Services Pricing (Du premier code) -->
-          <div>
-            <h3 class="text-2xl font-semibold mb-8 text-green-500">4. Intelligence Artificielle</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-              
-              <!-- Chatbot IA -->
-              <div class="bg-gray-900 rounded-3xl p-8">
-                <h4 class="text-xl font-semibold mb-4">Chatbot IA</h4>
-                <p class="text-4xl font-bold mb-6">110 €</p>
-                <ul class="space-y-3 text-gray-400">
-                  <li>Conversation naturelle</li>
-                  <li>Apprentissage continu</li>
-                  <li>Intégration site web</li>
-                </ul>
+            <!-- Assistant IA -->
+            <div class="bg-gray-900 rounded-lg p-4 mb-4">
+              <div class="flex justify-between items-center mb-4">
+                <h4 class="text-lg font-medium text-white">Assistant IA</h4>
+                <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full">250 €</span>
               </div>
-              
-              <!-- Assistant IA -->
-              <div class="bg-gray-900 rounded-3xl p-8">
-                <h4 class="text-xl font-semibold mb-4">Assistant IA</h4>
-                <p class="text-4xl font-bold mb-6">250 €</p>
-                <ul class="space-y-3 text-gray-400">
-                  <li>Personnalisation avancée</li>
-                  <li>Automatisation des tâches</li>
-                  <li>Intégration CRM</li>
-                </ul>
+              <ul class="space-y-2 text-gray-400">
+                <li>Personnalisation avancée</li>
+                <li>Automatisation des tâches</li>
+                <li>Intégration CRM</li>
+              </ul>
+            </div>
+
+            <!-- Assistant Vocal -->
+            <div class="bg-gray-900 rounded-lg p-4">
+              <div class="flex justify-between items-center mb-4">
+                <h4 class="text-lg font-medium text-white">Assistant Vocal</h4>
+                <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full">250 €</span>
               </div>
-              
-              <!-- Assistant Vocal -->
-              <div class="bg-gray-900 rounded-3xl p-8">
-                <h4 class="text-xl font-semibold mb-4">Assistant Vocal</h4>
-                <p class="text-4xl font-bold mb-6">250 €</p>
-                <ul class="space-y-3 text-gray-400">
-                  <li>Reconnaissance vocale</li>
-                  <li>Synthèse vocale</li>
-                  <li>Commandes personnalisées</li>
-                </ul>
-              </div>
-              
+              <ul class="space-y-2 text-gray-400">
+                <li>Reconnaissance vocale</li>
+                <li>Synthèse vocale</li>
+                <li>Commandes personnalisées</li>
+              </ul>
             </div>
           </div>
-
-          <!-- Pricing from First Code integrated into Services -->
         </div>
       </div>
     </section>
@@ -1243,11 +1154,13 @@
 
     // Fonctionnalité pour les flèches de navigation
     function addArrowFunctionality(sectionClass) {
-      const arrows = document.querySelectorAll(`.${sectionClass} .arrow`);
+      const section = document.querySelector(`.${sectionClass}`);
+      const arrows = section.querySelectorAll('.arrow');
+      const grid = section.querySelector(`.${sectionClass === 'features' ? 'feature-grid' : 'grid'}`);
+
       arrows.forEach(arrow => {
         arrow.addEventListener('click', () => {
           const isLeft = arrow.classList.contains('left-arrow');
-          const grid = arrow.parentElement.querySelector(`.${sectionClass} .${sectionClass === 'features' ? 'feature-grid' : 'service-cards'}`);
           const scrollAmount = grid.clientWidth * 0.8; // Ajustez la quantité de défilement
 
           if (isLeft) {
