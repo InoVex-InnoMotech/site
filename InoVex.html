@@ -30,32 +30,18 @@
   <style>
     /* Définition des variables CSS pour les thèmes */
     :root {
-      --background-color: #000;
-      --text-color: #fff;
+      --background-color: #1a1a1a;
+      --text-color: #e0e0e0;
       --primary-color: #3b82f6;
       --secondary-color: #8b5cf6;
       --tertiary-color: #ec4899;
-      --navbar-bg: rgba(0, 0, 0, 0.8);
-      --service-card-bg: #222;
-      --contact-bg: #111;
-      --footer-bg: #000;
-      --footer-text: #555;
-      --button-bg: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
-      --button-hover-scale: 1.05;
-      --overlay-bg: rgba(0, 0, 0, 0.8);
-      --logo-gradient: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
-    }
-
-    /* Thème clair avec des couleurs harmonieuses */
-    .light-theme {
-      --background-color: #1a1a1a;
-      --text-color: #e0e0e0;
       --navbar-bg: rgba(26, 26, 26, 0.9);
       --service-card-bg: #333;
       --contact-bg: #2c2c2c;
       --footer-bg: #1a1a1a;
       --footer-text: #aaa;
-      --overlay-bg: rgba(26, 26, 26, 0.8);
+      --button-bg: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      --button-hover-scale: 1.05;
       --logo-gradient: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
     }
 
@@ -81,182 +67,107 @@
       transition: background-color 1s ease, color 1s ease;
     }
 
-    /* Superposition pour l'animation initiale */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('https://raw.githubusercontent.com/InoVex-InnoMotech/Location/main/images/site%20ia%20grock%20inovex.jfif');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-color: rgba(0, 0, 0, 0.6);
-      z-index: 50;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-      overflow: hidden;
-    }
-
-    .overlay.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    /* Arrière-plan des étoiles */
-    .stars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 1;
-      background: radial-gradient(circle at center, transparent 0%, transparent 50%, rgba(255, 255, 255, 0.1) 70%, transparent 80%);
-      animation: rotateStars 120s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes rotateStars {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: var(--text-color);
-      border-radius: 50%;
-      animation: twinkle 2s infinite ease-in-out;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 1; }
-    }
-
-    /* Conteneur de l'animation de code */
-    .code-container {
-      font-family: 'Source Code Pro', monospace;
-      font-size: 16px;
-      line-height: 1.6;
-      padding: 20px;
-      max-width: 800px;
-      margin: 0 auto;
-      white-space: pre-wrap;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      background-color: rgba(0, 0, 0, 0.4);
-      border-radius: 10px;
-      color: red;
-    }
-
-    .code-container.visible {
-      opacity: 1;
-    }
-
-    .code-line {
-      height: 24px;
-      white-space: pre;
-    }
-
-    /* Curseur de machine à écrire */
-    .cursor {
-      display: inline-block;
-      width: 10px;
-      background-color: #00FF00;
-      margin-left: 2px;
-      animation: blink 1s steps(1) infinite;
-    }
-
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      50.01%, 100% { opacity: 0; }
-    }
-
     /* Contenu principal */
     .main-content {
-      display: none;
-      opacity: 0;
-      transition: opacity 1s ease;
-      z-index: 2;
+      padding-bottom: 60px; /* Espace pour la navbar fixe en bas */
     }
 
-    .main-content.active {
-      display: block;
-      opacity: 1;
-    }
-
-    /* Barre de navigation */
-    .navbar {
+    /* Barre de navigation supérieure */
+    .navbar-top {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      padding: 20px 40px;
+      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: var(--navbar-bg);
-      z-index: 40;
+      z-index: 50;
       transition: background 0.3s ease;
     }
 
-    .navbar.scrolled {
-      background: rgba(0, 0, 0, 0.9);
-    }
-
-    .navbar .logo-text {
+    .navbar-top .logo-text {
       font-family: 'Source Code Pro', monospace;
-      font-size: 24px;
+      font-size: 20px;
       background: var(--logo-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .navbar ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
-
-    .navbar ul li a {
-      text-decoration: none;
-      color: var(--text-color);
-      font-weight: 500;
-      position: relative;
-      transition: color 0.3s ease;
-    }
-
-    .navbar ul li a::after {
-      content: '';
-      position: absolute;
-      width: 0%;
-      height: 2px;
-      background: var(--primary-color);
-      left: 0;
-      bottom: -5px;
-      transition: width 0.3s ease;
-    }
-
-    .navbar ul li a:hover::after,
-    .navbar ul li a:focus::after {
-      width: 100%;
-    }
-
-    /* Styles pour le menu toggle */
-    .menu-toggle {
-      display: none;
+    .navbar-top .menu-toggle {
+      display: block;
       cursor: pointer;
       background: none;
       border: none;
+    }
+
+    .navbar-top ul {
+      list-style: none;
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: rgba(26, 26, 26, 0.95);
+      padding: 15px;
+      border-radius: 8px;
+      width: calc(100% - 40px);
+      z-index: 40;
+    }
+
+    .navbar-top.active ul {
+      display: flex;
+    }
+
+    .navbar-top ul li {
+      margin-bottom: 10px;
+    }
+
+    .navbar-top ul li a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-top ul li a:hover,
+    .navbar-top ul li a:focus {
+      color: var(--primary-color);
+    }
+
+    /* Barre de navigation inférieure fixe */
+    .navbar-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 10px 0;
+      background: var(--navbar-bg);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 50;
+    }
+
+    .navbar-bottom a {
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-bottom a:hover,
+    .navbar-bottom a:focus {
+      color: var(--primary-color);
+    }
+
+    .navbar-bottom svg {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 4px;
     }
 
     /* Section Héro */
@@ -266,10 +177,10 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: url('https://raw.githubusercontent.com/InoVex-InnoMotech/Location/main/images/site%20ia%20grock%20inovex.jfif') center center/cover no-repeat;
+      background: url('https://source.unsplash.com/1600x900/?technology,innovation') center center/cover no-repeat;
       position: relative;
-      overflow: hidden;
-      background-attachment: fixed;
+      padding: 80px 20px 20px;
+      text-align: center;
     }
 
     .hero::after {
@@ -279,45 +190,39 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(26, 26, 26, 0.6);
       z-index: 1;
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
-      text-align: center;
       max-width: 800px;
       padding: 20px;
-      animation: slideIn 0.5s ease forwards;
-    }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .hero-content h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
+      font-size: 2.25rem; /* 2xl */
+      margin-bottom: 15px;
       color: var(--text-color);
     }
 
     .hero-content p {
-      font-size: 18px;
-      margin-bottom: 30px;
-      line-height: 1.6;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+      color: var(--text-color);
     }
 
     .hero-content .cta-button {
-      padding: 15px 30px;
-      font-size: 16px;
+      padding: 15px 25px;
+      font-size: 1rem;
       color: var(--text-color);
       background: var(--button-bg);
       border: none;
-      border-radius: 30px;
+      border-radius: 25px;
       cursor: pointer;
-      transition: transform 0.3s ease, background 1s ease;
+      transition: transform 0.3s ease, background 0.3s ease;
     }
 
     .hero-content .cta-button:hover,
@@ -326,99 +231,148 @@
       outline: none;
     }
 
-    /* Section Services */
-    .services {
-      padding: 80px 40px;
-      background-color: var(--service-card-bg);
-      text-align: center;
-      transition: background-color 1s ease;
-    }
-
-    .services h2 {
-      font-size: 36px;
-      margin-bottom: 40px;
-      color: var(--text-color);
-      transition: color 1s ease;
-    }
-
     /* Section Features */
     .features {
-      padding: 80px 40px;
+      padding: 60px 20px;
       background-color: var(--background-color);
+      text-align: center;
     }
 
     .features h2 {
-      font-size: 36px;
-      margin-bottom: 40px;
+      font-size: 1.875rem; /* 3xl */
+      margin-bottom: 30px;
       color: var(--text-color);
-      transition: color 1s ease;
-      text-align: center;
     }
 
     .features .feature-grid {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr;
       gap: 20px;
-      justify-content: center;
     }
 
     .features .feature-card {
-      background-color: #222;
+      background-color: var(--service-card-bg);
       padding: 20px;
-      border-radius: 15px;
-      flex: 1 1 calc(25% - 40px);
-      max-width: calc(25% - 40px);
+      border-radius: 10px;
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .features .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.7);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.5);
     }
 
     .features .feature-card svg {
-      width: 50px;
-      height: 50px;
-      margin-bottom: 15px;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 10px;
       color: var(--primary-color);
     }
 
     .features .feature-card h3 {
-      font-size: 20px;
+      font-size: 1.25rem;
       margin-bottom: 10px;
       color: var(--text-color);
     }
 
     .features .feature-card p {
-      font-size: 14px;
+      font-size: 0.875rem;
       color: #ccc;
     }
 
-    /* Section À Propos */
-    .about {
-      padding: 80px 40px;
+    /* Section Services */
+    .services {
+      padding: 60px 20px;
+      background-color: var(--service-card-bg);
       text-align: center;
-      transition: background-color 1s ease, color 1s ease;
+    }
+
+    .services h2 {
+      font-size: 1.875rem; /* 3xl */
+      margin-bottom: 30px;
+      color: var(--text-color);
+    }
+
+    .services .service-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .services .service-card {
+      background-color: #444;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: left;
+      transition: background-color 0.3s ease;
+    }
+
+    .services .service-card:hover {
+      background-color: #555;
+    }
+
+    .services .service-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .services .service-card .price {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--primary-color);
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 0.875rem;
+    }
+
+    .services .service-card ul {
+      list-style: none;
+      margin-top: 10px;
+    }
+
+    .services .service-card ul li {
+      font-size: 0.875rem;
+      color: #ccc;
+      margin-bottom: 5px;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .services .service-card ul li::before {
+      content: '✔️';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--primary-color);
+    }
+
+    /* Section About */
+    .about {
+      padding: 60px 20px;
+      text-align: center;
+      background-color: var(--background-color);
     }
 
     .about h2 {
-      font-size: 36px;
+      font-size: 1.875rem; /* 3xl */
       margin-bottom: 20px;
       color: var(--text-color);
-      transition: color 1s ease;
     }
 
     .about .toggle-about-button {
       padding: 10px 20px;
-      font-size: 16px;
+      font-size: 1rem;
       color: var(--text-color);
       background: var(--button-bg);
       border: none;
-      border-radius: 30px;
+      border-radius: 25px;
       cursor: pointer;
       margin-bottom: 20px;
-      transition: transform 0.3s ease, background 1s ease;
+      transition: transform 0.3s ease, background 0.3s ease;
     }
 
     .about .toggle-about-button:hover,
@@ -435,45 +389,41 @@
     }
 
     .about .about-text p {
-      font-size: 18px;
-      line-height: 1.6;
+      font-size: 1rem;
+      line-height: 1.5;
       color: var(--text-color);
-      transition: color 1s ease;
       margin-bottom: 15px;
     }
 
     /* Section Contact */
     .contact {
-      padding: 80px 40px;
+      padding: 60px 20px;
       background-color: var(--contact-bg);
       text-align: center;
-      transition: background-color 1s ease;
     }
 
     .contact h2 {
-      font-size: 36px;
-      margin-bottom: 40px;
+      font-size: 1.875rem; /* 3xl */
+      margin-bottom: 20px;
       color: var(--text-color);
-      transition: color 1s ease;
     }
 
     .contact form {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      max-width: 600px;
+      gap: 15px;
+      max-width: 500px;
       margin: 0 auto;
     }
 
     .contact form input,
     .contact form textarea {
-      padding: 15px;
+      padding: 12px;
       border: none;
       border-radius: 5px;
-      font-size: 16px;
+      font-size: 0.875rem;
       background-color: var(--background-color);
       color: var(--text-color);
-      transition: background-color 1s ease, color 1s ease;
     }
 
     .contact form input::placeholder,
@@ -484,13 +434,13 @@
 
     .contact form button {
       padding: 15px;
-      font-size: 16px;
+      font-size: 1rem;
       color: var(--text-color);
       background: var(--button-bg);
       border: none;
-      border-radius: 30px;
+      border-radius: 25px;
       cursor: pointer;
-      transition: transform 0.3s ease, background 1s ease;
+      transition: transform 0.3s ease, background 0.3s ease;
     }
 
     .contact form button:hover,
@@ -501,16 +451,11 @@
 
     /* Footer */
     .footer {
-      padding: 40px;
+      padding: 20px;
       text-align: center;
       background-color: var(--footer-bg);
-      transition: background-color 1s ease;
-    }
-
-    .footer p {
-      font-size: 14px;
       color: var(--footer-text);
-      transition: color 1s ease;
+      font-size: 0.875rem;
     }
 
     /* Focus States for Accessibility */
@@ -522,180 +467,95 @@
       outline-offset: 4px;
     }
 
-    /* Styles pour les éléments cachés visuellement mais accessibles */
-    .visually-hidden {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
+    /* Responsive Styles */
+    @media (min-width: 768px) {
+      /* Navigation */
+      .navbar-top ul {
+        display: flex;
+        flex-direction: row;
+        position: static;
+        background: transparent;
+        padding: 0;
+        width: auto;
+        border-radius: 0;
+      }
+
+      .navbar-top ul li {
+        margin: 0 10px;
+      }
+
+      .navbar-top .menu-toggle {
+        display: none;
+      }
+
+      /* Features Grid */
+      .features .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      /* Services Grid */
+      .services .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
-    /* Styles pour les sections en swipe sur mobile */
+    @media (min-width: 1024px) {
+      /* Features Grid */
+      .features .feature-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      /* Services Grid */
+      .services .service-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
     @media (max-width: 768px) {
-      /* Section Fonctionnalités */
-      .features .feature-grid {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        gap: 20px;
-        padding-bottom: 20px;
-        -webkit-overflow-scrolling: touch;
+      /* Ajustements pour mobiles */
+      .hero {
+        padding: 60px 20px 20px;
       }
 
-      .features .feature-card {
-        flex: 0 0 80%;
-        scroll-snap-align: start;
-        max-width: 80%;
-      }
-
-      /* Masquer la barre de défilement pour un aspect plus propre */
-      .features .feature-grid::-webkit-scrollbar {
-        display: none;
-      }
-      
-      .features .feature-grid {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-      }
-
-      /* Section Services */
-      .services {
-        padding: 80px 20px;
-      }
-
-      .services .grid {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        gap: 20px;
-        padding-bottom: 20px;
-      }
-
-      .services .grid > div {
-        flex: 0 0 80%;
-        scroll-snap-align: start;
-        max-width: 80%;
-      }
-
-      /* Masquer la barre de défilement pour un aspect plus propre */
-      .services .grid::-webkit-scrollbar {
-        display: none;
-      }
-      
-      .services .grid {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-      }
-
-      /* Afficher le menu toggle */
-      .navbar ul {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 20px;
-        background: rgba(0, 0, 0, 0.9);
-        padding: 20px;
-        border-radius: 10px;
-        width: calc(100% - 40px);
-      }
-
-      .navbar.active ul {
-        display: flex;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      /* Styles des flèches de navigation */
-      .arrow {
-        display: block;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(0, 0, 0, 0.5);
-        border: none;
-        padding: 10px;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: background 0.3s ease;
-        z-index: 10;
-      }
-
-      .features .left-arrow,
-      .services .left-arrow {
-        left: 10px;
-      }
-
-      .features .right-arrow,
-      .services .right-arrow {
-        right: 10px;
-      }
-
-      .arrow:hover {
-        background: rgba(0, 0, 0, 0.8);
-      }
-    }
-
-    @media (min-width: 640px) {
-      .arrow {
-        display: block;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 10;
-        background: rgba(0,0,0,0.5);
-        padding: 10px;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: background 0.3s ease;
-      }
-
-      .arrow:hover {
-        background: rgba(0,0,0,0.8);
-      }
-    }
-
-    @media (max-width: 480px) {
       .hero-content h1 {
-        font-size: 24px;
+        font-size: 1.75rem; /* xl */
       }
 
       .hero-content p {
-        font-size: 12px;
+        font-size: 0.875rem;
       }
 
-      .services .grid > div,
-      .features .feature-card {
-        min-width: 90%;
-        max-width: 90%;
+      .features h2,
+      .services h2,
+      .about h2,
+      .contact h2 {
+        font-size: 1.5rem; /* 2xl */
+      }
+
+      .services .service-card h3 {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .services .service-card .price {
+        margin-top: 10px;
+        float: none;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Arrière-plan des étoiles -->
-  <div class="stars" id="stars" aria-hidden="true"></div>
-
-  <!-- Superposition pour l'animation initiale -->
-  <div class="overlay" id="overlay" role="dialog" aria-labelledby="overlayTitle" aria-describedby="overlayDescription">
-    <div class="code-container" id="codeContainer" aria-live="polite">
-      <!-- Les lignes de code seront injectées ici -->
-    </div>
-  </div>
-
   <!-- Contenu principal -->
   <div class="main-content" id="mainContent" role="main">
-    <!-- Barre de navigation -->
-    <nav class="navbar" id="navbar" aria-label="Barre de navigation principale">
+    <!-- Barre de navigation supérieure -->
+    <nav class="navbar-top" id="navbarTop" aria-label="Barre de navigation principale">
       <div class="logo-text">InoVex</div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu de navigation" aria-expanded="false" aria-controls="navbarMenu">
+        <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
       <ul id="navbarMenu">
         <li><a href="#hero">Accueil</a></li>
         <li><a href="#services">Services</a></li>
@@ -703,260 +563,198 @@
         <li><a href="#about">À Propos</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <button class="menu-toggle" id="menuToggle" aria-label="Menu de navigation" aria-expanded="false" aria-controls="navbarMenu">
-        <svg width="24" height="24" fill="#fff" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M4 6h16M4 12h16M4 18h16" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+    </nav>
+
+    <!-- Barre de navigation inférieure -->
+    <nav class="navbar-bottom" aria-label="Navigation inférieure">
+      <a href="#hero" aria-label="Accueil">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <polyline points="5 12 3 12 12 3 21 12 19 12" />
+          <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+          <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
         </svg>
-      </button>
+        <span>Accueil</span>
+      </a>
+      <a href="#services" aria-label="Services">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-briefcase" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <rect x="3" y="7" width="18" height="14" rx="2" />
+          <path d="M7 7v-4a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4" />
+          <line x1="3" y1="13" x2="21" y2="13" />
+        </svg>
+        <span>Services</span>
+      </a>
+      <a href="#features" aria-label="Fonctionnalités">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06 .06a2 2 0 1 1 -2.83 2.83l-.06 -.06a1.65 1.65 0 0 0 -1.82 -.33 1.65 1.65 0 0 0 -1 1.51V21a2 2 0 1 1 -4 0v-.09a1.65 1.65 0 0 0 -1 -1.51 1.65 1.65 0 0 0 -1.82 .33l-.06 .06a2 2 0 1 1 -2.83 -2.83l.06 -.06a1.65 1.65 0 0 0 .33 -1.82v-.09a1.65 1.65 0 0 0 1.51 -1H3a2 2 0 1 1 0 -4h.09a1.65 1.65 0 0 0 1.51 -1 1.65 1.65 0 0 0 -.33 -1.82l-.06 -.06a2 2 0 1 1 2.83 -2.83l.06 .06a1.65 1.65 0 0 0 1.82 .33h.09a1.65 1.65 0 0 0 1 -1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82 -.33l.06 -.06a2 2 0 1 1 2.83 2.83l-.06 .06a1.65 1.65 0 0 0 -.33 1.82v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0 -1.51 1z" />
+        </svg>
+        <span>Fonctionnalités</span>
+      </a>
+      <a href="#about" aria-label="À Propos">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <circle cx="12" cy="12" r="9" />
+          <line x1="12" y1="17" x2="12" y2="12" />
+          <line x1="12" y1="8" x2="12.01" y2="8" />
+        </svg>
+        <span>À Propos</span>
+      </a>
+      <a href="#contact" aria-label="Contact">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M4 4h16v16H4z" />
+          <polyline points="22,6 12,13 2,6" />
+        </svg>
+        <span>Contact</span>
+      </a>
     </nav>
 
     <!-- Section Héro -->
     <section class="hero" id="hero" tabindex="-1">
       <div class="hero-content">
-        <h1>InoVex - L'innovation sur mesure au service des entrepreneurs</h1>
-        <p>Chez InoVex, chaque projet est unique. Nous créons des solutions technologiques sur mesure qui reflètent l'identité de votre entreprise, loin des modèles standardisés prêts en 3 minutes.</p>
+        <h1>InoVex - Innovation sur mesure pour entrepreneurs</h1>
+        <p>Des solutions technologiques personnalisées qui reflètent l'identité de votre entreprise, sans les tarifs exorbitants.</p>
         <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView();" aria-label="Commencer">C'est parti</button>
       </div>
     </section>
 
     <!-- Section Features -->
     <section class="features" id="features" aria-labelledby="featuresTitle">
-      <div class="max-w-6xl mx-auto relative">
-        <h2 id="featuresTitle" class="text-4xl font-bold text-center mb-16">Nos Fonctionnalités</h2>
-        
-        <!-- Flèches de navigation pour desktop -->
-        <button class="arrow left-arrow" aria-label="Précédent">
-          <!-- SVG pour la flèche gauche -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      <h2 id="featuresTitle">Nos Fonctionnalités</h2>
+      <div class="feature-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M16 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 6h9a3 3 0 0 1 3 3v3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-        </button>
-        <button class="arrow right-arrow" aria-label="Suivant">
-          <!-- SVG pour la flèche droite -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-
-        <div class="feature-grid">
-          <!-- Feature 1 -->
-          <div class="feature-card">
-            <svg class="w-12 h-12 text-blue-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path d="M16 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M6 6h9a3 3 0 0 1 3 3v3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <h3 class="text-2xl font-semibold mb-4">Développement Web</h3>
-            <p class="text-gray-400">Création d'applications web performantes et intuitives avec les dernières technologies.</p>
-          </div>
-          
-          <!-- Feature 2 -->
-          <div class="feature-card">
-            <svg class="w-12 h-12 text-purple-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path d="M12 2v20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M5 9l7-7 7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M5 15h14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <h3 class="text-2xl font-semibold mb-4">Cloud Computing</h3>
-            <p class="text-gray-400">Solutions cloud scalables et sécurisées pour votre entreprise.</p>
-          </div>
-          
-          <!-- Feature 3 -->
-          <div class="feature-card">
-            <svg class="w-12 h-12 text-green-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M20 12A8 8 0 1 1 4 12a8 8 0 0 1 16 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <h3 class="text-2xl font-semibold mb-4">Intelligence Artificielle</h3>
-            <p class="text-gray-400">Intégration d'IA avancée pour optimiser vos processus.</p>
-          </div>
-          
-          <!-- Feature 4 -->
-          <div class="feature-card">
-            <svg class="w-12 h-12 text-red-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path d="M12 17a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M16 12V8a4 4 0 0 0-8 0v4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M8 12h8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <h3 class="text-2xl font-semibold mb-4">Cybersécurité</h3>
-            <p class="text-gray-400">Protection de vos données avec les meilleurs standards de sécurité.</p>
-          </div>
-          
+          <h3>Développement Web</h3>
+          <p>Applications web performantes et intuitives avec les dernières technologies.</p>
         </div>
+        
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M12 2v20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 9l7-7 7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 15h14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Cloud Computing</h3>
+          <p>Solutions cloud sécurisées et évolutives pour votre entreprise.</p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 12A8 8 0 1 1 4 12a8 8 0 0 1 16 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Intelligence Artificielle</h3>
+          <p>Intégration d'IA avancée pour optimiser vos processus.</p>
+        </div>
+        
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M12 17a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 12V8a4 4 0 0 0-8 0v4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 12h8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Cybersécurité</h3>
+          <p>Protection de vos données avec les meilleurs standards de sécurité.</p>
+        </div>
+        
       </div>
     </section>
 
     <!-- Section Services -->
     <section class="services" id="services" aria-labelledby="servicesTitle">
-      <div class="max-w-6xl mx-auto px-4">
-        <h2 id="servicesTitle" class="text-4xl font-bold text-center text-white mb-16">Nos Services et Tarifs</h2>
+      <h2 id="servicesTitle">Nos Services et Tarifs</h2>
+      <div class="service-grid">
+        <!-- Création de Site Web -->
+        <div class="service-card">
+          <h3>Création de Site Web <span class="price">290 €</span></h3>
+          <ul>
+            <li>Jusqu'à 5 pages</li>
+            <li>Design responsive</li>
+            <li>Version mobile (+50 €)</li>
+          </ul>
+        </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Création de Site Web -->
-          <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-            <h3 class="text-2xl font-semibold mb-6 text-blue-500">Création de Site Web</h3>
-            
-            <!-- Site Vitrine Simple -->
-            <div class="bg-gray-900 rounded-lg p-4 mb-4">
-              <div class="flex justify-between items-center mb-4">
-                <h4 class="text-lg font-medium text-white">Site Vitrine Simple</h4>
-                <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full">290 €</span>
-              </div>
-              <ul class="space-y-2 text-gray-400">
-                <li>Jusqu'à 5 pages</li>
-                <li>Design responsive</li>
-                <li>Version mobile (+50 €)</li>
-              </ul>
-            </div>
+        <div class="service-card">
+          <h3>Création de Site Web Complexe <span class="price">590 €</span></h3>
+          <ul>
+            <li>Design premium</li>
+            <li>Animations avancées</li>
+            <li>Fonctionnalités sur mesure</li>
+            <li>Version mobile (+50 €)</li>
+            <li>Pages sup. : 30 €/page</li>
+          </ul>
+        </div>
 
-            <!-- Site Vitrine Complexe -->
-            <div class="bg-gray-900 rounded-lg p-4 mb-4">
-              <div class="flex justify-between items-center mb-4">
-                <h4 class="text-lg font-medium text-white">Site Vitrine Complexe</h4>
-                <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full">590 €</span>
-              </div>
-              <ul class="space-y-2 text-gray-400">
-                <li>Design premium</li>
-                <li>Animations avancées</li>
-                <li>Fonctionnalités sur mesure</li>
-                <li>Version mobile (+50 €)</li>
-                <li>Pages sup. : 30 €/page</li>
-              </ul>
-            </div>
+        <div class="service-card">
+          <h3>Site E-commerce <span class="price">À partir de 470 €</span></h3>
+          <ul>
+            <li>Base site vitrine</li>
+            <li>Panier et paiement (+180 €)</li>
+            <li>Espace client (+290 €)</li>
+            <li>10 produits inclus</li>
+            <li>Abonnements (+90 €)</li>
+          </ul>
+        </div>
 
-            <!-- Site E-commerce -->
-            <div class="bg-gray-900 rounded-lg p-4">
-              <div class="flex justify-between items-center mb-4">
-                <h4 class="text-lg font-medium text-white">Site E-commerce</h4>
-                <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full">À partir de 470 €</span>
-              </div>
-              <ul class="space-y-2 text-gray-400">
-                <li>Base site vitrine</li>
-                <li>Panier et paiement (+180 €)</li>
-                <li>Espace client (+290 €)</li>
-                <li>10 produits inclus</li>
-                <li>Abonnements (+90 €)</li>
-              </ul>
-            </div>
-          </div>
-          
-          <!-- Applications Mobiles -->
-          <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-            <h3 class="text-2xl font-semibold mb-6 text-purple-500">Applications Mobiles</h3>
-            
-            <!-- Application Native -->
-            <div class="bg-gray-900 rounded-lg p-4 mb-4">
-              <div class="flex justify-between items-center mb-4">
-                <h4 class="text-lg font-medium text-white">Application Native</h4>
-                <span class="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full">1 200 €</span>
-              </div>
-              <ul class="space-y-2 text-gray-400">
-                <li>iOS ou Android au choix</li>
-                <li>Performance optimale</li>
-                <li>Interface native</li>
-                <li>Notifications push (+70 €)</li>
-                <li>Carte interactive (+70 €)</li>
-              </ul>
-            </div>
+        <!-- Applications Mobiles -->
+        <div class="service-card">
+          <h3>Applications Mobiles <span class="price">1 200 €</span></h3>
+          <ul>
+            <li>iOS ou Android au choix</li>
+            <li>Performance optimale</li>
+            <li>Interface native</li>
+            <li>Notifications push (+70 €)</li>
+            <li>Carte interactive (+70 €)</li>
+          </ul>
+        </div>
 
-            <!-- Application Cross-Platform -->
-            <div class="bg-gray-900 rounded-lg p-4">
-              <div class="flex justify-between items-center mb-4">
-                <h4 class="text-lg font-medium text-white">Application Cross-Platform</h4>
-                <span class="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full">900 €</span>
-              </div>
-              <ul class="space-y-2 text-gray-400">
-                <li>iOS + Android inclus</li>
-                <li>Interface unifiée</li>
-                <li>Développement optimisé</li>
-                <li>Notifications push (+70 €)</li>
-                <li>Carte interactive (+70 €)</li>
-              </ul>
-            </div>
-          </div>
-          
-          <!-- Services IA & Compléments -->
-          <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-            <h3 class="text-2xl font-semibold mb-6 text-green-500">Services IA & Compléments</h3>
-            
-            <!-- Chatbot & CRM -->
-            <div class="bg-gray-900 rounded-lg p-4 mb-4">
-              <div class="flex justify-between items-center mb-4">
-                <h4 class="text-lg font-medium text-white">Chatbot & CRM</h4>
-                <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full">50 €</span>
-              </div>
-              <ul class="space-y-2 text-gray-400">
-                <li>Chatbot basique : 50 €</li>
-                <li>Chatbot IA : 110 €</li>
-                <li>Gestion documents : 80 €</li>
-                <li>Espace client sécurisé</li>
-              </ul>
-            </div>
+        <div class="service-card">
+          <h3>Applications Cross-Platform <span class="price">900 €</span></h3>
+          <ul>
+            <li>iOS + Android inclus</li>
+            <li>Interface unifiée</li>
+            <li>Développement optimisé</li>
+            <li>Notifications push (+70 €)</li>
+            <li>Carte interactive (+70 €)</li>
+          </ul>
+        </div>
 
-            <!-- Assistant IA -->
-            <div class="bg-gray-900 rounded-lg p-4">
-              <div class="flex justify-between items-center mb-4">
-                <h4 class="text-lg font-medium text-white">Assistant IA</h4>
-                <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full">250 €</span>
-              </div>
-              <ul class="space-y-2 text-gray-400">
-                <li>Assistant personnalisé : 250 €</li>
-                <li>Automatisation : 250 €/tâche</li>
-                <li>Assistant vocal : 250 €</li>
-                <li>Commandes vocales : 500 €</li>
-              </ul>
-            </div>
-          </div>
-          
-          <!-- Intelligence Artificielle -->
-          <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-            <h3 class="text-2xl font-semibold mb-6 text-green-500">Intelligence Artificielle</h3>
-            
-            <!-- Chatbot IA -->
-            <div class="bg-gray-900 rounded-lg p-4 mb-4">
-              <div class="flex justify-between items-center mb-4">
-                <h4 class="text-lg font-medium text-white">Chatbot IA</h4>
-                <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full">110 €</span>
-              </div>
-              <ul class="space-y-2 text-gray-400">
-                <li>Conversation naturelle</li>
-                <li>Apprentissage continu</li>
-                <li>Intégration site web</li>
-              </ul>
-            </div>
+        <!-- Services IA & Compléments -->
+        <div class="service-card">
+          <h3>Chatbot & CRM <span class="price">50 €</span></h3>
+          <ul>
+            <li>Chatbot basique : 50 €</li>
+            <li>Chatbot IA : 110 €</li>
+            <li>Gestion documents : 80 €</li>
+            <li>Espace client sécurisé</li>
+          </ul>
+        </div>
 
-            <!-- Assistant IA -->
-            <div class="bg-gray-900 rounded-lg p-4 mb-4">
-              <div class="flex justify-between items-center mb-4">
-                <h4 class="text-lg font-medium text-white">Assistant IA</h4>
-                <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full">250 €</span>
-              </div>
-              <ul class="space-y-2 text-gray-400">
-                <li>Personnalisation avancée</li>
-                <li>Automatisation des tâches</li>
-                <li>Intégration CRM</li>
-              </ul>
-            </div>
-
-            <!-- Assistant Vocal -->
-            <div class="bg-gray-900 rounded-lg p-4">
-              <div class="flex justify-between items-center mb-4">
-                <h4 class="text-lg font-medium text-white">Assistant Vocal</h4>
-                <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full">250 €</span>
-              </div>
-              <ul class="space-y-2 text-gray-400">
-                <li>Reconnaissance vocale</li>
-                <li>Synthèse vocale</li>
-                <li>Commandes personnalisées</li>
-              </ul>
-            </div>
-          </div>
+        <div class="service-card">
+          <h3>Assistant IA <span class="price">250 €</span></h3>
+          <ul>
+            <li>Assistant personnalisé : 250 €</li>
+            <li>Automatisation : 250 €/tâche</li>
+            <li>Assistant vocal : 250 €</li>
+            <li>Commandes vocales : 500 €</li>
+          </ul>
         </div>
       </div>
     </section>
 
     <!-- Section About -->
     <section class="about" id="about" aria-labelledby="aboutTitle">
-      <h2 id="aboutTitle" class="text-4xl font-bold text-center mb-8">À Propos de InoVex</h2>
+      <h2 id="aboutTitle">À Propos de InoVex</h2>
       <button class="toggle-about-button" aria-expanded="false">Lire la suite</button>
       <div class="about-text" id="aboutText">
         <p>Chez InoVex, tout commence par une histoire personnelle. Je m’appelle Yannick, et à la base, je ne faisais pas de web. Mon domaine, c’était le code sur des contrôleurs et des automates pour automatiser des systèmes. Puis, pour un projet personnel, j’ai eu besoin d’une application pour commander mes systèmes. Je me suis tourné vers les agences pour obtenir un devis… et là, j’ai eu un choc : les tarifs étaient astronomiques.</p>
@@ -971,12 +769,12 @@
 
     <!-- Section Contact -->
     <section class="contact" id="contact" aria-labelledby="contactTitle">
-      <h2 id="contactTitle" class="text-4xl font-bold text-center mb-8">Contactez-Nous</h2>
+      <h2 id="contactTitle">Contactez-Nous</h2>
       <form action="#" method="post" aria-describedby="formDescription">
         <div id="formDescription" class="visually-hidden">Remplissez le formulaire ci-dessous pour nous contacter.</div>
         <input type="text" name="name" placeholder="Votre Nom" required aria-label="Votre Nom">
         <input type="email" name="email" placeholder="Votre Email" required aria-label="Votre Email">
-        <textarea name="message" rows="5" placeholder="Votre Message" required aria-label="Votre Message"></textarea>
+        <textarea name="message" rows="4" placeholder="Votre Message" required aria-label="Votre Message"></textarea>
         <button type="submit" aria-label="Envoyer le Message">Envoyer le Message</button>
       </form>
     </section>
@@ -989,159 +787,18 @@
 
   <!-- Script JavaScript -->
   <script>
-    // JavaScript pour l'animation et les éléments interactifs
-
-    // Génération des étoiles
-    const starsContainer = document.getElementById('stars');
-    const numberOfStars = 150;
-
-    for (let i = 0; i < numberOfStars; i++) {
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.left = Math.random() * 100 + '%';
-      star.style.top = Math.random() * 100 + '%';
-      star.style.animationDelay = Math.random() * 2 + 's';
-      star.style.opacity = Math.random() * 0.8 + 0.2;
-      starsContainer.appendChild(star);
-    }
-
-    // Lignes de code à afficher
-    const codeLines = [
-      'class InovexAutomation {',
-      '  constructor() {',
-      '    this.intelligence = "artificielle";',
-      '    this.innovation = "constante";',
-      '  }',
-      '',
-      '  async initializeSystem() {',
-      '    await this.loadModules();',
-      '    this.optimizePerformance();',
-      '    return "Prêt pour l\'automatisation web";',
-      '  }',
-      '',
-      '  deploy() {',
-      '    console.log("InoVex : L\'avenir du codage");',
-      '  }',
-      '}',
-    ];
-
-    const codeContainer = document.getElementById('codeContainer');
-    const mainContent = document.getElementById('mainContent');
-    const overlay = document.getElementById('overlay');
-    let currentLine = 0;
-
-    // Fonction de machine à écrire ajustée pour 1 seconde par ligne
-    function typeWriter(line, callback) {
-      let charIndex = 0;
-      const lineElement = document.createElement('div');
-      lineElement.classList.add('code-line');
-      codeContainer.appendChild(lineElement);
-
-      const totalChars = line.length;
-      const totalDuration = 1000; // 1 seconde par ligne
-      const charDelay = totalChars > 0 ? totalDuration / totalChars : 0;
-
-      function typeChar() {
-        if (charIndex < line.length) {
-          lineElement.textContent += line.charAt(charIndex);
-          charIndex++;
-          setTimeout(typeChar, charDelay);
-        } else {
-          const cursor = document.createElement('span');
-          cursor.classList.add('cursor');
-          lineElement.appendChild(cursor);
-          setTimeout(() => {
-            cursor.remove();
-            callback();
-          }, 10);
-        }
-      }
-
-      typeChar();
-    }
-
-    // Fonction pour commencer à taper les lignes de code
-    async function startTyping() {
-      codeContainer.classList.add('visible');
-      for (const line of codeLines) {
-        await new Promise(resolve => typeWriter(line, resolve));
-      }
-
-      // Supprimer l'affichage du logo et masquer la superposition
-      overlay.classList.add('hidden');
-      mainContent.classList.add('active');
-
-      // Démarrer l'inversion des couleurs après l'animation
-      invertColors();
-    }
-
-    // Fonction pour inverser les couleurs
-    function invertColors() {
-      document.body.classList.add('light-theme');
-    }
-
-    // Initialiser l'animation de saisie
-    window.onload = () => {
-      // Désactiver le défilement pendant l'animation
-      document.body.style.overflow = 'hidden';
-      // Démarrer immédiatement sans délai
-      startTyping();
-    };
-
-    // Lorsque l'animation est terminée, réactiver le défilement
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'class' && overlay.classList.contains('hidden')) {
-          document.body.style.overflow = 'auto';
-        }
-      });
-    });
-
-    observer.observe(overlay, { attributes: true });
-
-    // Toggle de navigation réactif
+    // Toggle de navigation supérieure
     const menuToggle = document.getElementById('menuToggle');
-    const navbar = document.getElementById('navbar');
-    const navbarUl = navbar.querySelector('ul');
-
-    // Afficher le toggle de menu sur les petits écrans
-    function handleResize() {
-      if (window.innerWidth <= 768) {
-        menuToggle.style.display = 'block';
-        menuToggle.setAttribute('aria-expanded', navbar.classList.contains('active'));
-      } else {
-        menuToggle.style.display = 'none';
-        navbar.classList.remove('active');
-        navbarUl.style.display = 'flex';
-        menuToggle.setAttribute('aria-expanded', false);
-      }
-    }
-
-    window.addEventListener('resize', handleResize);
-    handleResize();
+    const navbarTop = document.getElementById('navbarTop');
+    const navbarMenu = document.getElementById('navbarMenu');
 
     menuToggle.addEventListener('click', () => {
-      const isActive = navbar.classList.toggle('active');
-      if (isActive) {
-        navbarUl.style.display = 'flex';
-        menuToggle.setAttribute('aria-expanded', true);
-      } else {
-        navbarUl.style.display = 'none';
-        menuToggle.setAttribute('aria-expanded', false);
-      }
-    });
-
-    // Changer la couleur de la navbar au scroll
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
+      const isActive = navbarTop.classList.toggle('active');
+      menuToggle.setAttribute('aria-expanded', isActive);
     });
 
     // Scroll doux pour les liens de navigation
-    const navLinks = document.querySelectorAll('.navbar ul li a');
+    const navLinks = document.querySelectorAll('.navbar-top ul li a, .navbar-bottom a');
     navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -1149,9 +806,8 @@
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
           targetSection.scrollIntoView({ behavior: 'smooth' });
-          if (window.innerWidth <= 768) {
-            navbar.classList.remove('active');
-            navbarUl.style.display = 'none';
+          if (window.innerWidth <= 768 && navbarTop.classList.contains('active')) {
+            navbarTop.classList.remove('active');
             menuToggle.setAttribute('aria-expanded', false);
           }
         }
@@ -1169,36 +825,13 @@
       toggleAboutButton.textContent = isExpanded ? 'Lire la suite' : 'Réduire';
     });
 
-    // Fonctionnalité pour les flèches de navigation
-    function addArrowFunctionality(sectionClass) {
-      const section = document.querySelector(`.${sectionClass}`);
-      if (!section) return;
-      const arrows = section.querySelectorAll('.arrow');
-      const grid = section.querySelector(`.${sectionClass === 'features' ? 'feature-grid' : 'grid'}`);
-
-      arrows.forEach(arrow => {
-        arrow.addEventListener('click', () => {
-          const isLeft = arrow.classList.contains('left-arrow');
-          const scrollAmount = grid.clientWidth * 0.8; // Ajustez la quantité de défilement
-
-          if (isLeft) {
-            grid.scrollBy({
-              left: -scrollAmount,
-              behavior: 'smooth'
-            });
-          } else {
-            grid.scrollBy({
-              left: scrollAmount,
-              behavior: 'smooth'
-            });
-          }
-        });
-      });
-    }
-
-    // Ajouter la fonctionnalité aux sections "features" et "services"
-    addArrowFunctionality('features');
-    addArrowFunctionality('services');
+    // Réinitialiser l'état du menu lors du redimensionnement
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && navbarTop.classList.contains('active')) {
+        navbarTop.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', false);
+      }
+    });
   </script>
 
 </body>
