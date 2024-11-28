@@ -541,6 +541,35 @@
         margin-top: 10px;
         float: none;
       }
+
+      /* Grille des Services - Défilement horizontal */
+      .services .service-grid {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding-bottom: 10px; /* Espace pour le défilement */
+        scroll-snap-type: x mandatory; /* Activation du Snap */
+      }
+
+      /* Cartes de Service */
+      .services .service-card {
+        flex: 0 0 80%; /* Largeur des cartes */
+        margin-right: 20px; /* Espace entre les cartes */
+        scroll-snap-align: start; /* Alignement Snap */
+        background-color: #444; /* Maintien du fond actuel */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optionnel */
+      }
+
+      /* Masquer la barre de défilement */
+      .services .service-grid::-webkit-scrollbar {
+        display: none;
+      }
+
+      .services .service-grid {
+        -ms-overflow-style: none; /* IE et Edge */
+        scrollbar-width: none; /* Firefox */
+      }
     }
   </style>
 </head>
