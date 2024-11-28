@@ -341,8 +341,6 @@
       transition: color 1s ease;
     }
 
-    /* Suppression des anciennes classes .service-cards et .service-card */
-
     /* Section Features */
     .features {
       padding: 80px 40px;
@@ -559,7 +557,7 @@
       .features .feature-grid::-webkit-scrollbar {
         display: none;
       }
-
+      
       .features .feature-grid {
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
@@ -588,7 +586,7 @@
       .services .grid::-webkit-scrollbar {
         display: none;
       }
-
+      
       .services .grid {
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
@@ -642,6 +640,25 @@
 
       .arrow:hover {
         background: rgba(0, 0, 0, 0.8);
+      }
+    }
+
+    @media (min-width: 640px) {
+      .arrow {
+        display: block;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        background: rgba(0,0,0,0.5);
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .arrow:hover {
+        background: rgba(0,0,0,0.8);
       }
     }
 
@@ -707,7 +724,7 @@
       <div class="max-w-6xl mx-auto relative">
         <h2 id="featuresTitle" class="text-4xl font-bold text-center mb-16">Nos Fonctionnalités</h2>
         
-        <!-- Flèches de navigation pour mobile -->
+        <!-- Flèches de navigation pour desktop -->
         <button class="arrow left-arrow" aria-label="Précédent">
           <!-- SVG pour la flèche gauche -->
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1013,16 +1030,16 @@
     const overlay = document.getElementById('overlay');
     let currentLine = 0;
 
-    // Fonction de machine à écrire ajustée pour 4 secondes
+    // Fonction de machine à écrire ajustée pour 1 seconde par ligne
     function typeWriter(line, callback) {
       let charIndex = 0;
       const lineElement = document.createElement('div');
       lineElement.classList.add('code-line');
       codeContainer.appendChild(lineElement);
 
-      const totalChars = codeLines.join('\n').length;
-      const totalDuration = 4000; // 4 seconds
-      const charDelay = totalDuration / totalChars;
+      const totalChars = line.length;
+      const totalDuration = 1000; // 1 seconde par ligne
+      const charDelay = totalChars > 0 ? totalDuration / totalChars : 0;
 
       function typeChar() {
         if (charIndex < line.length) {
@@ -1067,8 +1084,8 @@
     window.onload = () => {
       // Désactiver le défilement pendant l'animation
       document.body.style.overflow = 'hidden';
-      // Délai optionnel avant de commencer
-      setTimeout(startTyping, 500);
+      // Démarrer immédiatement sans délai
+      startTyping();
     };
 
     // Lorsque l'animation est terminée, réactiver le défilement
@@ -1155,6 +1172,7 @@
     // Fonctionnalité pour les flèches de navigation
     function addArrowFunctionality(sectionClass) {
       const section = document.querySelector(`.${sectionClass}`);
+      if (!section) return;
       const arrows = section.querySelectorAll('.arrow');
       const grid = section.querySelector(`.${sectionClass === 'features' ? 'feature-grid' : 'grid'}`);
 
@@ -1181,7 +1199,6 @@
     // Ajouter la fonctionnalité aux sections "features" et "services"
     addArrowFunctionality('features');
     addArrowFunctionality('services');
-
   </script>
 
 </body>
