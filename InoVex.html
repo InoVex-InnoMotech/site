@@ -359,6 +359,73 @@
       color: var(--primary-color);
     }
 
+    /* Section Projet en cours */
+    .projects {
+      padding: 60px 20px;
+      background-color: var(--background-color);
+      text-align: center;
+    }
+
+    .projects h2 {
+      font-size: 1.875rem; /* 3xl */
+      margin-bottom: 30px;
+      color: var(--text-color);
+    }
+
+    .projects .project-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .projects .project-card {
+      background-color: var(--service-card-bg);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: left;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .projects .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.5);
+    }
+
+    .projects .project-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      color: var(--text-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .projects .project-card .price {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--primary-color);
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 0.875rem;
+    }
+
+    .projects .project-card p {
+      font-size: 0.875rem;
+      color: #ccc;
+      margin-bottom: 10px;
+    }
+
+    .projects .project-card .project-link {
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .projects .project-card .project-link:hover,
+    .projects .project-card .project-link:focus {
+      color: var(--tertiary-color);
+    }
+
     /* Section About */
     .about {
       padding: 60px 20px;
@@ -506,6 +573,11 @@
       .services .service-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      /* Projects Grid */
+      .projects .project-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     @media (min-width: 1024px) {
@@ -516,6 +588,11 @@
 
       /* Services Grid */
       .services .service-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      /* Projects Grid */
+      .projects .project-grid {
         grid-template-columns: repeat(3, 1fr);
       }
     }
@@ -537,6 +614,7 @@
 
       .features h2,
       .services h2,
+      .projects h2,
       .about h2,
       .contact h2 {
         font-size: 1.5rem; /* 2xl */
@@ -594,6 +672,35 @@
       .hero-content .cta-button {
         margin-top: 15px; /* Assure un espace suffisant sous les éléments précédents */
       }
+
+      /* Projects Grid - Défilement horizontal */
+      .projects .project-grid {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding-bottom: 10px; /* Espace pour le défilement */
+        scroll-snap-type: x mandatory; /* Activation du Snap */
+      }
+
+      /* Cartes de Projet */
+      .projects .project-card {
+        flex: 0 0 80%; /* Largeur des cartes */
+        margin-right: 20px; /* Espace entre les cartes */
+        scroll-snap-align: start; /* Alignement Snap */
+        background-color: var(--service-card-bg); /* Maintien du fond actuel */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optionnel */
+      }
+
+      /* Masquer la barre de défilement des projets */
+      .projects .project-grid::-webkit-scrollbar {
+        display: none;
+      }
+
+      .projects .project-grid {
+        -ms-overflow-style: none; /* IE et Edge */
+        scrollbar-width: none; /* Firefox */
+      }
     }
   </style>
 </head>
@@ -615,6 +722,7 @@
         <li><a href="#features">Fonctionnalités</a></li>
         <li><a href="#about">À Propos</a></li>
         <li><a href="#contact">Contact</a></li>
+        <!-- Vous pouvez ajouter le lien vers les projets ici lorsque les liens seront disponibles -->
       </ul>
     </nav>
 
@@ -732,37 +840,39 @@
         <div class="service-card">
           <h3>Création de Site Web <span class="price">290 €</span></h3>
           <ul>
-            <li>Jusqu'à 5 pages</li>
+            <li>Jusqu'à 3 pages</li>
             <li>Design responsive</li>
-            <li>Version mobile (+50 €)</li>
+            <li>Version mobile</li>
           </ul>
         </div>
         
+        <!-- Création de Site Web Complexe -->
         <div class="service-card">
           <h3>Création de Site Web Complexe <span class="price">590 €</span></h3>
           <ul>
             <li>Design premium</li>
             <li>Animations avancées</li>
             <li>Fonctionnalités sur mesure</li>
-            <li>Version mobile (+50 €)</li>
+            <li>Version mobile</li>
             <li>Pages sup. : 30 €/page</li>
           </ul>
         </div>
 
+        <!-- Site E-commerce -->
         <div class="service-card">
-          <h3>Site E-commerce <span class="price">À partir de 470 €</span></h3>
+          <h3>Site E-commerce <span class="price">950 €</span></h3>
           <ul>
             <li>Base site vitrine</li>
-            <li>Panier et paiement (+180 €)</li>
-            <li>Espace client (+290 €)</li>
+            <li>Panier et paiement</li>
+            <li>Espace client</li>
             <li>10 produits inclus</li>
-            <li>Abonnements (+90 €)</li>
+            <li>Abonnements</li>
           </ul>
         </div>
 
         <!-- Applications Mobiles -->
         <div class="service-card">
-          <h3>Applications Mobiles <span class="price">1 200 €</span></h3>
+          <h3>Applications Mobiles <span class="price">900 €</span></h3>
           <ul>
             <li>iOS ou Android au choix</li>
             <li>Performance optimale</li>
@@ -772,8 +882,9 @@
           </ul>
         </div>
 
+        <!-- Applications Cross-Platform -->
         <div class="service-card">
-          <h3>Applications Cross-Platform <span class="price">900 €</span></h3>
+          <h3>Applications Cross-Platform <span class="price">1500 €</span></h3>
           <ul>
             <li>iOS + Android inclus</li>
             <li>Interface unifiée</li>
@@ -802,6 +913,26 @@
             <li>Assistant vocal : 250 €</li>
             <li>Commandes vocales : 500 €</li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Projets en cours de développement -->
+    <section class="projects" id="projects" aria-labelledby="projectsTitle">
+      <h2 id="projectsTitle">Exemples de Projets en Cours de Développement</h2>
+      <div class="project-grid">
+        <!-- Projet 1 -->
+        <div class="project-card">
+          <h3>Site 1 <span class="price">340 €</span></h3>
+          <p>Description du projet en cours.</p>
+          <a href="#" class="project-link">Voir le projet</a>
+        </div>
+        
+        <!-- Projet 2 -->
+        <div class="project-card">
+          <h3>Site 2 <span class="price">620 €</span></h3>
+          <p>Description du projet en cours.</p>
+          <a href="#" class="project-link">Voir le projet</a>
         </div>
       </div>
     </section>
