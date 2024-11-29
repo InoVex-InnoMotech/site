@@ -524,6 +524,7 @@
       /* Ajustements pour mobiles */
       .hero {
         padding: 60px 20px 20px;
+        min-height: 80vh; /* Réduction de la hauteur minimale */
       }
 
       .hero-content h1 {
@@ -578,6 +579,20 @@
       .services .service-grid {
         -ms-overflow-style: none; /* IE et Edge */
         scrollbar-width: none; /* Firefox */
+      }
+
+      /* Ajustements spécifiques au Hero sur mobile */
+      #codeCanvas {
+        height: 100px; /* Réduction de la hauteur du canvas */
+        margin-top: 10px; /* Réduction de la marge supérieure */
+      }
+
+      .hero-content {
+        padding: 10px;
+      }
+
+      .hero-content .cta-button {
+        margin-top: 15px; /* Assure un espace suffisant sous les éléments précédents */
       }
     }
   </style>
