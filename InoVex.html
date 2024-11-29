@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>InoVex - L'innovation sur mesure au service des entrepreneurs</title>
+  <title>InoVex - L'innovation sur mesure au service de l'entrepreneur</title>
   
   <!-- Meta Description pour le SEO -->
   <meta name="description" content="InoVex casse les barrières de prix et offre des solutions technologiques justes, humaines et collaboratives, avec du codage sur mesure reflétant votre identité.">
 
   <!-- Open Graph pour les réseaux sociaux -->
-  <meta property="og:title" content="InoVex - L'innovation sur mesure au service des entrepreneurs">
+  <meta property="og:title" content="InoVex - L'innovation sur mesure au service de l'entrepreneur">
   <meta property="og:description" content="Découvrez comment InoVex offre des solutions technologiques sur mesure, accessibles et solidaires pour propulser votre entreprise.">
   <meta property="og:image" content="https://source.unsplash.com/1600x900/?innovation">
   <meta property="og:url" content="https://www.inovex.com">
@@ -17,7 +17,7 @@
   
   <!-- Balises Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="InoVex - L'innovation sur mesure au service des entrepreneurs">
+  <meta name="twitter:title" content="InoVex - L'innovation sur mesure au service de l'entrepreneur">
   <meta name="twitter:description" content="InoVex offre des solutions technologiques sur mesure, accessibles et solidaires pour propulser votre entreprise.">
   <meta name="twitter:image" content="https://source.unsplash.com/1600x900/?innovation">
 
@@ -484,43 +484,21 @@
       color: var(--text-color);
     }
 
-    .contact form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .contact form input,
-    .contact form textarea {
-      padding: 12px;
-      border: none;
-      border-radius: 5px;
-      font-size: 0.875rem;
-      background-color: var(--background-color);
-      color: var(--text-color);
-    }
-
-    .contact form input::placeholder,
-    .contact form textarea::placeholder {
-      color: var(--text-color);
-      opacity: 0.7;
-    }
-
-    .contact form button {
-      padding: 15px;
+    .contact .whatsapp-button {
+      display: inline-block;
+      padding: 15px 25px;
       font-size: 1rem;
       color: var(--text-color);
       background: var(--button-bg);
       border: none;
       border-radius: 25px;
       cursor: pointer;
+      text-decoration: none;
       transition: transform 0.3s ease, background 0.3s ease;
     }
 
-    .contact form button:hover,
-    .contact form button:focus {
+    .contact .whatsapp-button:hover,
+    .contact .whatsapp-button:focus {
       transform: scale(var(--button-hover-scale));
       outline: none;
     }
@@ -820,16 +798,16 @@
     <!-- Section Héro -->
     <section class="hero" id="hero" tabindex="-1">
       <div class="hero-content">
-        <h1>InoVex - Innovation sur mesure pour entrepreneurs</h1>
+        <h1>InoVex - Innovation sur mesure pour l'entrepreneur</h1>
         <canvas id="codeCanvas"></canvas> <!-- Canvas pour l'Animation de Code -->
-        <p>Des solutions technologiques personnalisées qui reflètent l'identité de votre entreprise, sans les tarifs exorbitants.</p>
+        <p>Une solution technologique personnalisée qui reflète l'identité de votre entreprise, sans les tarifs exorbitants.</p>
         <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView();" aria-label="Commencer">C'est parti</button>
       </div>
     </section>
 
     <!-- Section Features -->
     <section class="features" id="features" aria-labelledby="featuresTitle">
-      <h2 id="featuresTitle">Nos Fonctionnalités</h2>
+      <h2 id="featuresTitle">Mes Fonctionnalités</h2>
       <div class="feature-grid">
         <!-- Feature 1 -->
         <div class="feature-card">
@@ -838,7 +816,7 @@
             <path d="M6 6h9a3 3 0 0 1 3 3v3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <h3>Développement Web</h3>
-          <p>Applications web performantes et intuitives avec les dernières technologies.</p>
+          <p>Application web performante et intuitive avec les dernières technologies.</p>
         </div>
         
         <!-- Feature 2 -->
@@ -849,7 +827,7 @@
             <path d="M5 15h14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <h3>Cloud Computing</h3>
-          <p>Solutions cloud sécurisées et évolutives pour votre entreprise.</p>
+          <p>Solution cloud sécurisée et évolutive pour votre entreprise.</p>
         </div>
         
         <!-- Feature 3 -->
@@ -878,7 +856,7 @@
 
     <!-- Section Services -->
     <section class="services" id="services" aria-labelledby="servicesTitle">
-      <h2 id="servicesTitle">Nos Services et Tarifs</h2>
+      <h2 id="servicesTitle">Mes Services et Tarifs</h2>
       <div class="service-grid">
         <!-- Création de Site Web -->
         <div class="service-card">
@@ -887,7 +865,7 @@
             <li>Jusqu'à 2 pages</li>
             <li>Design responsive</li>
             <li>Version mobile (+40 €)</li>
-            <li>Page supplémentaire 30 €</li>
+            <li>Page supplémentaire (+30 €)</li>
           </ul>
         </div>
         
@@ -899,7 +877,7 @@
             <li>Animations avancées</li>
             <li>Fonctionnalités sur mesure</li>
             <li>Version mobile (+40 €)</li>
-            <li>Pages sup. : 20 €/page</li>
+            <li>Page supplémentaire (+20 €)</li>
           </ul>
         </div>
 
@@ -941,7 +919,7 @@
 
         <!-- Services IA & Compléments -->
         <div class="service-card">
-          <h3>Chatbot & CRM <span class="price">50 €</span></h3>
+          <h3>Chatbot & CRM <span class="price">150 €</span></h3>
           <ul>
             <li>Chatbot basique : 100 €</li>
             <li>Chatbot IA : 180 €</li>
@@ -961,7 +939,7 @@
           </ul>
         </div>
       </div>
-      <p class="mt-4 text-sm text-gray-400">* Ces tarifs sont indicatifs pour vous faire une idée, mais ils peuvent être revus à la baisse ou à la hausse en fonction du projet. Contactez-nous pour plus d'informations.</p>
+      <p class="mt-4 text-sm text-gray-400">* Ces tarifs sont indicatifs pour te donner une idée, mais ils peuvent être revus à la baisse ou à la hausse en fonction du projet. Contacte-moi pour plus d'informations.</p>
     </section>
 
     <!-- Section Projets en cours de développement -->
@@ -993,22 +971,18 @@
         <p>Avec mon budget limité, je n’avais pas d’autre choix que d’apprendre à coder moi-même cette application. C’était long, exigeant, mais ça m’a ouvert les yeux : les tarifs pratiqués dans le développement web bloquent des milliers d’entrepreneurs. Pourtant, aujourd’hui, avec tous les outils disponibles, il est possible de créer des solutions modernes et performantes à des coûts bien plus accessibles.</p>
         <p>C’est là que l’idée d’InoVex est née : une entreprise qui casse les barrières de prix et qui accompagne les entrepreneurs dans leur développement technologique, avec des solutions justes, humaines, et collaboratives.</p>
         <p><strong class="gradient-text">Pourquoi InoVex est différent ?</strong></p>
-        <p>Chez InoVex, chaque projet est unique. Nous ne travaillons pas avec des modèles standardisés ou des solutions rapides prêtes en 3 minutes. Nous croyons que votre site ou application doit refléter l’identité de votre entreprise et vos valeurs.</p>
-        <p>Avec InoVex, vous bénéficiez d’un codage sur mesure, adapté à vos besoins spécifiques et à vos ambitions. Tout est pensé pour s’intégrer parfaitement à votre vision, et non pour vous imposer une solution préconçue.</p>
-        <p>Nous proposons des tarifs accessibles et transparents, un accompagnement humain, et une garantie “Satisfait ou remboursé”. Notre objectif est de devenir un partenaire de votre succès, vous accompagner à chaque étape, et faire de votre projet une réalité.</p>
+        <p>Chez InoVex, chaque projet est unique. Je ne travaille pas avec des modèles standardisés ou des solutions rapides prêtes en 3 minutes. Je crois que ton site ou application doit refléter l’identité de ton entreprise et tes valeurs.</p>
+        <p>Avec InoVex, tu bénéficies d’un codage sur mesure, adapté à tes besoins spécifiques et à tes ambitions. Tout est pensé pour s’intégrer parfaitement à ta vision, et non pour t’imposer une solution préconçue.</p>
+        <p>Je propose des tarifs accessibles et transparents, un accompagnement humain, et une garantie “Satisfait ou remboursé”. Mon objectif est de devenir un partenaire de ton succès, t’accompagner à chaque étape, et faire de ton projet une réalité.</p>
       </div>
     </section>
 
     <!-- Section Contact -->
     <section class="contact" id="contact" aria-labelledby="contactTitle">
-      <h2 id="contactTitle">Contactez-Nous</h2>
-      <form action="#" method="post" aria-describedby="formDescription">
-        <div id="formDescription" class="visually-hidden">Remplissez le formulaire ci-dessous pour nous contacter.</div>
-        <input type="text" name="name" placeholder="Votre Nom" required aria-label="Votre Nom">
-        <input type="email" name="email" placeholder="Votre Email" required aria-label="Votre Email">
-        <textarea name="message" rows="4" placeholder="Votre Message" required aria-label="Votre Message"></textarea>
-        <button type="submit" aria-label="Envoyer le Message">Envoyer le Message</button>
-      </form>
+      <h2 id="contactTitle">Contacte-Moi</h2>
+      <a href="https://wa.me/33780943713" class="whatsapp-button" target="_blank" rel="noopener noreferrer" aria-label="Contacter sur WhatsApp">
+        Contacter sur WhatsApp
+      </a>
     </section>
 
     <!-- Note en surbrillance -->
