@@ -702,6 +702,50 @@
         scrollbar-width: none; /* Firefox */
       }
     }
+
+    /* Classe pour le texte en dégradé */
+    .gradient-text {
+      background: var(--logo-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Classe pour la note en surbrillance */
+    .highlighted-note {
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      padding: 20px;
+      text-align: center;
+      font-weight: bold;
+      animation: glow 2s infinite;
+    }
+
+    /* Animation de surbrillance */
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 5px var(--secondary-color);
+      }
+      50% {
+        box-shadow: 0 0 20px var(--tertiary-color);
+      }
+      100% {
+        box-shadow: 0 0 5px var(--secondary-color);
+      }
+    }
+
+    /* Classe pour texte visuellement caché */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
   </style>
 </head>
 <body>
@@ -840,9 +884,10 @@
         <div class="service-card">
           <h3>Création de Site Web <span class="price">290 €</span></h3>
           <ul>
-            <li>Jusqu'à 3 pages</li>
+            <li>Jusqu'à 2 pages</li>
             <li>Design responsive</li>
-            <li>Version mobile</li>
+            <li>Version mobile (+40 €)</li>
+            <li>Page supplémentaire 30 €</li>
           </ul>
         </div>
         
@@ -853,8 +898,8 @@
             <li>Design premium</li>
             <li>Animations avancées</li>
             <li>Fonctionnalités sur mesure</li>
-            <li>Version mobile</li>
-            <li>Pages sup. : 30 €/page</li>
+            <li>Version mobile (+40 €)</li>
+            <li>Pages sup. : 20 €/page</li>
           </ul>
         </div>
 
@@ -864,8 +909,8 @@
           <ul>
             <li>Base site vitrine</li>
             <li>Panier et paiement</li>
-            <li>Espace client</li>
-            <li>10 produits inclus</li>
+            <li>Espace client (+150 €)</li>
+            <li>Produits inclus</li>
             <li>Abonnements</li>
           </ul>
         </div>
@@ -898,13 +943,14 @@
         <div class="service-card">
           <h3>Chatbot & CRM <span class="price">50 €</span></h3>
           <ul>
-            <li>Chatbot basique : 50 €</li>
-            <li>Chatbot IA : 110 €</li>
-            <li>Gestion documents : 80 €</li>
-            <li>Espace client sécurisé</li>
+            <li>Chatbot basique : 100 €</li>
+            <li>Chatbot IA : 180 €</li>
+            <li>Gestion documents : 150 €</li>
+            <li>Espace client sécurisé : 180 €</li>
           </ul>
         </div>
 
+        <!-- Assistant IA -->
         <div class="service-card">
           <h3>Assistant IA <span class="price">250 €</span></h3>
           <ul>
@@ -915,6 +961,7 @@
           </ul>
         </div>
       </div>
+      <p class="mt-4 text-sm text-gray-400">* Ces tarifs sont indicatifs pour vous faire une idée, mais ils peuvent être revus à la baisse ou à la hausse en fonction du projet. Contactez-nous pour plus d'informations.</p>
     </section>
 
     <!-- Section Projets en cours de développement -->
@@ -945,7 +992,7 @@
         <p>Chez InoVex, tout commence par une histoire personnelle. Je m’appelle Yannick, et à la base, je ne faisais pas de web. Mon domaine, c’était le code sur des contrôleurs et des automates pour automatiser des systèmes. Puis, pour un projet personnel, j’ai eu besoin d’une application pour commander mes systèmes. Je me suis tourné vers les agences pour obtenir un devis… et là, j’ai eu un choc : les tarifs étaient astronomiques.</p>
         <p>Avec mon budget limité, je n’avais pas d’autre choix que d’apprendre à coder moi-même cette application. C’était long, exigeant, mais ça m’a ouvert les yeux : les tarifs pratiqués dans le développement web bloquent des milliers d’entrepreneurs. Pourtant, aujourd’hui, avec tous les outils disponibles, il est possible de créer des solutions modernes et performantes à des coûts bien plus accessibles.</p>
         <p>C’est là que l’idée d’InoVex est née : une entreprise qui casse les barrières de prix et qui accompagne les entrepreneurs dans leur développement technologique, avec des solutions justes, humaines, et collaboratives.</p>
-        <p><strong>Pourquoi InoVex est différent ?</strong></p>
+        <p><strong class="gradient-text">Pourquoi InoVex est différent ?</strong></p>
         <p>Chez InoVex, chaque projet est unique. Nous ne travaillons pas avec des modèles standardisés ou des solutions rapides prêtes en 3 minutes. Nous croyons que votre site ou application doit refléter l’identité de votre entreprise et vos valeurs.</p>
         <p>Avec InoVex, vous bénéficiez d’un codage sur mesure, adapté à vos besoins spécifiques et à vos ambitions. Tout est pensé pour s’intégrer parfaitement à votre vision, et non pour vous imposer une solution préconçue.</p>
         <p>Nous proposons des tarifs accessibles et transparents, un accompagnement humain, et une garantie “Satisfait ou remboursé”. Notre objectif est de devenir un partenaire de votre succès, vous accompagner à chaque étape, et faire de votre projet une réalité.</p>
@@ -963,6 +1010,11 @@
         <button type="submit" aria-label="Envoyer le Message">Envoyer le Message</button>
       </form>
     </section>
+
+    <!-- Note en surbrillance -->
+    <div class="highlighted-note">
+      Développer un site similaire coûte environ 690 euros.
+    </div>
 
     <!-- Footer -->
     <footer class="footer" aria-label="Pied de page">
