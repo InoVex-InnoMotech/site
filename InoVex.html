@@ -503,6 +503,12 @@
       outline: none;
     }
 
+    .contact .phone-number {
+      margin-top: 10px;
+      font-size: 0.875rem;
+      color: #ccc;
+    }
+
     /* Footer */
     .footer {
       padding: 20px;
@@ -739,7 +745,7 @@
         </svg>
       </button>
       <ul id="navbarMenu">
-        <li><a href="#hero">Accueil</a></li>
+        <li><a href="https://inovex-innomotech.github.io/site/">Accueil</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#features">Fonctionnalités</a></li>
         <li><a href="#about">À Propos</a></li>
@@ -750,7 +756,7 @@
 
     <!-- Barre de navigation inférieure -->
     <nav class="navbar-bottom" aria-label="Navigation inférieure">
-      <a href="#hero" aria-label="Accueil">
+      <a href="https://inovex-innomotech.github.io/site/" aria-label="Accueil">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
           <polyline points="5 12 3 12 12 3 21 12 19 12" />
@@ -940,6 +946,7 @@
         </div>
       </div>
       <p class="mt-4 text-sm text-gray-400">* Ces tarifs sont indicatifs pour te donner une idée, mais ils peuvent être revus à la baisse ou à la hausse en fonction du projet. Contacte-moi pour plus d'informations.</p>
+      <p class="mt-2 text-sm text-red-500">Les paiements en plusieurs fois sont possibles.</p>
     </section>
 
     <!-- Section Projets en cours de développement -->
@@ -950,14 +957,14 @@
         <div class="project-card">
           <h3>Site 1 <span class="price">340 €</span></h3>
           <p>Description du projet en cours.</p>
-          <a href="#" class="project-link">Voir le projet</a>
+          <a href="https://inovex-innomotech.github.io/inothorn1.1/" class="project-link">Voir le projet</a>
         </div>
         
         <!-- Projet 2 -->
         <div class="project-card">
           <h3>Site 2 <span class="price">620 €</span></h3>
           <p>Description du projet en cours.</p>
-          <a href="#" class="project-link">Voir le projet</a>
+          <a href="https://inovex-innomotech.github.io/Location/" class="project-link">Voir le projet</a>
         </div>
       </div>
     </section>
@@ -983,6 +990,7 @@
       <a href="sms:+33780943713" class="sms-button" aria-label="Contacter par SMS">
         Contacter par SMS
       </a>
+      <p class="phone-number hidden md:block">Téléphone : 0780943713</p>
     </section>
 
     <!-- Note en surbrillance -->
@@ -1012,14 +1020,18 @@
     const navLinks = document.querySelectorAll('.navbar-top ul li a, .navbar-bottom a');
     navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href').substring(1);
-        const targetSection = document.getElementById(targetId);
-        if (targetSection) {
-          targetSection.scrollIntoView({ behavior: 'smooth' });
-          if (window.innerWidth <= 768 && navbarTop.classList.contains('active')) {
-            navbarTop.classList.remove('active');
-            menuToggle.setAttribute('aria-expanded', false);
+        // Vérifier si le lien pointe vers une URL externe
+        const href = link.getAttribute('href');
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          const targetId = href.substring(1);
+          const targetSection = document.getElementById(targetId);
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+            if (window.innerWidth <= 768 && navbarTop.classList.contains('active')) {
+              navbarTop.classList.remove('active');
+              menuToggle.setAttribute('aria-expanded', false);
+            }
           }
         }
       });
