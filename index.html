@@ -470,8 +470,8 @@
             <div></div>
         </button>
         <ul id="nav-links">
-            <li><a href="#inovex">InoVex</a></li>
-            <li><a href="#innomotech">InnoMotech</a></li>
+            <li><a href="https://inovex-innomotech.github.io/site/InoVex.html">InoVex</a></li>
+            <li><a href="https://inovex-innomotech.github.io/site/InnoMotech.html">InnoMotech</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -527,7 +527,7 @@
     <!-- Footer -->
     <footer class="footer" id="contact">
         <p>&copy; 2024 InoVex et InnoMotech. Tous droits réservés.</p>
-        <p>Contacte-nous : <a href="mailto:info@puissancegalactique.com">info@puissancegalactique.com</a></p>
+        <p>Contacte-nous : <a href="tel:+33760943713">0760943713</a></p>
     </footer>
 
     <!-- Scripts -->
@@ -542,24 +542,28 @@
             menuToggle.setAttribute('aria-expanded', !isExpanded);
         }
 
-        // Scroll Smooth
+        // Scroll Smooth pour les liens internes et les boutons CTA
         document.querySelectorAll('a[href^="#"], .cta').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href') || (this.getAttribute('onclick') ? this.getAttribute('onclick').split("'")[1] : null);
-                if (targetId) {
-                    document.getElementById(targetId).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                // Vérifier si le lien est une ancre interne
+                if (this.getAttribute('href').startsWith('#') || this.getAttribute('onclick')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').startsWith('#') ? this.getAttribute('href').substring(1) : (this.getAttribute('onclick') ? this.getAttribute('onclick').split("'")[1] : null);
+                    if (targetId) {
+                        document.getElementById(targetId).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                    // Fermer le menu si actif
+                    const navLinks = document.getElementById('nav-links');
+                    const menuToggle = document.querySelector('.menu-toggle');
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        menuToggle.classList.remove('open');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    }
                 }
-                // Fermer le menu si actif
-                const navLinks = document.getElementById('nav-links');
-                const menuToggle = document.querySelector('.menu-toggle');
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    menuToggle.classList.remove('open');
-                    menuToggle.setAttribute('aria-expanded', 'false');
-                }
+                // Sinon, laisser le comportement par défaut (navigation vers l'URL externe)
             });
         });
 
