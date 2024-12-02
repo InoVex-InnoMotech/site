@@ -62,6 +62,7 @@
             list-style: none;
             display: flex;
             gap: 20px;
+            align-items: center;
         }
 
         .navbar ul li a {
@@ -112,6 +113,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding-top: 60px; /* Pour éviter que le contenu soit caché derrière la navbar */
         }
 
         /* Couches d'Étoiles */
@@ -182,11 +184,11 @@
         .text-content::before {
             content: '';
             position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: rgba(0, 0, 0, 0.5); /* Couleur noire semi-transparente */
+            top: -15px; /* Augmenté pour créer plus d'espace */
+            left: -15px; /* Augmenté pour créer plus d'espace */
+            right: -15px; /* Augmenté pour créer plus d'espace */
+            bottom: -15px; /* Augmenté pour créer plus d'espace */
+            background: rgba(0, 0, 0, 0.4); /* Légèrement moins opaque */
             border-radius: 20px;
             z-index: -1;
         }
@@ -198,7 +200,7 @@
             font-size: 3rem;
             margin-bottom: 10px; /* Réduit pour un espacement équilibré */
             color: var(--text-color); /* Texte en blanc */
-            text-shadow: 2px 2px 8px #000;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.7); /* Ajusté pour réduire l'intensité */
             transition: opacity 0.5s;
         }
 
@@ -207,7 +209,7 @@
             max-width: 600px;
             margin: 0 auto;
             color: var(--text-color); /* Texte en blanc */
-            text-shadow: 2px 2px 8px #000;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.7); /* Ajusté pour réduire l'intensité */
         }
 
         .hero .cta {
@@ -225,6 +227,23 @@
 
         .hero .cta:hover, .hero .cta:focus {
             background: var(--primary-hover);
+            outline: none;
+        }
+
+        /* Horloge (Déplacée dans la section Hero) */
+        .hero .clock {
+            font-size: 1rem;
+            color: var(--text-color);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background var(--transition-speed);
+            margin-top: 20px; /* Ajouté pour séparer de la bouton */
+            display: inline-block;
+        }
+
+        .hero .clock:hover, .hero .clock:focus {
+            background: rgba(255, 255, 255, 0.2);
             outline: none;
         }
 
@@ -272,7 +291,7 @@
             font-size: 1.125rem;
             line-height: 1.6;
             color: var(--text-color); /* Texte en blanc */
-            text-shadow: 2px 2px 8px #000;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.7); /* Ajusté pour réduire l'intensité */
         }
 
         /* Footer */
@@ -374,6 +393,10 @@
             .navbar {
                 padding: 15px 20px;
             }
+
+            .navbar ul {
+                gap: 15px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -433,6 +456,13 @@
             .layer3 .star {
                 animation: twinkle 1.5s infinite, moveStar 12s linear infinite;
             }
+
+            /* Horloge adaptée pour mobile */
+            .hero .clock {
+                font-size: 0.9rem;
+                padding: 4px 8px;
+                margin-top: 10px; /* Ajusté pour éviter les chevauchements */
+            }
         }
 
         @media (max-width: 480px) {
@@ -456,6 +486,13 @@
                 padding: 10px 30px;
                 font-size: 0.875rem;
                 margin-top: 20px; /* Ajusté pour les petits écrans */
+            }
+
+            /* Horloge adaptée pour très petits écrans */
+            .hero .clock {
+                font-size: 0.75rem;
+                padding: 3px 6px;
+                margin-top: 5px; /* Ajusté pour éviter les chevauchements */
             }
         }
     </style>
@@ -483,6 +520,7 @@
             <li><a href="https://inovex-innomotech.github.io/site/InoVex.html">InoVex</a></li>
             <li><a href="https://inovex-innomotech.github.io/site/yannick.html">InnoMotech</a></li>
             <li><a href="#contact">Contact</a></li>
+            <!-- Supprimé l'horloge de la barre de navigation -->
         </ul>
     </nav>
 
@@ -499,6 +537,7 @@
                 <p>Découvre nos solutions innovantes en développement web, automatisation, intelligence artificielle et domotique.</p>
             </div>
             <button class="cta" onclick="scrollToSection('inovex')">En savoir plus</button>
+            <span id="clock" class="clock" aria-label="Horloge"></span>
         </div>
     </section>
 
@@ -754,6 +793,29 @@
 
         // Initialiser les sliders après le chargement du DOM
         document.addEventListener('DOMContentLoaded', initializeSliders);
+
+        // Fonction pour mettre à jour l'horloge
+        function mettreAJourHorloge() {
+            const horlogeElement = document.getElementById('clock');
+            const maintenant = new Date();
+
+            const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const date = maintenant.toLocaleDateString('fr-FR', optionsDate);
+
+            const heures = String(maintenant.getHours()).padStart(2, '0');
+            const minutes = String(maintenant.getMinutes()).padStart(2, '0');
+            const secondes = String(maintenant.getSeconds()).padStart(2, '0');
+
+            const heureFormatee = `${heures}:${minutes}:${secondes}`;
+
+            horlogeElement.textContent = `${date} - ${heureFormatee}`;
+        }
+
+        // Mettre à jour l'horloge toutes les secondes
+        setInterval(mettreAJourHorloge, 1000);
+
+        // Appeler la fonction une première fois pour éviter le délai initial
+        mettreAJourHorloge();
     </script>
 </body>
 </html>
